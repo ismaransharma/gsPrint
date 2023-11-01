@@ -1,0 +1,121 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ShopController;
+use App\Http\Controllers\SiteController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AccountController;
+use App\Http\Controllers\Auth\CustomLoginController;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "web" middleware group. Make something great!
+|
+*/
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+
+Route::get('/',[SiteController::class, 'home'])->name('getHome');
+
+Route::get('search',[SiteController::class, 'search']);
+
+Route::get('/contactUs',[SiteController::class, 'contactUs'])->name('getContactUs');
+
+Route::get('/AboutUs',[SiteController::class, 'aboutUs'])->name('getAboutUs');
+
+Route::get('/shop',[SiteController::class, 'shop'])->name('getShop');
+
+Route::get('/product/details/{slug}',[SiteController::class, 'productDetails'])->name('getProductDetails');
+
+Route::get('/googleLogin',[SiteController::class, 'googleLogin']);
+
+Route::get('/auth/google/callback',[SiteController::class, 'googleHandle']);
+
+
+Route::get('/account/password/show', [AccountController::class, 'showPasswordForm'])->name('account.showPasswordForm');
+
+Route::post('/account/password', [AccountController::class, 'updatePassword'])->name('account.updatePassword');
+
+Route::middleware('auth')->middleware(['auth','verified'])->group(function () {
+
+    // Carts
+    Route::get('/carts', [SiteController::class, 'getCart'])->name('getCart');
+
+    Route::post('/cart/{slug}/add', [SiteController::class, 'postAddToCart'])->name('postAddToCart');
+
+    Route::post('/cart/{id}/update', [SiteController::class, 'getUpdateCart'])->name('getUpdateCart');
+
+    Route::get('/cart/{id}/delete', [SiteController::class, 'getDeleteCart'])->name('getDeleteCart');
+
+    Route::get('/checkout', [SiteController::class, 'getProceedToCheckout'])->name('getProceedToCheckout');
+
+    Route::post('/checkout', [SiteController::class, 'postCheckout'])->name('postCheckout');
+
+});
+
+Route::prefix("admin")->group(function(){
+    Route::get('/dashboard',[AdminController::class,'dashboard'])->name('getDashboard');
+    
+    Route::get('/manageAboutUs',[AdminController::class,'manageAboutUs'])->name('getManageAboutUs');
+    
+    Route::get('/manageContactUs',[AdminController::class,'manageContactUs'])->name('getManageContactUs');
+
+    
+    
+    Route::prefix('category')->group (function (){
+
+        Route::get('/manageCategory',[AdminController::class,'manageCategory'])->name('getManageCategory');
+
+        Route::post('add', [ShopController::class, 'postAddCategory'])->name('postAddCategory');
+        
+        Route::get('delete/{slug}', [ShopController::class, 'getDeleteCategory'])->name('getDeleteCategory');
+        
+        Route::get('edit/{slug}', [AdminController::class, 'getEditCategory'])->name('getEditCategory');
+        
+        Route::post('edit/{slug}', [ShopController::class, 'postEditCategory'])->name('postEditCategory');
+
+    
+    });
+
+    Route::prefix('product')->group (function (){
+
+        Route::get('/manageProducts',[AdminController::class,'manageProducts'])->name('getManageProducts');
+
+        // admin Product routes
+        Route::post('add', [ShopController::class, 'postAddProduct'])->name('postAddProduct');
+        
+        // admin Product Delete Garne
+        Route::get('delete/{slug}', [ShopController::class, 'getDeleteProduct'])->name('getDeleteProduct');
+        
+        // admin Product Edit Garne
+        Route::get('edit/{slug}', [AdminController::class, 'getEditProduct'])->name('getEditProduct');
+        
+        Route::post('edit/{slug}', [ShopController::class, 'postEditProduct'])->name('postEditProduct');
+
+        
+    });
+
+    Route::prefix('orders')->group (function (){
+        Route::get('/manageOrders',[AdminController::class,'manageOrders'])->name('getManageOrders');
+        Route::get('payment/complete/{id}',[AdminController::class,'makePaymentComplete'])->name('makePaymentComplete');
+
+    });
+
+
+
+    
+});
+Auth::routes();
+
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+Route::get('login', [CustomLoginController::class, 'showLoginForm'])->name('login');

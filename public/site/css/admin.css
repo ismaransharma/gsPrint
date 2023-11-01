@@ -1,0 +1,206 @@
+/* Admin CSS Starts Here */
+html {
+    font-size: 62.5%;
+}
+
+#admin-navbar {
+    font-size: 1.5rem;
+    background-color: var(--adminNav);
+    width: 13rem;
+    height: 80rem;
+    position: fixed;
+}
+
+#admin-navbar a {
+    color: var(--white);
+}
+
+#admin-navbar li {
+    margin: 4rem 0 0 0;
+    text-align: left;
+    position: relative;
+    width: 12rem;
+}
+
+#admin-navbar li::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 0.2rem;
+    /* background-color: var(--white); */
+    transition: 0.4s ease;
+}
+
+#admin-navbar li:hover::before {
+    width: 13rem;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+    background-color: var(--adminNav);
+}
+
+#admin-navbar li:hover::before {
+    background-color: var(--white);
+}
+
+#admin-navbar ul.dropdown-menu.show {
+    background-color: var(--adminNav);
+}
+/* Admin Dashboard CSS Starts Here */
+#dashboard {
+    min-height: 80rem;
+    background-color: var(--admindasboard);
+}
+
+#dashboard h6 {
+    font-size: 1.5rem;
+}
+
+#dashboard .top .row .col-md-3.first .card {
+    border-left: 0.8rem solid var(--adminNav);
+}
+
+#dashboard .top .row .col-md-3.second .card {
+    border-left: 0.8rem solid var(--green);
+}
+
+#dashboard .top .row .col-md-3.third .card {
+    border-left: 0.8rem solid var(--shopTitle);
+}
+
+#dashboard .top .row .main-card {
+    margin: 7rem 4.7rem;
+}
+
+#dashboard .top .card {
+    background-color: var(--admindasboardCard);
+    color: var(--white);
+    width: 100%;
+}
+
+#dashboard .top .card .card-body .profile-image img {
+    height: 5rem;
+    width: 5rem;
+}
+
+#dashboard .top .row .col-md-3.middle {
+    margin: 8.4rem 4.7rem;
+}
+
+#dashboard .top .middle .lists li {
+    margin: 1rem 0;
+}
+/* Admin Dashboard CSS Ends Here */
+
+/* Admin Category CSS Starts Here */
+#manageCategory {
+    min-height: 80rem;
+    background-color: var(--admindasboard);
+}
+
+#manageCategory .row .col-md-6.text-end button {
+    font-size: 1.4rem;
+}
+
+#manageCategory .row .col-md-12 {
+    margin: 7rem 4.7rem;
+}
+
+#manageCategory .row .col-md-12 .card {
+    background-color: var(--admindasboardCard);
+    color: var(--white);
+}
+
+#manageCategory .row .col-md-12 .card .card-body th,
+td {
+    color: var(--white);
+    font-size: 1.5rem;
+}
+
+#manageCategory .row .col-md-12 .card .card-body td button {
+    font-size: 1.2rem;
+}
+
+#manageCategory .row .col-md-12 .card .card-body td a {
+    text-decoration: none;
+    color: none;
+}
+
+#addCategoryModal .modal-content {
+    font-size: 1.5rem;
+}
+
+#addCategoryModal .modal-content input {
+    height: 2.5rem;
+    font-size: 1.2rem;
+}
+
+#addCategoryModal .modal-content textarea {
+    font-size: 1.2rem;
+}
+
+#editCategory {
+    min-height: 67.1rem;
+    background-color: var(--admindasboard);
+}
+
+#editCategory .col-md-12.card-col {
+    margin: 2rem 8rem;
+}
+
+.modal-content,
+.modal-content .card,
+.modal-content .card input,
+.modal-content .card textarea {
+    font-size: 1.45rem;
+    margin: 1.2rem 0;
+}
+
+#editCategory .col-md-12 .card input.btn:hover {
+    background-color: #0d6efd;
+    color: var(--white);
+}
+
+#editCategory .card {
+    font-size: 2rem;
+}
+
+#editCategory .card .card-body input,
+#editCategory .card .card-body select {
+    height: 3rem;
+    font-size: 1.4rem;
+}
+
+#editCategory .card .card-body textarea {
+    /* height: 2.6rem; */
+    font-size: 1.4rem;
+}
+/* Admin Category CSS Ends Here */
+
+/* Admin Products CSS Starts Here */
+#manageProduct {
+    background-color: var(--admindasboard);
+    min-height: 56rem;
+    width: 100%;
+}
+
+.modal.fade.show input,
+.modal.fade.show select {
+    height: 3rem;
+    font-size: 1.4rem;
+}
+
+.modal.fade.show textarea {
+    font-size: 1.4rem;
+}
+
+.modal.fade.show .sizeinc {
+    width: 8rem;
+}
+
+/* Admin Products CSS Ends Here */
+
+/* Admin CSS Ends Here */

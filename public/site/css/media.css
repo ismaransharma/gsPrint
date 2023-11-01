@@ -1,0 +1,147 @@
+/* Mobile devices */
+@media (max-width: 600px) {
+    /* Top Header */
+    #top-header {
+        display: none;
+    }
+
+    /* Navbar */
+    #navbar {
+        width: 100%;
+    }
+
+    #navbar .container {
+        margin: 0;
+        padding: 0;
+    }
+
+    #navbar .row.sow {
+        width: 38rem;
+    }
+
+    #navbar .row .col-md-2.logocol {
+        width: 8rem;
+    }
+
+    #navbar .row .col-md-8 {
+        width: 5rem !important;
+    }
+
+    #navbar .row .col-md-8 .navbar.navbar-expand-lg .navbar-toggler {
+        margin: 1rem 13rem;
+    }
+
+    #navbar .row .col-md-8 .navbar.navbar-expand-lg .nav-tem .nav-link {
+        margin: 1rem 0 0 0;
+    }
+
+    #navbar .row .col-md-1.ed.up.hiu {
+        display: none !important;
+    }
+
+    #navbar .row .col-md-8 .main {
+        padding-left: 15rem !important;
+    }
+
+    #navbar .collapse.navbar-collapse.show {
+        margin: 0 0 0px -132px;
+    }
+
+    /* Slider */
+    #slider .carousel-inner {
+        height: 22.1rem !important;
+    }
+
+    #slider .carousel-inner .carousel-item img {
+        height: 24rem !important;
+    }
+
+    /* Category */
+    #featuresCategories .featCate .cateBody .row .col-md-3 {
+        margin: 1.5rem 9rem !important;
+    }
+
+    /* Products */
+    #featuresProducts .containerji .card {
+        height: 25.7rem;
+        width: 37.2rem;
+    }
+
+    #featuresProducts .containerji .card .imgBx img {
+        top: 39%;
+        width: 8.8rem;
+    }
+
+    #featuresProducts .containerji .card:hover .contentBx {
+        height: 16.9rem;
+    }
+
+    /* Buy Now  */
+    #buyNowContainer .row .productImage img:hover {
+        transform: scale(1) !important;
+    }
+
+    #specialEvent {
+        display: none;
+    }
+
+    /* About Us */
+    #ourObjectives {
+        height: 69rem !important;
+    }
+
+    #ourObjectives .row .col-md-7 img {
+        height: 25rem !important;
+    }
+
+    #ourServices .row .col-md-5.left {
+        text-align: left !important;
+    }
+
+    #ourServices .row .col-md-2 {
+        margin: 2rem 90px !important;
+    }
+
+    #ourServices .row .col-md-5 {
+        margin: 4rem 0 !important;
+    }
+
+    /* Footer */
+    #footer {
+        margin: 0.2rem 0 0 0;
+        min-height: 72rem;
+        max-height: 72rem;
+    }
+
+    #footer .footer-top img {
+        height: 5rem !important;
+    }
+}
+
+@media (min-width: 600px) and (max-width: 768px) {
+    /* Footer */
+    #footer {
+        margin: 0.2rem 0 0 0;
+        min-height: 72rem;
+        max-height: 72rem;
+        width: 114.6rem !important;
+    }
+
+    #footer .footer-top img {
+        height: 5rem !important;
+    }
+}
+/* Tablets */
+@media (min-width: 768px) and (max-width: 991px) {
+    /* Add styles specific to tablets here */
+}
+
+/* Laptops and Desktops */
+@media (min-width: 992px) and (max-width: 1199px) {
+    /* Add styles specific to laptops and desktops here */
+}
+
+/* Large Desktops and Screens */
+@media (min-width: 1200px) {
+    /* Add styles specific to large screens here */
+}

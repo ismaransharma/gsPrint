@@ -1,0 +1,1162 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:100,300,400,500,600,700,800, 800i, 900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lekton:ital@0;1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+
+:root {
+    --white: #fff;
+    --black: #000;
+    --gray: gray;
+    --cyan: #00ffff;
+    --red: #ff0000;
+    --header: #0150a2;
+    --green: #00a550;
+    --shopTitle: #212121;
+    --adminNav: #181a1d;
+    --admindasboard: #22252a;
+    --admindasboardCard: #282b2f;
+    --google: #df4931;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Montserrat", sans-serif;
+}
+
+.ed {
+    text-align: end;
+}
+
+.up {
+    margin: 0;
+    padding: 0;
+    padding-top: 2.3rem;
+    width: 9.6rem;
+}
+
+.hiddenli {
+    display: none;
+}
+
+.originalPrice {
+    text-decoration: line-through;
+    color: var(--white);
+}
+
+/* Top Header Css Starts Here */
+#top-header {
+    height: 3rem;
+    width: 100%;
+    background-color: var(--header);
+    color: var(--white);
+    font-size: 1.1rem;
+}
+
+#top-header .row {
+    padding: 0.8rem;
+    --bs-gutter-x: none;
+}
+
+#top-header .row .col-md-9 .phoneNumber {
+    padding-left: 4.2rem;
+}
+
+#top-header .row .col-md-1 {
+    /* text-align: end; */
+    padding: 0 0 0 1.8rem;
+}
+
+#top-header .row .col-md-1.bdr {
+    border-right: 0.1rem solid gray;
+}
+
+#top-header a {
+    color: var(--white);
+    text-decoration: none;
+}
+/* #top-header .row .col-md-1 .myAccount {
+    margin: 0 7px 0 0;
+} */
+
+#top-header .row .col-md-1 .home {
+    margin: 0 0.7rem 0 0;
+}
+
+#top-header .row .col-md-1 .cart {
+    margin: 0 0.7rem 0 0;
+}
+
+#top-header .row .temCart {
+    cursor: pointer;
+}
+
+#checkCartModal {
+    z-index: 10000;
+}
+
+.temCart:hover #navbar {
+    z-index: 10 !important;
+    display: none !important;
+}
+
+/* Top Header Css Ends Here */
+
+/* NavBar Css Starts Here */
+#navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: var(--white);
+    font-size: 1.4rem;
+}
+
+#navbar .row .col-md-8 {
+    width: 75.8rem;
+}
+
+#navbar .row .col-md-8 .main {
+    padding-left: 7rem;
+}
+
+#navbar .row .col-md-8 .main .nav-item {
+    padding: 0.6rem 0 0 4.5rem;
+}
+
+#navbar .row .col-md-1 .wishlist a {
+    color: var(--black);
+}
+
+#navbar .row .col-md-1 .wishlist .wishlist-icon {
+    position: relative;
+}
+
+#navbar .row .col-md-1 .wishlist .filled-heart {
+    position: absolute;
+    z-index: 90;
+    left: 113.4rem;
+    transition: 0.4s;
+    top: 44%;
+    opacity: 0;
+}
+
+#navbar .row .col-md-1 .wishlist .wishlist-icon:hover {
+    opacity: 0;
+}
+
+#navbar .row .col-md-1 .wishlist .wishlist-icon:hover.wishlist-icon {
+    opacity: 0;
+}
+
+#navbar .row .col-md-1 .wishlist .filled-heart:hover.filled-heart {
+    opacity: 1;
+}
+
+#navbar .row .col-md-1 .cart-total a {
+    cursor: pointer;
+    color: var(--black);
+    text-decoration: none;
+    transition: 0.4s ease-in-out;
+}
+
+#navbar .row .col-md-1 .cart-total a:hover {
+    color: var(--green);
+}
+/* NavBar Css Ends Here */
+
+/* Cart Modal Css Starts Here*/
+
+#checkCartModal .modal-body {
+    font-size: 1.3rem;
+}
+
+.cart-system {
+    border-top: 1px solid gray;
+    border-bottom: 1px solid gray;
+    padding: 0.8rem;
+    width: 100%;
+}
+
+.cart-system .col-md-6 {
+    width: 100%;
+}
+
+.cart-buttons .col-md-12 {
+    text-align: center;
+}
+
+.cart-buttons .col-md-12 .cart-buttons:hover {
+    border: 0.1rem solid var(--green);
+    background-color: var(--green);
+    color: var(--white);
+}
+
+.cart-buttons .go-to-cart-btn {
+    outline: none;
+    width: 95%;
+    padding-top: 0.5rem;
+    border: 1px solid var(--gray);
+    background-color: #fff;
+    transition: 0.7s ease-in-out;
+}
+
+.cart-buttons .proceed-to-checkout-btn {
+    outline: none;
+    width: 95%;
+    padding-top: 0.5rem;
+    border: 1px solid var(--gray);
+    background-color: #fff;
+    transition: 0.7s ease-in-out;
+}
+
+/* Cart Modal Css Ends Here*/
+
+/* Slider Css Starts Here */
+#slider {
+    width: 100%;
+}
+
+#slider .carousel-inner {
+    height: 47rem;
+}
+
+#slider .carousel-inner .carousel-item img {
+    height: 52rem;
+    width: 100%;
+}
+
+#slider #carouselExampleCaptions button {
+    color: gray;
+    font-size: 3rem;
+    width: 3rem !important;
+}
+/* Slider Css Ends Here */
+
+/* Featured Categories CSS Starts Here */
+
+#featuresCategories .featCate {
+    font-size: 1.5rem;
+}
+
+#featuresCategories .featCate .cateHeader {
+    text-align: center;
+    margin: 6rem 0 0 0;
+    line-height: 5rem;
+}
+
+#featuresCategories .featCate .cateHeader .first {
+    color: var(--header);
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+#featuresCategories .featCate .cateHeader .second {
+    text-transform: uppercase;
+    font-weight: 400;
+    font-size: 2.5rem;
+    margin: 0;
+}
+
+#featuresCategories .featCate .cateHeader .decoration {
+    color: gray;
+    font-size: 1.6rem;
+}
+
+#featuresCategories .featCate .cateBody .row .col-md-3 {
+    border: 0.1rem solid var(--gray);
+    border-radius: 0.5rem;
+    height: 25rem;
+    width: 22.4rem;
+    margin: 2.5rem;
+    position: relative;
+    transition: 0.6s ease-in-out;
+}
+
+#featuresCategories .featCate .cateBody .row .col-md-3:hover {
+    scale: 1.1 106%;
+    border: 0.1rem solid rgb(173, 170, 170);
+    box-shadow: 0.2rem 0.2rem 0.7rem 0.1rem var(--green);
+}
+
+#featuresCategories .featCate .cateBody .row .col-md-3 .eyhuaga {
+    transition: 1.5s ease-in-out;
+}
+
+#featuresCategories .featCate .cateBody .row .col-md-3:hover .eyhuaga {
+    transform: scale3d(1.2, 1.2, 1.2);
+}
+
+#featuresCategories .featCate .cateBody .row .col-md-3 .cateimg {
+    min-height: 21rem;
+    max-height: 21rem;
+}
+
+#featuresCategories .featCate .cateBody .row .col-md-3 img {
+    height: 16rem;
+    width: 21rem;
+    margin: 3.2rem 0px;
+}
+
+#featuresCategories .featCate .cateBody .row .col-md-3 .name {
+    position: absolute;
+    background-color: var(--header);
+    color: var(--white);
+    text-align: center;
+    height: 3.2rem;
+    width: 17rem;
+    margin: 0 0 0 1.5rem;
+    padding: 0.3rem 0 0 0;
+    transition: 0.5s ease-in-out;
+}
+
+#featuresCategories .featCate .cateBody .row .col-md-3:hover .name {
+    border-radius: 10.5rem 0 13.1rem 0;
+    background-color: var(--green);
+}
+
+/* Featured Categories CSS Ends Here */
+
+/* Featured Products CSS Starts Here */
+
+#featuresProducts .featProd .ProdHeader {
+    text-align: center;
+    margin: 6rem 0 0 0;
+    line-height: 5rem;
+}
+
+#featuresProducts .featProd .ProdHeader .first {
+    color: var(--header);
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+#featuresProducts .featProd .ProdHeader .second {
+    text-transform: uppercase;
+    font-weight: 400;
+    font-size: 2.5rem;
+    margin: 0;
+}
+
+#featuresProducts .featProd .ProdHeader .decoration {
+    color: gray;
+    font-size: 1.6rem;
+}
+
+.containerji {
+    position: relative;
+}
+
+.containerji .card {
+    position: relative;
+    height: 33.7rem;
+    width: 26.2rem;
+    background: var(--header);
+    border-radius: 0.8rem;
+    overflow: hidden;
+    margin: 0 0 5rem 0;
+}
+
+.containerji .card:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--green);
+    clip-path: circle(150px at 80% 20%);
+    transition: 0.5s ease-in-out;
+}
+
+.containerji .card:hover:before {
+    clip-path: circle(300px at 80% -20%);
+}
+
+.containerji .card:after {
+    /* Inner ma show garne */
+    content: "";
+    position: absolute;
+    top: 30%;
+    left: -20%;
+    font-size: 1.2rem;
+    font-weight: 800;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.04);
+}
+
+.containerji .card .imgBx {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    transition: 0.5s;
+}
+
+.containerji .card:hover .imgBx {
+    top: 0%;
+    transform: translateY(-25%);
+    height: 30rem;
+
+    /* bug  */
+}
+
+.containerji .card .imgBx img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(20deg);
+    width: 110px;
+}
+
+.containerji .card .contentBx {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 10rem;
+    text-align: center;
+    transition: 1s;
+    z-index: 90;
+}
+
+.containerji .card:hover .contentBx {
+    height: 190px;
+}
+
+.containerji .card .contentBx h2 {
+    position: relative;
+    font-weight: 400;
+    letter-spacing: 0.1rem;
+    color: #f1f1f1;
+    font-size: 2rem;
+}
+
+.containerji .card .contentBx .size,
+.containerji .card .contentBx .description,
+.containerji .card .contentBx .original_price,
+.containerji .card .contentBx .price {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.4rem 2rem;
+    transition: 0.5s;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.containerji .card:hover .contentBx .size,
+.containerji .card:hover .contentBx .original_price,
+.containerji .card:hover .contentBx .description {
+    opacity: 1;
+    visibility: visible;
+    transition-delay: 0.5s;
+}
+
+.containerji .card:hover .contentBx .price {
+    opacity: 1;
+    visibility: visible;
+    transition-delay: 0.6s;
+}
+
+.containerji .card .contentBx .size h3,
+.containerji .card .contentBx .original_price h3,
+.containerji .card .contentBx .description h3,
+.containerji .card .contentBx .price h3 {
+    color: white;
+    font-weight: 300;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+    margin-right: 1rem;
+}
+
+.containerji .card .contentBx .size span:hover {
+    /* other bug */
+    background: #b90000;
+}
+
+.containerji .card .contentBx a {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: var(--green);
+    border-radius: 0.4rem;
+    margin-top: 1rem;
+    text-decoration: none;
+    font-weight: 600;
+    color: var(--white);
+    opacity: 0;
+    transform: translateY(5rem);
+    transition: 0.5s;
+}
+
+.containerji .card:hover .contentBx a {
+    opacity: 1;
+    transform: translateY(0px);
+    transition-delay: 0.7s;
+}
+
+/* Featured Products CSS Ends Here */
+
+/* Special Event CSS Starts Here */
+#specialEvent .contentBx .price {
+    padding: 0.1rem 2rem 0.5rem;
+}
+
+#specialEvent .eveHeader {
+    text-align: center;
+    margin: 6rem 0 0 0;
+    line-height: 5rem;
+}
+
+#specialEvent .eveHeader .first {
+    color: var(--header);
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+#specialEvent .eveHeader .second {
+    text-transform: uppercase;
+    font-weight: 400;
+    font-size: 2.5rem;
+    margin: 0;
+}
+
+#specialEvent .eveHeader .decoration {
+    color: gray;
+    font-size: 1.6rem;
+}
+/* Special Event CSS Ends Here */
+
+/* Contact Us Page CSS Starts Here */
+#locationInMap .gsMap {
+    height: 80vh;
+    width: 100%;
+}
+
+#informationAboutUs {
+    margin: 3rem 5rem 0 5rem;
+}
+
+#informationAboutUs .header h5 {
+    font-size: 2.2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+#informationAboutUs .header p {
+    font-size: 1.6rem;
+}
+
+#contactus {
+    margin: 3rem 5rem 0 5rem;
+}
+
+#contactus .header h4 {
+    font-size: 2.5rem;
+    font-weight: 600;
+}
+
+#contactus .contactUsBody .col-md-6 span {
+    font-size: 1.6rem;
+}
+
+#contactus .contactUsBody .col-md-12 {
+    padding-left: 49rem;
+    word-spacing: 7.2rem;
+}
+
+#contactus .contactUsBody .col-md-12 span {
+    font-size: 3.5rem;
+}
+
+#contactus .contactUsBody .col-md-12 span a {
+    text-decoration: none;
+    color: var(--black);
+}
+/* Contact Us Page CSS Ends Here */
+
+/* About Us Page CSS Starts Here */
+#aboutUs {
+    background: url("../images/itblue.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    min-height: 58.2rem;
+    max-height: 58.2rem;
+    color: var(--header);
+}
+
+#aboutUs .header h2 {
+    text-align: center;
+    padding: 20rem 0 0 0;
+    font-weight: 600;
+    font-family: Karla, Arial, Helvetica, sans-serif;
+    font-size: 3rem;
+}
+
+#aboutUs .info p {
+    text-align: center;
+    padding: 0 2.5rem 0 2.5rem;
+    font-family: Karla, Arial, Helvetica, sans-serif;
+    word-spacing: 0.2rem;
+    font-size: 1.4rem;
+}
+
+#aboutUs .buttons-area {
+    text-align: center;
+}
+
+#aboutUs .buttons-area button {
+    color: var(--header);
+    border: 0.1rem solid var(--header);
+    border-radius: 0;
+    margin: 1rem 1rem 0 1rem;
+    transition: 0.6s ease-in-out;
+    font-size: 1.4rem;
+}
+
+#aboutUs .buttons-area button:hover {
+    background-color: var(--header);
+    color: var(--white);
+}
+
+#ourObjectives {
+    /* margin: 0.1rem 0; */
+    height: 37rem;
+    width: 100%;
+    background-color: var(--header);
+}
+
+#ourObjectives .row .col-md-7 img {
+    height: 32rem;
+}
+
+#ourObjectives .row .col-md-7,
+#ourObjectives .row .col-md-5 {
+    margin: 2.8rem 0 2.8rem 0;
+}
+
+#ourObjectives .row .col-md-5 .header {
+    font-weight: 600;
+    font-size: 1.5rem;
+    text-align: center;
+    color: var(--white);
+}
+
+#ourObjectives .row .col-md-5 .info {
+    color: var(--white);
+    word-spacing: 0.2rem;
+    font-size: 1.6rem;
+}
+
+#ourServices {
+    margin: 2rem 0;
+    min-height: 34rem;
+    width: 100%;
+}
+
+#ourServices .row .col-md-5 {
+    margin: 10rem 0;
+}
+
+#ourServices .row .col-md-5.left {
+    text-align: right;
+}
+
+#ourServices .row .col-md-5 h1 {
+    font-size: 1.9rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.15rem;
+}
+
+#ourServices .row .col-md-5 p {
+    font-size: 1.3rem;
+}
+
+#ourServices .row .col-md-2 {
+    margin: 15rem 0;
+    text-align: center;
+    background-color: var(--header);
+    height: 15rem;
+    width: 15rem;
+    border-radius: 50%;
+    color: var(--white);
+    padding: 4.6rem 0px;
+    transition: 0.4s ease-in-out;
+}
+
+#ourServices .row .col-md-2:hover {
+    background-color: var(--green);
+}
+/* About Us Page CSS Ends Here */
+
+/* Shop CSS Starts Here */
+#shopPageTitle {
+    background-color: var(--shopTitle);
+    color: var(--white);
+    min-height: 6rem;
+    max-height: 6rem;
+}
+
+#shopPageTitle .col-md-1 {
+    margin: 2.5rem 0 0 0;
+    text-align: center;
+    position: relative;
+    width: 14.1rem;
+    cursor: pointer;
+}
+
+#shopPageTitle .col-md-1::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--white);
+    transition: width 0.4s ease;
+}
+
+#shopPageTitle .col-md-1:hover::before {
+    width: 94%;
+}
+
+#shopPageTitle .col-md-1:hover::before {
+    background-color: var(--white);
+}
+
+#shopPageTitle .row h6 {
+    font-size: 1.2rem;
+}
+
+#pageHead.cart {
+    min-height: 3rem;
+    max-height: 3rem;
+    padding: 0.8rem 0;
+    background-color: #f9f9f9;
+    margin: 3rem 0 5rem 0;
+}
+
+#pageHead {
+    min-height: 4rem;
+    max-height: 4rem;
+    padding: 0.8rem 0;
+    background-color: #f9f9f9;
+    margin: 3rem 0 5rem 0;
+}
+
+#pageHead .main .row h5 {
+    font-size: 1.2rem;
+}
+
+#pageHead .main .row h5 a {
+    color: var(--black);
+    text-decoration: none;
+}
+
+#pageHead .main .row .col-md-6 .search {
+    text-align: end;
+}
+
+#pageHead .main .row .col-md-6 .search input {
+    border: 1px solid var(--bs-gray);
+    outline: none;
+    font-size: 1.3rem;
+    width: 20rem;
+    padding: 0 0.4rem;
+}
+
+#buyNowContainer .row .productImage img {
+    /* width: 90%; */
+    height: 30rem;
+    transition: 0.8s;
+}
+
+#buyNowContainer .row .productImage img:hover {
+    transform: scale(1.2);
+    cursor: zoom-in;
+}
+
+#buyNowContainer .row .productTitle h3 {
+    font-size: 2.5rem;
+}
+
+#buyNowContainer .row .productTitle h3 {
+    border-bottom: 2px solid var(--gray);
+    font-size: 3rem;
+    width: 65%;
+}
+
+#buyNowContainer .row .productDescription p {
+    font-size: 1.5rem;
+    line-height: 2.6rem;
+}
+
+.products-details {
+    margin: 0 0.7rem;
+}
+
+.products-details .row {
+    width: 45rem;
+}
+
+.products-details .col-md-6 {
+    width: 20rem;
+    margin: 0.6rem 1rem 0.8rem 0;
+    padding: 0;
+}
+
+.products-details .col-md-6 h4 {
+    font-weight: 600;
+}
+
+.products-details .col-md-6 h5 {
+    font-size: 1.4rem;
+}
+
+#buyNowContainer .row .col-md-7 input {
+    font-size: 1.4rem;
+}
+
+#buyNowContainer .row .col-md-7 .product-qty-update {
+    margin: 2rem 0;
+}
+
+#buyNowContainer .row .col-md-7 button {
+    margin: 0 1.5rem 0 1rem;
+}
+
+#buyNowContainer .row .col-md-7 button.addtoca {
+    color: var(--white);
+    text-decoration: none;
+}
+#buyNowContainer .row .col-md-7 .add-to-cart {
+    background-color: var(--bs-gray);
+    color: var(--white);
+    transition: 0.7s ease-in-out;
+    font-size: 1.4rem;
+}
+
+#buyNowContainer .row .col-md-7 .add-to-cart:hover {
+    background-color: var(--green);
+}
+
+#buyNowContainer .row .col-md-7 .buy-now-button {
+    background-color: var(--header);
+    color: var(--white);
+    transition: 0.7s ease-in-out;
+    font-size: 1.4rem;
+}
+
+#buyNowContainer .row .col-md-7 .buy-now-button:hover {
+    background-color: var(--green);
+}
+
+/* Shop CSS Ends Here */
+
+/* Go To Cart CSS Starts Here */
+
+#cart-content .cartBody {
+    margin: 3rem 0;
+    padding: 1.5rem 0;
+    border-bottom: 0.2rem solid var(--gray);
+}
+
+#cart-content .myCart {
+    padding: 2rem 0;
+}
+
+#cart .myCart h2 {
+    font-size: 2.5rem;
+}
+
+#cart-content .col-md-8 .cartBody .myCartProducts .pdttl {
+    width: 15rem;
+    font-size: 2rem;
+}
+
+#cart-content .col-md-8 .cartBody .myCartProducts .productImage img {
+    min-height: 5rem;
+    max-height: 8rem;
+    min-width: 5rem;
+    max-width: 12rem;
+}
+
+#cart-content .col-md-4 h3 {
+    margin: 1.3rem 0;
+}
+
+#cart-content .col-md-4 .header {
+    border-bottom: 0.15rem solid var(--gray);
+}
+
+#cart-content .col-md-4 .body .total {
+    border-top: 0.15rem solid var(--gray);
+}
+
+#cart-content .col-md-4 .body .proceedToCheckout {
+    border-top: 0.15rem solid var(--gray);
+}
+
+#cart-content .col-md-4 .body .proceedToCheckout button {
+    margin: 1.5rem 0;
+    width: 100%;
+    border: 1px solid var(--gray);
+    text-align: center;
+    font-size: 1.3rem;
+    transition: 0.7s ease-in-out;
+}
+
+#cart-content .col-md-4 .body .proceedToCheckout button:hover {
+    background-color: var(--green);
+    border: 1px solid var(--green);
+    color: var(--white);
+}
+/* Go To Cart CSS Ends Here */
+
+/* Proceed to Checkout CSS Starts Here */
+#proceed-to-checkout .card h6 {
+    font-size: 1.6rem;
+}
+
+#proceed-to-checkout .card,
+#proceed-to-checkout .card input,
+#proceed-to-checkout .card textarea {
+    font-size: 1.3rem;
+}
+#proceed-to-checkout .col-md-4 .right .card .main-body .bdy img {
+    width: 14rem;
+}
+
+#proceed-to-checkout .col-md-4 .right .card .body-footer {
+    text-align: end;
+}
+
+#proceed-to-checkout .col-md-4 .right .card .form-check .col-md-12 {
+    margin: 2 rem 0rem;
+}
+
+#proceed-to-checkout .col-md-4 .right .card .form-check img {
+    width: 10rem;
+}
+
+#proceed-to-checkout .col-md-4 .right .card .header {
+    border-bottom: 0.15rem solid var(--gray);
+}
+
+/* #proceed-to-checkout .col-md-4 .right .card .total {
+    border-top: 0.15rem solid var(--gray);
+} */
+
+#proceed-to-checkout .col-md-4 .right .card button {
+    margin: 1.5rem 0;
+    width: 100%;
+    border: 1px solid var(--gray);
+    text-align: center;
+    font-size: 1.3rem;
+    transition: 0.7s ease-in-out;
+}
+
+#proceed-to-checkout .col-md-4 .right .card button:hover {
+    background-color: var(--green);
+    border: 1px solid var(--green);
+    color: var(--white);
+}
+
+/* Proceed to Checkout CSS Ends Here */
+
+/* Footer CSS Starts Here */
+#footer {
+    height: 42rem;
+    width: 100%;
+    background-color: var(--header);
+    margin: 5.5rem 0 0 0;
+    padding: 5rem 0 0 5rem;
+    font-family: Karla, Arial, Helvetica, sans-serif;
+    /* display: none !important; */
+}
+
+#footer .footer-top img {
+    height: 12rem;
+    width: 100%;
+}
+
+#footer .col-md-4 {
+    font-weight: 400;
+    text-transform: uppercase;
+    font-size: 1.9rem;
+    margin: 1.6rem 0 1.6rem 0;
+    color: var(--white);
+}
+
+#footer .footer-middle .header {
+    margin: 0 0 1.6rem 0;
+}
+
+#footer .footer-middle .header .first {
+    border-bottom: 0.3rem solid var(--white);
+    border-radius: 0.2rem;
+}
+
+#footer a {
+    color: var(--white);
+    text-decoration: none;
+}
+
+#footer .footer-middle .links h5 {
+    font-size: 1.3rem;
+    font-weight: 400;
+}
+
+#footer .footer-middle .addnumlink h5 {
+    font-weight: 400;
+    font-size: 1.3rem;
+}
+
+#footer .footer-middle .addnumlink .fbinsta {
+    font-size: 2.5rem;
+    margin: 0 2.5rem 0 2.5rem;
+}
+
+#footer .footer-middle .addnumlink .fbinsta .fb {
+    margin: 0 15px 0 0;
+}
+
+/* Footer CSS Ends Here */
+
+/* Toaster CSS Starts Here */
+.toast {
+    font-size: 1.3rem;
+}
+/* Toaster CSS Ends Here */
+
+/* Login CSS Starts Here */
+#login .main {
+    min-height: 53rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#login .main .box {
+    border: 0.1rem solid var(--gray);
+    height: 30rem;
+    width: 50%;
+    font-size: 2rem;
+    padding: 3rem;
+}
+
+#login .main .left {
+    height: 20rem;
+    border-right: 1px solid gray;
+    padding: 4rem 1rem;
+}
+
+#login .main .box .col-md-6.left button {
+    background-color: var(--google);
+    border: 0.1rem solid var(--google);
+    border-radius: 0;
+    color: var(--white);
+    height: 3.5rem;
+    width: 60%;
+    font-size: 1.8rem;
+    text-align: center;
+}
+
+#login .main .box .col-md-6 .google .col-md-12 .googleIcon {
+    padding: 0 0.5rem;
+    border-right: 1px solid #9d8686;
+}
+
+#login .main .right .signinHeader {
+    text-align: center;
+}
+
+#login .main .right span.invalid-feedback {
+    font-size: 0.8rem;
+}
+
+#login .main .right .loginp {
+    /* font-family: FontAwesome ; */
+    height: 3rem;
+    width: 20rem;
+    border: 0;
+    border-radius: 0;
+    border-bottom: 0.1rem solid var(--gray);
+    outline: none;
+    font-size: 1.5rem;
+}
+
+#login .main .right .loginp:hover,
+#login .main .right .loginp:focus {
+    border-bottom: 0.1rem solid var(--black);
+}
+
+#login .main .right .col-md-6 .form-check {
+    font-size: 1.5rem;
+    width: 16rem;
+}
+
+#login .main .right .row.mb-3 {
+    margin: 0 0 0 2rem;
+}
+
+#login .main .right .row .col-md-8 {
+    text-align: center;
+    margin: 0 0 0 5rem;
+}
+
+#login .main .right .row .col-md-8 button {
+    width: 100%;
+    background-color: var(--header);
+    border: 0.1rem solid var(--header);
+    color: var(--white);
+    font-size: 1.5rem;
+}
+
+#login .main .right .row .col-md-8 a {
+    font-size: 1.2rem;
+}
+
+#create_pass .middle {
+    min-height: 53rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#create_pass .card .card-body {
+    font-size: 1.3rem;
+}
+
+#create_pass .card .card-body .col-md-12 {
+    margin: 2rem 0;
+}
+
+#create_pass .card .card-body .col-md-12 input {
+    font-size: 1.2rem;
+    outline: none;
+    transition: 1s ease-in-out;
+}
+
+#create_pass .card .card-body .col-md-12 input:focus {
+    border: none;
+    border-bottom: 0.1rem solid var(--black);
+}
+
+#create_pass .card .card-body .col-md-12 button {
+    border: 0.1rem solid var(--header);
+    background-color: var(--header);
+    color: var(--white);
+    height: 3rem;
+    width: 13rem;
+}
+
+/* Login CSS Ends Here */
