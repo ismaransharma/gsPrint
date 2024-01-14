@@ -12,63 +12,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
-use Laravel\Socialite\Facades\Socialite;
 
 
 class SiteController extends Controller
-{
+{  
 
-    public function googleLogin()
-    {
-        return Socialite::driver('google')->redirect();
-    }
-
-    public function googleHandle()
-    {
-        try {
-            // Complete the Google OAuth login
-            $user = Socialite::driver('google')->user();
-    
-            // Find or create the user in your application
-            $findUser = User::where('email', $user->email)->first();
-    
-            if (!$findUser) {
-                $findUser = new User();
-                $findUser->name = $user->name;
-                $findUser->email = $user->email;
-                $findUser->email_verified_at = now(); // Mark the email as verified
-        
-                $findUser->save();
-    
-                // Retrieve the cart count data (similar to how you did in your 'home' controller)
-                $user = Auth::user(); // Get the currently authenticated user
-    
-                if ($user) {
-                    $cart_code = $user->cart_code; 
-                    $carts = Cart::where('cart_code', $cart_code)->get();
-
-                    $cartCount = $carts->count();
-                } else {
-                    $cartCount = 0;                 }
-    
-                // Now you can pass $cartCount to the 'account.password' view
-                return view('account.password', compact('findUser', 'cartCount','carts'));
-            }
-        
-    
-            Auth::login($findUser);
-    
-            // Redirect to a specific page or route
-            return back()->with('success', 'Logged in successfully!');
-        } catch (Exception $e) {
-            // Handle exceptions if needed
-        }
-    }
-    
-    
-
-        
-        
     public function home()
     {
         $user = Auth::user(); 
@@ -84,20 +32,26 @@ class SiteController extends Controller
             $cartCount = 0; 
             $total_amount = 0; 
         }
+
+        $searchedItem = session('searchedItem');
+
+
+
     
         $data = [
             'categories' => Category::where('status', 'active')->where('deleted_at', null)->limit(3)->get(),
-            'products' => Product::where('status', 'active')->where('deleted_at', null)->limit(3)->get(),
+            'products' => Product::where('status', 'active')->where('deleted_at', null)->limit(6)->get(),
             'carts' => $carts, 
             'cartCount' => $cartCount,
             'total_amount' => $total_amount, 
             'user' => $user,
+            'search' => $searchedItem,
+            'cateproducts' => Category::where('status', 'active')->where('deleted_at', null)->limit(7)->get(),
         ];
     
         return view('site.home', $data);
     }
     
-
     public function contactUs()
     {
         $user = Auth::user(); 
@@ -114,6 +68,9 @@ class SiteController extends Controller
             $total_amount = 0; 
         }
         
+        $searchedItem = session('searchedItem');
+
+
         $data = [
             'categories' => Category::where('status', 'active')->where('deleted_at', null)->limit(3)->get(),
             'products' => Product::where('status', 'active')->where('deleted_at', null)->limit(3)->get(),
@@ -121,6 +78,7 @@ class SiteController extends Controller
             'cartCount' => $cartCount,
             'total_amount' => $total_amount, 
             'user' => $user,
+            'search' => $searchedItem
         ];
         
         return view('site.contactUs', $data);
@@ -142,6 +100,9 @@ class SiteController extends Controller
             $total_amount = 0; 
         }
         
+        $searchedItem = session('searchedItem');
+
+        
         $data = [
             'categories' => Category::where('status', 'active')->where('deleted_at', null)->limit(3)->get(),
             'products' => Product::where('status', 'active')->where('deleted_at', null)->limit(3)->get(),
@@ -149,6 +110,7 @@ class SiteController extends Controller
             'cartCount' => $cartCount,
             'total_amount' => $total_amount, 
             'user' => $user,
+            'search' => $searchedItem
         ];
         
         return view('site.aboutUs', $data);
@@ -170,7 +132,9 @@ class SiteController extends Controller
             $total_amount = 0; 
         }
 
+        $searchedItem = session('searchedItem');
 
+        
         $data = [
             'categories' => Category::where('status', 'active')->where('deleted_at', null)->limit(6)->get(),
             'products' => Product::where('status', 'active')->where('deleted_at', null)->get(),
@@ -178,6 +142,7 @@ class SiteController extends Controller
             'cartCount' => $cartCount,
             'total_amount' => $total_amount, 
             'user' => $user,
+            'search' => $searchedItem
         ];
         
         return view('site.shop', $data);
@@ -199,71 +164,91 @@ class SiteController extends Controller
             $total_amount = 0; 
         }
 
+        $searchedItem = session('searchedItem');
+
+
         $data = [
             'product' => Product::where('slug', $slug)->where('status', 'active')->where('deleted_at', null)->limit(1)->first(),
             'carts' => $carts, 
             'cartCount' => $cartCount, 
             'total_amount' => $total_amount, 
             'user' => $user,
+            'search' => $searchedItem
         ];
 
         return view('site.buyNow', $data);
     }
 
-    function search(Request $request)
+    public function search(Request $request)
     {
 
+        // dd($request->all());
 
-        $user = Auth::user(); 
-    
-        if ($user) {
-            $cart_code = $user->cart_code; 
-            $carts = Cart::where('cart_code', $cart_code)->get(); 
-            $cartCount = $carts->count(); 
-    
-            $total_amount = $carts->sum('total_price');
-        } else {
-            $carts = collect(); 
-            $cartCount = 0; 
-            $total_amount = 0; 
+        if ($request->input('search') === null) 
+        {
+            
+            return redirect('/')->with('error','Please enter any product name');
         }
-
-
-        $search = $request->input('search');
-        $products = Product::where('product_title', 'like', '%' . $search . '%')->get();
-        $categories = Category::where('category_title', 'like', '%' . $search . '%')->get();
-        $matchingCategoryProducts = [];
-
-        foreach ($categories as $category) {
-            $categoryProducts = $category->products;
         
-            foreach ($categoryProducts as $product) {
-                $matchingCategoryProducts[] = $product;
+        else
+        {
+            $user = Auth::user(); 
+        
+            if ($user) {
+                $cart_code = $user->cart_code; 
+                $carts = Cart::where('cart_code', $cart_code)->get(); 
+                $cartCount = $carts->count(); 
+        
+                $total_amount = $carts->sum('total_price');
+            } else {
+                $carts = collect(); 
+                $cartCount = 0; 
+                $total_amount = 0; 
+            }
+
+
+            $search = $request->input('search');
+
+            session(['searchedItem' => $search]);
+
+
+            $products = Product::where('product_title', 'like', '%' . $search . '%')->get();
+            $categories = Category::where('category_title', 'like', '%' . $search . '%')->get();
+            $matchingCategoryProducts = [];
+            
+            foreach ($categories as $category) {
+                $categoryProducts = $category->products;
+            
+                foreach ($categoryProducts as $product) {
+                    $matchingCategoryProducts[] = $product;
+                }
+            }
+            
+            $mergedProducts = $products->concat($matchingCategoryProducts)->unique('id');
+            
+            if ($products != $mergedProducts) {
+                $products = $mergedProducts;
+            }
+            
+            $data = [
+                'search' => $search,
+                'products' => $products, 
+                'mergedProducts' => $mergedProducts, 
+                'carts' => $carts, 
+                'cartCount' => $cartCount,
+                'total_amount' => $total_amount, 
+                'user' => $user,
+                'search' => $search
+
+            ];
+            
+            if ($products->isEmpty()) {
+                return back()->with('error', 'Products not found');
+            } else {
+                return view('site.search', $data);
             }
         }
-        
-        $mergedProducts = $products->concat($matchingCategoryProducts)->unique('id');
-        
-        if ($products != $mergedProducts) {
-            $products = $mergedProducts;
-        }
-        
-        $data = [
-            'search' => $search,
-            'products' => $products, 
-            'mergedProducts' => $mergedProducts, 
-            'carts' => $carts, 
-            'cartCount' => $cartCount,
-            'total_amount' => $total_amount, 
-            'user' => $user,
 
-        ];
-        
-        if ($products->isEmpty()) {
-            return back()->with('error', 'Products not found');
-        } else {
-            return view('site.search', $data);
-        }
         
 
 
@@ -274,8 +259,10 @@ class SiteController extends Controller
     {
         $user = Auth::user(); 
 
+    
         // dd($user->cart_code);
     
+        
         if ($user) {
             $cart_code = $user->cart_code; 
             $carts = Cart::where('cart_code', $cart_code)->get();
@@ -288,6 +275,9 @@ class SiteController extends Controller
             $total_amount = 0; 
         }
 
+        $searchedItem = session('searchedItem');
+
+
         // dd($cart_code);
 
         
@@ -295,11 +285,13 @@ class SiteController extends Controller
             'carts' => $carts, 
             'cartCount' => $cartCount, 
             'total_amount' => $total_amount, 
+            'search' => $searchedItem,
         ];
         
+        $seachedItem = $this->home();
+
         return view('site.go-to-cart', $data);
     }
-
 
     public function getProceedToCheckout()
     {
@@ -318,15 +310,17 @@ class SiteController extends Controller
             $total_amount = 0; 
         }
     
+        $searchedItem = session('searchedItem');
+
         $data = [
             'carts' => $carts,
             'cartCount' => $cartCount, 
+            'search' => $searchedItem,
             
         ];
     
         return view('site.checkout', $data);
     }
-
 
     public function postCheckout(Request $request)
     {
@@ -340,25 +334,31 @@ class SiteController extends Controller
     
             $total_amount = $carts->sum('total_price');
         } else {
-            $carts = collect(); // Create an empty collection if the user is not authenticated
-            $cartCount = 0; // Set the count to 0
-            $total_amount = 0; // Set the total amount to 0 if the user is not authenticated
+            $carts = collect();
+            $cartCount = 0; 
+            $total_amount = 0; 
         }
 
-
-
-    
+        
         if (!$cart_code) {
             return redirect()->back()->with('error', 'No cart found to checkout');
         }
     
-        // Check if the cart code exists in the database
-        $carts = Cart::where('cart_code', $cart_code)->get();
-    
+        $carts = Cart::where('cart_code', $cart_code)->get();      
+                
+        foreach ($carts as $cart) {
+            $quantity = $cart->quantity;
+            $price2 = $cart->price2;
+            $price = $cart->total_price;
+            $upload_design = $cart->upload_design;
+        }
+        
+        // dd($upload_design);
+        
         if ($carts->isEmpty()) {
             return redirect()->back()->with('error', 'No cart found to checkout');
         }
-    
+        
         $request->validate([
             'name' => 'required',
             'email' => 'required|email',
@@ -367,13 +367,24 @@ class SiteController extends Controller
             'payment_method' => 'required|in:cod',
         ]);
 
-    
+        foreach($carts as $cart)
+        {
+            $product_name = $cart->getProductFromCart->product_title;          
+        }
+
+        $total = $price;
+        // dd($price);
+        
+        $perPrice = $price / $quantity;
+
+        
         $name = $request->input('name');
         $email = $request->input('email');
         $address = $request->input('address');
         $mobile_number = $request->input('mobile_number');
         $payment_method = $request->input('payment_method');
         $additional_information = $request->input('additional_information');
+
         
     
         $payment_amount = $carts->sum('total_price') + 150;
@@ -389,11 +400,13 @@ class SiteController extends Controller
         $order->additional_information = $additional_information;
         $order->payment_method = $payment_method;
         $order->payment_status = 'N';
+        $order->product_name = $product_name;
+        $order->quantity = $quantity;
         $order->payment_amount = $payment_amount;
-    
-        // dd($order->user_id);
-
-
+        $order->price = $perPrice;
+        $order->total = $total;
+        $order->upload_design = $upload_design;
+        $order->price2 = $price2;
         $order->save();
     
         // Mail Pathauni logic
@@ -438,10 +451,7 @@ class SiteController extends Controller
         if ($carts->isNotEmpty()) {
             // Filter carts by user ID
             $userCartIds = $carts->where('user_id', $user->id)->pluck('id')->all();
-
-            // dd($userCartIds);
-        
-            // Delete carts associated with the user
+            
             Cart::whereIn('id', $userCartIds)->delete();
         }
         
@@ -483,111 +493,236 @@ class SiteController extends Controller
         }
     }
 
-    
-
     public function postAddToCart(Request $request, $slug)
     {
-        // Validate the quantity input
-        $request->validate([
-            'quantity' => 'required|integer|min:1|max:10',
+
+        
+        $request->validation = ([
+            'upload_design' => 'image|mimes:jpeg,jpg,png,gif'
         ]);
-    
-        // Find the product based on the slug
+        // dd($request->upload_design);
+        
+        $cart_code = Session::get('cart_code');
+        $user = Auth::user();
+
+                
+        if (is_null($user)) {
+            return redirect()->route('login')->with('error', 'Please log in to add products to the cart.');
+        }
+        
         $product = Product::where('slug', $slug)
-            ->where('deleted_at', null)
-            ->where('status', 'active')
-            ->first();
-    
+        ->where('deleted_at', null)
+        ->where('status', 'active')
+        ->first();
+
         if (is_null($product)) {
             return redirect()->back()->with('error', 'Product not found.');
         }
-    
-        $quantity = $request->input('quantity');
-    
-        $stock = $product->stock;
-        $new_stock = $stock - $quantity;
-    
-        if ($new_stock < 1) {
-            return redirect()->back()->with('error', 'Product is out of stock');
-        }
-    
-        $user = Auth::user();
-        $cart_code = Session::get('cart_code');
-    
+        
         if (is_null($cart_code)) {
-            // Generate a new cart_code only if it doesn't exist in the session
             $cart_code = Str::random(8);
             session(['cart_code' => $cart_code]);
         }
+
+        $price2 = $request->input('price2');
+        $quantity = $request->input('quantity');
+        $image = $request->file('upload_design');
+        $price = 0; 
+        // dd($image);
+        
+        if($image){
+            
+            $unique_name = sha1(time());
+
+            $extension = $image->getClientOriginalExtension();
+            
+            $design_image = $unique_name . '.' . $extension;
+            
+            // dd($design_image, $image);
+
+            
+            $image->move('uploads/uploadADesign/', $design_image);
+            
+        }
+
+
+
+        if($price2 == 'nrml_price')
+        {
+            if ($quantity >= $product->qty_range1 && $quantity <= $product->qty_range2) {
+                $price = $quantity * $product->nrml_price1;
+            }
+            elseif ($quantity >= $product->qty_range3 && $quantity <= $product->qty_range4)
+            {
+                $price = $quantity * $product->nrml_price2;
+
+            }
+            else if($quantity >= $product->qty_range5 && $quantity <= $product->qty_range6)
+            {
+                $price = $quantity * $product->nrml_price3;
+            }
+            else if($quantity >= $product->qty_range7 && $quantity <= $product->qty_range8)
+            {
+                $price = $quantity * $product->nrml_price4;
+            }
+            else if($quantity >= $product->qty_range9 && $quantity <= $product->qty_range10)
+            {
+                $price = $quantity * $product->nrml_price5;
+            }
+
+        }
+        else 
+        {
+            if ($quantity >= $product->qty_range1 && $quantity <= $product->qty_range2) {
+                $price = $quantity * $product->urgent_price1;
+            }
+            elseif ($quantity >= $product->qty_range3 && $quantity <= $product->qty_range4)
+            {
+                $price = $quantity * $product->urgent_price2;
+
+            }
+            else if($quantity >= $product->qty_range5 && $quantity <= $product->qty_range6)
+            {
+                $price = $quantity * $product->urgent_price3;
+            }
+            else if($quantity >= $product->qty_range7 && $quantity <= $product->qty_range8)
+            {
+                $price = $quantity * $product->urgent_price4;
+            }
+            else if($quantity >= $product->qty_range9 && $quantity <= $product->qty_range10)
+            {
+                $price = $quantity * $product->urgent_price5;
+            }
+
+
+            
+        }
     
-        // Now, you can proceed to create a new Cart record
-        $price = $product->total;
-        $total_price = $quantity * $price;
+        $total_price = $price;
+
+        // dd($total_price);
     
+        
         $cart = new Cart;
         $cart->cart_code = $cart_code;
         $cart->user_id = $user->id;
         $cart->product_id = $product->id;
-        $cart->quantity = $quantity;
         $cart->price = $price;
+        $cart->price2 = $price2;
         $cart->total_price = $total_price;
+        $cart->quantity = $quantity;
+        
+        if($image){
+            $cart->upload_design=$design_image;
+        }
+
         $cart->save();
 
         $user->cart_code = $cart->cart_code;
         $user->save();
     
-        // Update the product's stock
-        $product->stock = $new_stock;
-        $product->save();
     
         return redirect()->back()->with('success', 'Product added to cart');
     }
     
-
-    
-
     public function getUpdateCart(Request $request, $id)
     {
-        // Get the currently authenticated user
+
         $user = Auth::user();
-    
-        $cart_code = $user->cart_code; // Assuming you have a 'cart_code' field in your User model
-    
-        $cart = Cart::where('cart_code', $cart_code)->where('id', $id)->first();
-    
+        $cart_code = $user->cart_code;
+                    
+        $cart = Cart::where('cart_code', $cart_code)
+        ->where('id', $id)
+        ->first();
+
+        // dd($cart->price2);
+
         if (is_null($cart)) {
-            return redirect()->back()->with('error', 'Cart not found');
+        return redirect()->back()->with('error', 'Cart not found');
         }
-    
+
         $request->validate([
-            'quantity' => 'required|integer|min:1|max:5',
+        'quantity' => 'required|integer|min:1',
         ]);
-    
+
+        // dd($request->all());
+
+
+        // $price = 0;
+
+        
         $product = $cart->getProductFromCart;
-    
+        
         $quantity = $request->input('quantity');
-        $product_stock = $product->stock + $cart->quantity;
-        $new_stock = $product_stock - $quantity;
-    
-        if ($new_stock < 1) {
-            return redirect()->back()->with('error', 'Product is out of stock');
+
+        $price2 = $cart->price2;
+        
+        
+        if($price2 == 'nrml_price')
+        {
+            if ($quantity >= $product->qty_range1 && $quantity <= $product->qty_range2) {
+                $price = $quantity * $product->nrml_price1;
+            }
+            elseif ($quantity >= $product->qty_range3 && $quantity <= $product->qty_range4)
+            {
+                $price = $quantity * $product->nrml_price2;
+
+            }
+            else if($quantity >= $product->qty_range5 && $quantity <= $product->qty_range6)
+            {
+                $price = $quantity * $product->nrml_price3;
+            }
+            else if($quantity >= $product->qty_range7 && $quantity <= $product->qty_range8)
+            {
+                $price = $quantity * $product->nrml_price4;
+            }
+            else if($quantity >= $product->qty_range9 && $quantity <= $product->qty_range10)
+            {
+                $price = $quantity * $product->nrml_price5;
+            }
+
         }
-    
-        $price = $product->total;
-        $total_price = $quantity * $price;
+        else if($price2 == 'urgent_price')
+        {
+            if ($quantity >= $product->qty_range1 && $quantity <= $product->qty_range2) {
+                $price = $quantity * $product->urgent_price1;
+            }
+            elseif ($quantity >= $product->qty_range3 && $quantity <= $product->qty_range4)
+            {
+                $price = $quantity * $product->urgent_price2;
+
+            }
+            else if($quantity >= $product->qty_range5 && $quantity <= $product->qty_range6)
+            {
+                $price = $quantity * $product->urgent_price3;
+            }
+            else if($quantity >= $product->qty_range7 && $quantity <= $product->qty_range8)
+            {
+                $price = $quantity * $product->urgent_price4;
+            }
+            else if($quantity >= $product->qty_range9 && $quantity <= $product->qty_range10)
+            {
+                $price = $quantity * $product->urgent_price5;
+            }
+        }
+        else
+        {
+            return back()->with('error', 'Invalid quantity');
+        }
+        
+        // dd($price);
+        
+        $total_price = $price;
+        // dd($total_price);
     
         $cart->quantity = $quantity;
         $cart->price = $price;
         $cart->total_price = $total_price;
         $cart->save();
     
-        $product->stock = $new_stock;
-        $product->save();
-    
         return redirect()->back()->with('success', 'Cart Updated Successfully');
     }
     
-
     public function getDeleteCart($id)
     {
         // Get the currently authenticated user
@@ -602,14 +737,76 @@ class SiteController extends Controller
         }
         
         $product = $cart->getProductFromCart;
-        $new_stock = $product->stock + $cart->quantity;
-        $product->stock = $new_stock;
         // dd($product);
         $product->save();
     
         $cart->delete();
         return redirect()->back()->with('success', 'Cart Deleted Successfully!');
     }
+
+    public function getAccDashboard()
+    {
+        $user = Auth::user(); 
+    
+        if ($user) {
+            $cart_code = $user->cart_code; 
+            $carts = Cart::where('cart_code', $cart_code)->get(); 
+            $cartCount = $carts->count(); 
+    
+            $total_amount = $carts->sum('total_price');
+        } else {
+            $carts = collect(); 
+            $cartCount = 0; 
+            $total_amount = 0; 
+        }
+        
+        $searchedItem = session('searchedItem');
+
+        $data = [
+            'search' => $searchedItem,
+            'cartCount' => $cartCount,
+            'user' => $user,
+            'carts' => $carts
+
+        ];
+
+        return view('site.myAccount.myAccDashboard', $data);
+    }
+
+
+    public function getYourOrder()
+    {
+        $user = Auth::user();
+    
+        if ($user) {
+            $cart_code = $user->cart_code;
+            $carts = Cart::where('cart_code', $cart_code)->get();
+            $cartCount = $carts->count();
+            $total_amount = $carts->sum('total_price');
+    
+            // dd($cart_code);
+
+            $orders = Order::where('user_id', $user->id)->get();
+            
+            // dd($orders);
+
+            $searchedItem = session('searchedItem');
+
+    
+            $data = [
+                'cartCount' => $cartCount,
+                'user' => $user,
+                'search' => $searchedItem,
+                'orders' => $orders,
+            ];
+    
+            return view('site.myAccount.yourOrder', $data);
+        } else {
+            // Handle the case when the user is not logged in
+            return redirect()->route('login')->with('error', 'You need to log in to view your orders.');
+        }
+    }
+    
 
 
     

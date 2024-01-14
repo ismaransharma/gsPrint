@@ -3,6 +3,18 @@ html {
     font-size: 62.5%;
 }
 
+.red {
+    color: red;
+}
+
+.green {
+    color: green;
+}
+
+.manageOrder .modal-content {
+    width: 74rem;
+}
+
 #admin-navbar {
     font-size: 1.5rem;
     background-color: var(--adminNav);
@@ -127,6 +139,24 @@ td {
 #manageCategory .row .col-md-12 .card .card-body td a {
     text-decoration: none;
     color: none;
+}
+
+#manageCategory form input.search {
+    outline: none;
+    border: none;
+    height: 2.2rem;
+    width: 20rem;
+    padding: 0 1rem;
+    font-size: 1.2rem;
+    background-color: #fff;
+}
+
+#manageCategory form button.searchBtn {
+    height: 2.3rem;
+    width: 3rem;
+    outline: none;
+    border: none;
+    background-color: #f2f2f2;
 }
 
 #addCategoryModal .modal-content {

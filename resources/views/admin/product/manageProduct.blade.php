@@ -32,7 +32,6 @@
                                     <th>Original Price</th>
                                     <th>Discount Price</th>
                                     <th>Total</th>
-                                    <th>Stock</th>
                                     <th>Weight</th>
                                     <th>Status</th>
                                     <th>Action</th>
@@ -56,7 +55,6 @@
                                     <td>{{ $product->original_price }}</td>
                                     <td>{{ $product->discount_price }}</td>
                                     <td>{{ $product->total }}</td>
-                                    <td>{{ $product->stock }}</td>
                                     <td>{{ $product->weight }}gm</td>
                                     <td>
                                         @if ($product->status == 'active')
@@ -151,49 +149,7 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-md-2">
-                            <div class="form-group mb-2">
-                                <label for="">Stock*</label>
-                                <input type="number" class="form-control @error('stock') is-invalid @enderror"
-                                    value="{{ old('stock') }}" id="stock" name="stock" required />
-
-                                @error('stock')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group mb-2">
-                                <label for="original_price">Original Price*</label>
-                                <input type="number" step="0.01"
-                                    class="form-control @error('original_price') is-invalid @enderror"
-                                    value="{{ old('original_price') }}" id="original_price" name="original_price"
-                                    required />
-                                @error('original_price')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="form-group mb-2">
-                                <label for="">Discount Price</label>
-                                <input type="number" step="0.01"
-                                    class="form-control @error('discount_price') is-invalid @enderror"
-                                    value="{{ old('discount_price', 0) }}" id="discount_price" name="discount_price" />
-
-                                @error('discount_price')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="col-md-2">
+                        <div class="col-md-12">
                             <div class="form-group mb-2">
                                 <label for="">Colour</label>
                                 <input type="text" class="form-control @error('colour') is-invalid @enderror"
@@ -205,6 +161,204 @@
                                 @enderror
                             </div>
                         </div>
+                        <div class="col-md-4">
+                            <div class="form-group mb-2">
+                                <label for="sizeinc">Quantity Range*</label>
+                                <div class="d-flex">
+                                    <input type="number" step="0.01"
+                                        class="form-control @error('qty_range1') is-invalid @enderror qty_range1"
+                                        style="width: 7rem;" value="{{ old('qty_range1') }}" id="qty_range1"
+                                        name="qty_range1" required /> <span class="m-2">-</span> <input type="number"
+                                        step="0.01"
+                                        class="form-control @error('qty_range2') is-invalid @enderror sizeinc"
+                                        value="{{ old('qty_range2') }}" id="qty_range2" name="qty_range2" required />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group mb-2">
+                                <label for="nrml_price1">Normal Price in (Rs.)*</label>
+                                <input type="number" step="0.01"
+                                    class="form-control @error('nrml_price1') is-invalid @enderror"
+                                    value="{{ old('nrml_price1') }}" id="nrml_price1" name="nrml_price1" required />
+                                @error('nrml_price1')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group mb-2">
+                                <label for="urgent_price1">Urgent Price in (Rs.)*</label>
+                                <input type="number" step="0.01"
+                                    class="form-control @error('urgent_price1') is-invalid @enderror"
+                                    value="{{ old('urgent_price1') }}" id="urgent_price1" name="urgent_price1"
+                                    required />
+                                @error('urgent_price1')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group mb-2">
+                                <label for="sizeinc">Quantity Range</label>
+                                <div class="d-flex">
+                                    <input type="number" step="0.01"
+                                        class="form-control @error('qty_range3') is-invalid @enderror qty_range3"
+                                        style="width: 7rem;" value="{{ old('qty_range3') }}" id="qty_range3"
+                                        name="qty_range3" /> <span class="m-2">-</span> <input type="number" step="0.01"
+                                        class="form-control @error('qty_range4') is-invalid @enderror sizeinc"
+                                        value="{{ old('qty_range4') }}" id="qty_range4" name="qty_range4" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group mb-2">
+                                <label for="nrml_price2">Normal Price in (Rs.)</label>
+                                <input type="number" step="0.01"
+                                    class="form-control @error('nrml_price2') is-invalid @enderror"
+                                    value="{{ old('nrml_price2') }}" id="nrml_price2" name="nrml_price2" />
+                                @error('nrml_price2')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group mb-2">
+                                <label for="urgent_price2">Urgent Price in (Rs.)</label>
+                                <input type="number" step="0.01"
+                                    class="form-control @error('urgent_price2') is-invalid @enderror"
+                                    value="{{ old('urgent_price2') }}" id="urgent_price2" name="urgent_price2" />
+                                @error('urgent_price2')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group mb-2">
+                                <label for="sizeinc">Quantity Range</label>
+                                <div class="d-flex">
+                                    <input type="number" step="0.01"
+                                        class="form-control @error('qty_range5') is-invalid @enderror qty_range5"
+                                        style="width: 7rem;" value="{{ old('qty_range5') }}" id="qty_range5"
+                                        name="qty_range5" /> <span class="m-2">-</span> <input type="number" step="0.01"
+                                        class="form-control @error('qty_range6') is-invalid @enderror sizeinc"
+                                        value="{{ old('qty_range6') }}" id="qty_range6" name="qty_range6" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group mb-2">
+                                <label for="nrml_price3">Normal Price in (Rs.)</label>
+                                <input type="number" step="0.01"
+                                    class="form-control @error('nrml_price3') is-invalid @enderror"
+                                    value="{{ old('nrml_price3') }}" id="nrml_price3" name="nrml_price3" />
+                                @error('nrml_price3')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group mb-2">
+                                <label for="urgent_price3">Urgent Price in (Rs.)</label>
+                                <input type="number" step="0.01"
+                                    class="form-control @error('urgent_price3') is-invalid @enderror"
+                                    value="{{ old('urgent_price3') }}" id="urgent_price3" name="urgent_price3" />
+                                @error('urgent_price3')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group mb-2">
+                                <label for="sizeinc">Quantity Range</label>
+                                <div class="d-flex">
+                                    <input type="number" step="0.01"
+                                        class="form-control @error('qty_range7') is-invalid @enderror qty_range7"
+                                        style="width: 7rem;" value="{{ old('qty_range7') }}" id="qty_range7"
+                                        name="qty_range7" /> <span class="m-2">-</span> <input type="number" step="0.01"
+                                        class="form-control @error('qty_range8') is-invalid @enderror sizeinc"
+                                        value="{{ old('qty_range8') }}" id="qty_range8" name="qty_range8" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group mb-2">
+                                <label for="nrml_price4">Normal Price in (Rs.)</label>
+                                <input type="number" step="0.01"
+                                    class="form-control @error('nrml_price4') is-invalid @enderror"
+                                    value="{{ old('nrml_price4') }}" id="nrml_price4" name="nrml_price4" />
+                                @error('urgent_price4')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group mb-2">
+                                <label for="urgent_price4">Urgent Price in (Rs.)</label>
+                                <input type="number" step="0.01"
+                                    class="form-control @error('urgent_price4') is-invalid @enderror"
+                                    value="{{ old('urgent_price4') }}" id="urgent_price4" name="urgent_price4" />
+                                @error('urgent_price4')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group mb-2">
+                                <label for="sizeinc">Quantity Range</label>
+                                <div class="d-flex">
+                                    <input type="number" step="0.01"
+                                        class="form-control @error('qty_range9') is-invalid @enderror qty_range9"
+                                        style="width: 7rem;" value="{{ old('qty_range9') }}" id="qty_range9"
+                                        name="qty_range9" /> <span class="m-2">-</span> <input type="number" step="0.01"
+                                        class="form-control @error('qty_range10') is-invalid @enderror sizeinc"
+                                        value="{{ old('qty_range10') }}" id="qty_range10" name="qty_range10" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group mb-2">
+                                <label for="nrml_price5">Normal Price in (Rs.)</label>
+                                <input type="number" step="0.01"
+                                    class="form-control @error('nrml_price5') is-invalid @enderror"
+                                    value="{{ old('nrml_price5') }}" id="nrml_price5" name="nrml_price5" />
+                                @error('nrml_price5')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group mb-2">
+                                <label for="urgent_price5">Urgent Price in (Rs.)</label>
+                                <input type="number" step="0.01"
+                                    class="form-control @error('urgent_price5') is-invalid @enderror"
+                                    value="{{ old('urgent_price5') }}" id="urgent_price5" name="urgent_price5" />
+                                @error('urgent_price5')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+
                         <div class="col-md-12">
                             <div class="form-group mb-2">
                                 <label for="">Weight in gm (pcs/sqr)*</label>
@@ -251,6 +405,7 @@
                                         <option value="cuft">cu.ft</option>
                                         <option value="inch">in</option>
                                         <option value="cm">cm</option>
+                                        <option value="mm">mm</option>
                                         <option value="m">m</option>
                                     </select>
                                 </div>

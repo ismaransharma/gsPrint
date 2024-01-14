@@ -89,6 +89,11 @@
                                         </button>
                                     </a>
                                 </div>
+                                <div class="col-md-3">
+                                    <h6 class="fw-bold">Your Own Design</h6>
+                                    <img width="50%" src="{{ asset('uploads/uploadADesign/'. $cart->upload_design) }}"
+                                        alt="">
+                                </div>
                             </div>
                         </div>
                     </div>

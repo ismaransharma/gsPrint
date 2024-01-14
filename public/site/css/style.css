@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=Poppins:100,300,400,500,600,700,800, 800i, 900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Lekton:ital@0;1&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 
 :root {
     --white: #fff;
@@ -35,8 +36,11 @@ html {
 .up {
     margin: 0;
     padding: 0;
-    padding-top: 2.3rem;
-    width: 9.6rem;
+    min-width: 8.6rem;
+}
+
+.navbar-toggler {
+    margin: 0 10rem;
 }
 
 .hiddenli {
@@ -46,6 +50,24 @@ html {
 .originalPrice {
     text-decoration: line-through;
     color: var(--white);
+}
+
+.col-md-12.radios {
+    margin: 1.2rem 0;
+}
+
+.prices {
+    font-size: 1.5rem;
+    margin-right: 4rem;
+    cursor: pointer;
+}
+
+span.togglePass {
+    cursor: pointer;
+}
+
+.not-allowed {
+    cursor: not-allowed;
 }
 
 /* Top Header Css Starts Here */
@@ -107,6 +129,8 @@ html {
 /* Top Header Css Ends Here */
 
 /* NavBar Css Starts Here */
+
+/* NavBar Css Starts Here */
 #navbar {
     position: sticky;
     top: 0;
@@ -115,46 +139,54 @@ html {
     font-size: 1.4rem;
 }
 
-#navbar .row .col-md-8 {
+#navbar .row .col-md-7 {
     width: 75.8rem;
 }
 
-#navbar .row .col-md-8 .main {
-    padding-left: 7rem;
+#navbar .row .col-md-7 .main .search {
+    margin: 1rem 7rem;
 }
 
-#navbar .row .col-md-8 .main .nav-item {
+#navbar .row .col-md-7 .main .search form {
+    display: flex;
+}
+
+#navbar .row .col-md-7 .main .search input {
+    height: 3rem;
+    width: 62rem;
+    outline: none;
+    border: none;
+    background-color: #f2f2f2;
+    padding: 0 2rem;
+}
+
+#navbar .row .col-md-7 .main .search button {
+    height: 3.1rem;
+    width: 3rem;
+    outline: none;
+    border: none;
+    color: #7b716f;
+}
+
+#navbar .row .col-md-7 .main .search .round-left {
+    border-top-left-radius: 0.3rem;
+    border-bottom-left-radius: 0.3rem;
+}
+
+#navbar .row .col-md-7 .main .search .round-right {
+    border-top-right-radius: 0.3rem;
+    border-bottom-right-radius: 0.3rem;
+}
+
+#navbar .row .col-md-7 .main .nav-item {
     padding: 0.6rem 0 0 4.5rem;
 }
 
-#navbar .row .col-md-1 .wishlist a {
+#navbar .row .col-md-1 .login a {
     color: var(--black);
+    text-decoration: none;
 }
-
-#navbar .row .col-md-1 .wishlist .wishlist-icon {
-    position: relative;
-}
-
-#navbar .row .col-md-1 .wishlist .filled-heart {
-    position: absolute;
-    z-index: 90;
-    left: 113.4rem;
-    transition: 0.4s;
-    top: 44%;
-    opacity: 0;
-}
-
-#navbar .row .col-md-1 .wishlist .wishlist-icon:hover {
-    opacity: 0;
-}
-
-#navbar .row .col-md-1 .wishlist .wishlist-icon:hover.wishlist-icon {
-    opacity: 0;
-}
-
-#navbar .row .col-md-1 .wishlist .filled-heart:hover.filled-heart {
-    opacity: 1;
-}
+/* NavBar Css Ends Here */
 
 #navbar .row .col-md-1 .cart-total a {
     cursor: pointer;
@@ -216,6 +248,99 @@ html {
 /* Cart Modal Css Ends Here*/
 
 /* Slider Css Starts Here */
+
+#cateAndSlider .row {
+    width: 100%;
+}
+
+#cateAndSlider .row .col-md-2 {
+    background-color: var(--white);
+    margin: 0;
+    padding: 0;
+}
+
+#cateAndSlider .row .col-md-12,
+#cateAndSlider .row .col-md-12 .dropend {
+    width: 100%;
+}
+
+#cateAndSlider #hoverDropdown .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 100%;
+    transition: opacity 0.2s, transform 0.2s;
+    transform-origin: 0 0;
+    transform: translateX(10px);
+}
+
+#cateAndSlider #hoverDropdown:hover .dropdown-menu {
+    display: block;
+    transform: translateX(0);
+}
+
+#cateAndSlider .col-md-2 .dropend .dropdown-toggle::after {
+    display: none;
+}
+
+#cateAndSlider .col-md-2 button {
+    background: none;
+    outline: none;
+    border: none;
+    color: var(--black);
+    font-size: 1.8rem;
+    cursor: pointer;
+    width: 100%;
+    height: 5rem;
+    margin: 0;
+    border-bottom: 0.1rem solid #f2f2f2;
+    padding: 0;
+}
+
+#cateAndSlider .col-md-2 button:hover {
+    color: var(--header);
+}
+
+#cateAndSlider .col-md-2 button .text-left {
+    text-align: left;
+    margin: 0 3rem;
+}
+
+#cateAndSlider .col-md-2 button .right .name-right {
+    font-size: 1rem;
+}
+
+#cateAndSlider .col-md-2 ul {
+    width: 25rem;
+    font-size: 1.6rem;
+    background-color: var(--white);
+    border: none;
+    border-radius: 0;
+    cursor: pointer;
+}
+
+#cateAndSlider ul li {
+    border-bottom: 0.1rem solid #f2f2f2;
+}
+
+#cateAndSlider ul.dropdown-menu a li {
+    height: 3rem;
+}
+
+#cateAndSlider .col-md-2 ul li:hover {
+    color: var(--header);
+}
+
+#cateAndSlider .col-md-2 a {
+    color: var(--black);
+    text-decoration: none;
+}
+
+#cateAndSlider .row .col-md-10 {
+    padding: 0;
+    margin: 0;
+}
+
 #slider {
     width: 100%;
 }
@@ -271,7 +396,7 @@ html {
     border-radius: 0.5rem;
     height: 25rem;
     width: 22.4rem;
-    margin: 2.5rem;
+    margin: 2.5rem auto;
     position: relative;
     transition: 0.6s ease-in-out;
 }
@@ -297,7 +422,6 @@ html {
 
 #featuresCategories .featCate .cateBody .row .col-md-3 img {
     height: 16rem;
-    width: 21rem;
     margin: 3.2rem 0px;
 }
 
@@ -328,6 +452,11 @@ html {
     line-height: 5rem;
 }
 
+#featuresProducts .container {
+    margin: 0;
+    width: 100%;
+}
+
 #featuresProducts .featProd .ProdHeader .first {
     color: var(--header);
     text-transform: uppercase;
@@ -346,6 +475,11 @@ html {
     font-size: 1.6rem;
 }
 
+#featuresProducts .featProd .ProBody .col-md-3 {
+    margin: 1.5rem auto;
+    min-width: 25rem;
+}
+
 .containerji {
     position: relative;
 }
@@ -353,11 +487,11 @@ html {
 .containerji .card {
     position: relative;
     height: 33.7rem;
-    width: 26.2rem;
+    /* width: 26.2rem; */
     background: var(--header);
     border-radius: 0.8rem;
     overflow: hidden;
-    margin: 0 0 5rem 0;
+    margin: 0 auto;
 }
 
 .containerji .card:before {
@@ -774,8 +908,8 @@ html {
 }
 
 #buyNowContainer .row .productImage img {
-    /* width: 90%; */
-    height: 30rem;
+    max-width: 20rem;
+    height: auto;
     transition: 0.8s;
 }
 
@@ -785,18 +919,23 @@ html {
 }
 
 #buyNowContainer .row .productTitle h3 {
-    font-size: 2.5rem;
-}
-
-#buyNowContainer .row .productTitle h3 {
     border-bottom: 2px solid var(--gray);
-    font-size: 3rem;
+    font-size: 2.6rem;
     width: 65%;
 }
 
 #buyNowContainer .row .productDescription p {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     line-height: 2.6rem;
+}
+
+#buyNowContainer .row .col-md-6.prodDet {
+    width: 45%;
+}
+
+#buyNowContainer a.buyNow {
+    text-decoration: none;
+    color: #fff;
 }
 
 .products-details {
@@ -821,42 +960,117 @@ html {
     font-size: 1.4rem;
 }
 
-#buyNowContainer .row .col-md-7 input {
+#buyNowContainer .row .col-md-6 input {
     font-size: 1.4rem;
 }
 
-#buyNowContainer .row .col-md-7 .product-qty-update {
+#buyNowContainer .row .col-md-6 .product-qty-update {
     margin: 2rem 0;
 }
 
-#buyNowContainer .row .col-md-7 button {
+#buyNowContainer .row .col-md-6 button {
     margin: 0 1.5rem 0 1rem;
 }
 
-#buyNowContainer .row .col-md-7 button.addtoca {
+#buyNowContainer .row .col-md-6 button.addtoca {
     color: var(--white);
     text-decoration: none;
 }
-#buyNowContainer .row .col-md-7 .add-to-cart {
+#buyNowContainer .row .col-md-6 .add-to-cart {
     background-color: var(--bs-gray);
     color: var(--white);
     transition: 0.7s ease-in-out;
     font-size: 1.4rem;
 }
 
-#buyNowContainer .row .col-md-7 .add-to-cart:hover {
+#buyNowContainer .row .col-md-6 .add-to-cart:hover {
     background-color: var(--green);
 }
 
-#buyNowContainer .row .col-md-7 .buy-now-button {
+#buyNowContainer .row .col-md-6 .buy-now-button {
     background-color: var(--header);
     color: var(--white);
     transition: 0.7s ease-in-out;
     font-size: 1.4rem;
 }
 
-#buyNowContainer .row .col-md-7 .buy-now-button:hover {
+#buyNowContainer .row .col-md-6 .buy-now-button:hover {
     background-color: var(--green);
+}
+
+#buyNowContainer .row .col-md-3 .card {
+    width: 145%;
+}
+
+#buyNowContainer .row .col-md-3 .card .card-header {
+    background-color: var(--header);
+    color: var(--white);
+}
+
+#buyNowContainer .row .col-md-3 .card-header {
+    border-bottom: 0.1rem solid #f2f2f2;
+}
+
+#buyNowContainer .row .col-md-3 .card-header h3 {
+    font-family: "Roboto", sans-serif;
+}
+#buyNowContainer .row .col-md-3 table thead th {
+    font-size: 1.2rem;
+    width: 1%;
+}
+
+#buyNowContainer .row .col-md-3 table tbody td {
+    font-size: 1.3rem;
+}
+
+#buyNowContainer .row input.upload_design {
+    display: none;
+}
+
+#buyNowContainer .row input.hire_designer {
+    display: none;
+}
+
+#buyNowContainer .row .designer input[type="file"] {
+    display: none;
+}
+
+#buyNowContainer .row .custom-file-upload::before {
+    content: "Upload design";
+    margin: 2rem 0;
+    display: inline-block;
+    padding: 1rem 2rem;
+    background-color: var(--header);
+    color: #fff;
+    cursor: pointer;
+    border: none;
+    border-radius: 0.5rem;
+    text-align: center;
+    transition: background-color 0.3s;
+    font-size: 1.3rem;
+}
+
+#buyNowContainer .row .custom-file-upload:hover::before {
+    background-color: var(--green);
+}
+
+#buyNowContainer .row .hire-designer::before {
+    content: "Hire a designer";
+    margin: 2rem 5rem;
+    display: inline-block;
+    padding: 1rem 2rem;
+    background-color: var(--green);
+    color: #fff;
+    cursor: pointer;
+    border: none;
+    border-radius: 0.5rem;
+    text-align: center;
+    transition: background-color 0.3s;
+    font-size: 1.3rem;
+}
+
+#buyNowContainer .row .hire-designer:hover::before {
+    background-color: var(--header);
 }
 
 /* Shop CSS Ends Here */
@@ -972,6 +1186,115 @@ html {
 
 /* Proceed to Checkout CSS Ends Here */
 
+/* My account CSS Starts Here */
+
+#pageHead {
+    padding: 1rem 2rem;
+    background-color: #f9f9f9;
+    position: sticky;
+}
+
+#pageHead {
+    list-style: none;
+}
+
+#pageHead .navBarMyAcc {
+    margin: 0 0 2.3rem 0;
+}
+
+#pageHead .navBarMyAcc .col-md-5,
+#pageHead .navBarMyAcc .col-md-2 {
+    padding: 0;
+    width: 10rem;
+}
+
+#pageHead .navBarMyAcc .col-md-2 a {
+    font-size: 1rem;
+    margin: 1.6rem 0;
+}
+
+#pageHead .navBarMyAcc a {
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: var(--black);
+    transition: 0.3s ease-in-out;
+}
+
+#pageHead .navBarMyAcc a:hover {
+    color: var(--header);
+    border-bottom: 0.1rem solid header;
+}
+
+#myAccount .card {
+    width: 48%;
+    left: 27%;
+}
+
+#myAccount .card .card-body {
+    font-size: 1.5rem;
+}
+
+#myAccount .card .card-body .col-md-12 {
+    margin-bottom: 1.5rem;
+}
+
+#myAccount .card .card-body form .col-md-12 .col-md-2.togglePassUp {
+    margin: 1.6rem 0;
+}
+
+#myAccount .card .card-body input {
+    font-size: 1.6rem;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #f2f2f2;
+}
+
+#myAccount .card .card-body input:hover,
+#myAccount .card .card-body input:focus {
+    border-bottom: 1px solid #7b716f;
+}
+
+#myAccount .card .card-body input.form-control:hover {
+    box-shadow: none;
+}
+
+#myAccount .card .card-body input.form-control:focus {
+    box-shadow: none;
+}
+
+#myAccount .card button.btn.btn-primary {
+    font-size: 1.3rem;
+}
+
+#navbar .myAccount {
+    display: none;
+}
+
+.yourOrderImg {
+    height: 10rem;
+    width: 15rem;
+}
+
+#orderSection table thead th {
+    font-size: 1.6rem;
+}
+
+#orderSection table tbody td {
+    font-size: 1.4rem;
+}
+
+.yourOrder .modal-body .col-md-12,
+.yourOrder .modal-body .col-md-6,
+.yourOrder .modal-body .col-md-4 {
+    border-bottom: 0.1rem solid var(--gray);
+}
+
+.yourOrder .modal-body .col-md-6,
+.yourOrder .modal-body .col-md-4 {
+    border-right: 0.1rem solid var(--gray);
+}
+/* My account CSS Ends Here */
+
 /* Footer CSS Starts Here */
 #footer {
     height: 42rem;
@@ -1048,35 +1371,27 @@ html {
 #login .main .box {
     border: 0.1rem solid var(--gray);
     height: 30rem;
-    width: 50%;
+    width: 40%;
     font-size: 2rem;
     padding: 3rem;
+    border-radius: 10px;
 }
 
-#login .main .left {
-    height: 20rem;
-    border-right: 1px solid gray;
-    padding: 4rem 1rem;
-}
-
-#login .main .box .col-md-6.left button {
-    background-color: var(--google);
-    border: 0.1rem solid var(--google);
-    border-radius: 0;
-    color: var(--white);
-    height: 3.5rem;
-    width: 60%;
-    font-size: 1.8rem;
+#login .main .col-md-12.aldyacc {
     text-align: center;
 }
 
-#login .main .box .col-md-6 .google .col-md-12 .googleIcon {
-    padding: 0 0.5rem;
-    border-right: 1px solid #9d8686;
+#login .main .col-md-12.aldyacc a {
+    font-size: 1.4rem;
+    text-decoration: none;
+}
+
+#login .main .login .col-md-12.dontacc {
+    text-align: center;
 }
 
 #login .main .right .signinHeader {
-    text-align: center;
+    margin: 0 3.7rem;
 }
 
 #login .main .right span.invalid-feedback {
@@ -1086,31 +1401,44 @@ html {
 #login .main .right .loginp {
     /* font-family: FontAwesome ; */
     height: 3rem;
-    width: 20rem;
+    width: 100%;
     border: 0;
     border-radius: 0;
-    border-bottom: 0.1rem solid var(--gray);
+    border-bottom: 0.1rem solid #d3cece;
     outline: none;
     font-size: 1.5rem;
 }
 
 #login .main .right .loginp:hover,
 #login .main .right .loginp:focus {
-    border-bottom: 0.1rem solid var(--black);
+    border-bottom: 0.1rem solid var(--gray);
 }
 
-#login .main .right .col-md-6 .form-check {
+#login .main .right .col-md-12 .form-check {
     font-size: 1.5rem;
-    width: 16rem;
+    /* width: 16rem; */
+}
+
+#login .main .right .col-md-12 .form-check a {
+    font-size: 1.3rem;
 }
 
 #login .main .right .row.mb-3 {
     margin: 0 0 0 2rem;
 }
 
+#login .main .right .row .col-md-8.butnn {
+    margin: 1rem 0 2rem 1.5rem;
+}
+
 #login .main .right .row .col-md-8 {
     text-align: center;
-    margin: 0 0 0 5rem;
+    margin: 1rem 0 0 9.5rem;
+    width: 100%;
+}
+
+#login .main .right .row .col-md-8.reg {
+    margin: 0;
 }
 
 #login .main .right .row .col-md-8 button {

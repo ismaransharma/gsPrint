@@ -36,17 +36,18 @@ Route::get('/shop',[SiteController::class, 'shop'])->name('getShop');
 
 Route::get('/product/details/{slug}',[SiteController::class, 'productDetails'])->name('getProductDetails');
 
-Route::get('/googleLogin',[SiteController::class, 'googleLogin']);
 
-Route::get('/auth/google/callback',[SiteController::class, 'googleHandle']);
-
-
-Route::get('/account/password/show', [AccountController::class, 'showPasswordForm'])->name('account.showPasswordForm');
-
-Route::post('/account/password', [AccountController::class, 'updatePassword'])->name('account.updatePassword');
 
 Route::middleware('auth')->middleware(['auth','verified'])->group(function () {
-
+    
+    Route::get('/account/password/show', [AccountController::class, 'showPasswordForm'])->name('account.showPasswordForm');
+    
+    Route::post('/account/password', [AccountController::class, 'updatePassword'])->name('account.updatePassword');
+    
+    Route::get('/myAccount',[SiteController::class, 'getAccDashboard'])->name('getAccDashboard');
+    
+    Route::get('/your-Orders',[SiteController::class, 'getYourOrder'])->name('getYourOrder');
+    
     // Carts
     Route::get('/carts', [SiteController::class, 'getCart'])->name('getCart');
 
@@ -60,15 +61,24 @@ Route::middleware('auth')->middleware(['auth','verified'])->group(function () {
 
     Route::post('/checkout', [SiteController::class, 'postCheckout'])->name('postCheckout');
 
+    Route::get('/profile', [AccountController::class, 'edit'])->name('profile.edit');
+    
+    Route::put('/profile', [AccountController::class, 'update'])->name('profile.update');
+
 });
 
+
+
 Route::prefix("admin")->group(function(){
+
+    Route::get('',[AdminController::class,'dashboard'])->name('getDashboard');
+
     Route::get('/dashboard',[AdminController::class,'dashboard'])->name('getDashboard');
     
     Route::get('/manageAboutUs',[AdminController::class,'manageAboutUs'])->name('getManageAboutUs');
     
     Route::get('/manageContactUs',[AdminController::class,'manageContactUs'])->name('getManageContactUs');
-
+    
     
     
     Route::prefix('category')->group (function (){
@@ -107,6 +117,8 @@ Route::prefix("admin")->group(function(){
     Route::prefix('orders')->group (function (){
         Route::get('/manageOrders',[AdminController::class,'manageOrders'])->name('getManageOrders');
         Route::get('payment/complete/{id}',[AdminController::class,'makePaymentComplete'])->name('makePaymentComplete');
+        Route::get('/searchOrder', [AdminController::class, 'searchOrder'])->name('searchOrder');
+
 
     });
 
@@ -119,3 +131,5 @@ Auth::routes();
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::get('login', [CustomLoginController::class, 'showLoginForm'])->name('login');
+
+Route::get('register', [CustomLoginController::class, 'showRegisterForm'])->name('register');

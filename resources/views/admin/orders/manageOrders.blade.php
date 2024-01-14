@@ -1,7 +1,9 @@
 @extends('admin.dashboard')
 @section('adminTemplate')
 
+
 <?php
+use Carbon\Carbon;
 // dd($orders);
 ?>
 
@@ -14,6 +16,16 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <h4>Manage Order -- {{ $orders->count() }}</h4>
+                            </div>
+                            <div class="col-md-6 text-end">
+                                <form action="/admin/orders/searchOrder">
+                                    <input type="search" placeholder="Search Order" name="searchOrder" id="searchOrder"
+                                        class="@error('searchOrder') is-invalid @enderror round-left search"
+                                        value="{{ $searchOrder }}">
+                                    <button class="round-right searchBtn">
+                                        <i class="fa-solid fa-magnifying-glass"></i>
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -37,7 +49,7 @@
                                 @foreach ($orders as $order)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $order->user_id }}</td>
+                                    <td>{{ ($order->user_id) }}</td>
                                     <td>{{ $order->user_name }}</td>
                                     <td>{{ $order->name }}</td>
                                     <td>{{ $order->mobile_number }}</td>
@@ -46,9 +58,13 @@
                                     <td>{{ Str::limit($order->address ?? 'No Address', 10)}}..</td>
                                     <td>
                                         @if ($order->payment_method == 'cod')
-                                        <h5>Cash on Delivery</h5>
+                                        @if ($order->payment_status == 'Y')
+                                        <h5 class="green">Cash on Delivery</h5>
                                         @else
-                                        <h5>Online Payment</h5>
+                                        <h5 class="red">Cash on Delivery</h5>
+                                        @endif
+                                        @else
+                                        <h5 class="green">Online Payment</h5>
                                         @endif
                                     </td>
                                     <td style="width: 121px;">
@@ -78,16 +94,27 @@
 
 @foreach ($orders as $order1)
 <?php
+
     $carts = App\Models\Cart::where('cart_code', $order1->cart_code)->get();
     if ($carts) {
         $total_amount = App\Models\Cart::where('cart_code', $order1->cart_code)->sum('total_price');
     }
+    $orderTime = $order1->created_at;
+    $carbonTimestamp = Carbon::parse($orderTime)->setTimezone('Asia/Kathmandu');
+    $formattedDate = $carbonTimestamp->format('d-F'); 
+    $formattedTime = $carbonTimestamp->format('g:i A'); 
+
+    // Check if the order was placed today, yesterday, or X days ago
+    $humanReadableTime = $carbonTimestamp->diffForHumans();
+
+    $actualOrderTime = $formattedDate . ' at ' . $formattedTime . ' (' . $humanReadableTime . ')';
+
 
     // dd($order1->additional_information)
 ?>
 
 <!-- Modal for view Order-->
-<div class="modal fade" id="view-{{ $order1->cart_code }}" tabindex="-1"
+<div class="modal fade manageOrder" id="view-{{ $order1->cart_code }}" tabindex="-1"
     aria-labelledby="#view-{{ $order1->cart_code }}Label" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -97,54 +124,53 @@
             </div>
             <div class="modal-body">
                 <div class="container-fluid">
-                    <table class="table">
-                        <tbody>
-                            @foreach ($carts as $cart)
-                            <tr>
-                                <td>
-                                    <img src="{{ asset('uploads/product/' . $cart->getProductFromCart->product_image) }}"
-                                        alt="{{ $cart->getProductFromCart->product_title }}" class="img-fluid"
-                                        style="height: 100px; width: 100px;">
-                                </td>
-                                <td>
-                                    <p>{{ $cart->getProductFromCart->product_title }} <br>
-                                        {{ $cart->getProductFromCart->category->category_title }} <br>
-                                        Rs.
-                                        {{ $cart->getProductFromCart->orginal_cost - $cart->getProductFromCart->discounted_cost }}
-                                    </p>
-                                    <div class="additional_information">
-                                        @if ($order1->additional_information)
-                                        <b>Additional Information:- {{ $order1->additional_information }}</b>
-
-                                        @else
-                                        <b>Additional Information: Null</b>
-                                        @endif
-                                    </div>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                    <div class="row top-bottom-border p-2">
-                        <div class="col-md-6">Quantity:</div>
-                        <div class="col-md-6 text-right cost">{{ $cart->quantity }}
+                    <div class="row">
+                        <div class="col-md-12 mb-2">
+                            <h3>Product Name:-</h3>
+                            <h4>{{ $order1->product_name }}</h4>
                         </div>
-                    </div>
-                    <div class="row top-bottom-border p-2">
-                        <div class="col-md-6">Sub Total:</div>
-                        <div class="col-md-6 text-right cost">{{ $total_amount }}
+                        <div class="col-md-4 mb-2">
+                            <h3>Quantity:-</h3>
+                            <h4>{{ $order1->quantity }}</h4>
                         </div>
-                    </div>
-                    <div class="row top-bottom-border p-2">
-                        <div class="col-md-6">Shipping Charge:</div>
-                        <div class="col-md-6 text-right cost">
-                            Rs. 100 | All Over Nepal
-                            <!-- {{ $order1->address }} -->
+                        <div class="col-md-4 mb-2">
+                            <h3>Per Quanitity:-</h3>
+                            <h4>{{ $order1->price }}</h4>
                         </div>
-                    </div>
-                    <div class="row top-bottom-border p-2">
-                        <div class="col-md-6">Grand Total:</div>
-                        <div class="col-md-6 text-right cost">Rs. {{ $total_amount + 100}}</div>
+                        <div class="col-md-4 mb-2">
+                            <h3>Sub Total:-</h3>
+                            <h4>{{ $order1->total }}</h4>
+                        </div>
+                        <div class="col-md-12 mb-2">
+                            <h3>Price Type:-</h3>
+                            @if ($order1->price2 == "nrml_price")
+                            <h4>Normal Price</h4>
+                            @else
+                            <h4>Urgent Price</h4>
+                            @endif
+                        </div>
+                        <div class="col-md-6 mb-5">
+                            <h3>Shipping Charge (All over Nepal):-</h3>
+                            <h4>150</h4>
+                        </div>
+                        <div class="col-md-6 mb-5">
+                            <h3>Total:-</h3>
+                            <h4>{{ $order1->payment_amount }}</h4>
+                        </div>
+                        <div class="col-md-12 mb-2">
+                            <h3>Design:-</h3>
+                            @if ($order1->upload_design)
+                            <img src="{{ asset('uploads/uploadADesign/'. $order1->upload_design) }}"
+                                alt="Uploaded Design" class="yourOrderImg">
+                            <h4>(Customer Own design)</h4>
+                            @else
+                            <h4>Hired a designer</h4>
+                            @endif
+                        </div>
+                        <div class="col-md-6">
+                            <h3>Created At</h3>
+                            <h4>{{ $actualOrderTime }}</h4>
+                        </div>
                     </div>
                 </div>
             </div>

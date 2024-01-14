@@ -16,6 +16,12 @@ return new class extends Migration
             $table->string('cart_code')->unique();
             $table->unsignedBigInteger('user_id');
             $table->string('user_name');
+            $table->string('product_name');
+            $table->integer('quantity');
+            $table->decimal('price');
+            $table->float('total', 10, 0)->default('0');
+            $table->string('upload_design')->unique();
+            $table->enum('price2',['nrml_price', 'urgent_price']);
             $table->string('name');
             $table->string('mobile_number');
             $table->string('email');

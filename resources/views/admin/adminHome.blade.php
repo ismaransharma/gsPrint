@@ -2,7 +2,7 @@
 @section('adminTemplate')
 
 <?php
-// dd($products);
+// dd($Orders);
 ?>
 
 <section id="dashboard">
@@ -23,7 +23,7 @@
                                 </div>
                             </div>
                             <div class="profile-name">
-                                <h6>Ghanshyam Gautam</h6>
+                                <h6>{{ $user }}</h6>
                             </div>
                         </div>
                     </div>
@@ -35,7 +35,7 @@
                                 <h6>Total Earning!</h6>
                             </div>
                             <div class="earning">
-                                <h5>Rs. 208000</h5>
+                                <h5>Rs. {{ $totalEarnings }}</h5>
                             </div>
                         </div>
                     </div>
@@ -49,44 +49,13 @@
                             <h6>Completed Orders!</h6>
                             <div class="col-md-6 text-center">
                                 <div class="completedOrders">
-                                    <h5>20</h5>
+                                    <h5>{{ $Orders}}</h5>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            @if ($products->where('stock', '<', 15)->count() > 0)
-                <div class="row middle">
-                    <div class="col-md-12 main-card">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <h3>Low Stock Product</h3>
-                                    </div>
-                                </div>
-                                <div class="lists">
-                                    <h4>
-                                        <ul>
-                                            @foreach ($products as $product)
-                                            @if ($product->stock < 10) @if ($product->stock <= 5) <li
-                                                    style="color: red;">
-                                                    {{ $product->product_title }} -> {{ $product->stock }}
-                                                    </li>
-                                                    @else
-                                                    <li>{{ $product->product_title }} -> {{ $product->stock }}</li>
-                                                    @endif
-                                                    @endif
-                                                    @endforeach
-                                        </ul>
-                                    </h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                @endif
 
         </div>
     </div>

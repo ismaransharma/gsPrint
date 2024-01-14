@@ -26,20 +26,7 @@
         <div class="main">
             <div class="box">
                 <div class="row">
-                    <div class="col-md-6 left">
-                        <a href="{{ URL::to('googleLogin') }}">
-                            <button class="btn">
-                                <div class="google">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <i class="fa-brands fa-google googleIcon"></i> <span>Google</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </button>
-                        </a>
-                    </div>
-                    <div class="col-md-6 right">
+                    <div class="col-md-12 right">
                         <div class="login">
                             <form method="POST" action="{{ route('login') }}">
                                 @csrf
@@ -47,7 +34,7 @@
                                     <h3>Sign In</h3>
                                 </div>
                                 <div class="row mb-3">
-                                    <div class="col-md-6">
+                                    <div class="col-md-12">
                                         <input id="email" type="email"
                                             class=" @error('email') is-invalid @enderror loginp" name="email"
                                             value="{{ old('email') }}" required autocomplete="email"
@@ -61,11 +48,20 @@
                                 </div>
 
                                 <div class="row mb-3">
-                                    <div class="col-md-6">
-                                        <input id="password" type="password"
-                                            class="@error('password') is-invalid @enderror loginp" name="password"
-                                            placeholder="   Enter Your Password" required
-                                            autocomplete="current-password">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="col-md-10">
+                                                <input id="password" type="password"
+                                                    class="@error('password') is-invalid @enderror loginp"
+                                                    name="password" placeholder="Enter Your Password" required
+                                                    autocomplete="current-password">
+                                            </div>
+                                            <div class="col-md-2 togglePassUp">
+                                                <span class="togglePass" onclick="togglePassword()">
+                                                    <i id="eyeIcon" class="fa-solid fa-eye"></i>
+                                                </span>
+                                            </div>
+                                        </div>
 
                                         @error('password')
                                         <span class="invalid-feedback" role="alert">
@@ -75,7 +71,7 @@
                                     </div>
                                 </div>
                                 <div class="row mb-3">
-                                    <div class="col-md-6">
+                                    <div class="col-md-12">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" name="remember"
                                                 id="remember" {{ old('remember') ? 'checked' : '' }}>
@@ -83,21 +79,24 @@
                                             <label class="form-check-label" for="remember">
                                                 {{ __('Remember Me') }}
                                             </label>
+
+                                            @if (Route::has('password.request'))
+                                            <a class="btn btn-link" href="{{ route('password.request') }}">
+                                                {{ __('Forgot Your Password?') }}
+                                            </a>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="row mb-0">
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 butnn">
                                         <button type="submit" class="btn btn-primary">
                                             {{ __('Login') }}
                                         </button>
-
-                                        @if (Route::has('password.request'))
-                                        <a class="btn btn-link" href="{{ route('password.request') }}">
-                                            {{ __('Forgot Your Password?') }}
-                                        </a>
-                                        @endif
+                                    </div>
+                                    <div class="col-md-12 dontacc aldyacc">
+                                        <a href="{{ route('register') }}">Don't have an account?</a>
                                     </div>
                                 </div>
                             </form>

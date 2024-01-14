@@ -25,7 +25,7 @@
 <section id="buyNowContainer">
     <div class="container">
         <div class="row">
-            <div class="col-md-5">
+            <div class="col-md-3">
                 <div class="productImage">
                     <img src="{{ asset('uploads/product/' . $product->product_image) }}" alt="Image is not Available!">
                 </div>
@@ -35,7 +35,7 @@
                     </p>
                 </div>
             </div>
-            <div class="col-md-7">
+            <div class="col-md-6 prodDet">
                 <div class="productTitle">
                     <h3 class="fw-bold">{{ $product->product_title }}</h3>
                 </div>
@@ -58,24 +58,24 @@
                         <div class="col-md-6">
                             <h5>{{ $product->weight }} Gram(s)</h5>
                         </div>
+
+                        @if ($product->total === null)
+                        @else
                         <div class="col-md-6">
                             <h4>Price per qty</h4>
                         </div>
                         <div class="col-md-6">
                             <h5>Rs.{{ $product->total }}@if ($product->discount_price)
-                                <span
-                                    style="text-decoration: line-through; font-size: 1.1rem;">Rs.{{ $product->original_price }}</span>
+                                <span style="text-decoration: line-through; font-size: 1.1rem;">Rs.
+                                    {{ $product->original_price }}</span>
                                 @else
-
+                                {{-- Handle discount_price not set --}}
                                 @endif
                             </h5>
                         </div>
-                        <div class="col-md-6">
-                            <h4>Stock</h4>
-                        </div>
-                        <div class="col-md-6">
-                            <h5>{{ $product->stock }}</h5>
-                        </div>
+                        @endif
+
+
                         @if ($product->colour == "Null" && "NULL" )
 
                         @else
@@ -169,33 +169,129 @@
                         </div>
                         @endif
 
+                        <form action="{{ route('postAddToCart', $product->slug) }}" method="POST" class="form"
+                            enctype="multipart/form-data">
+                            @csrf
+
+                            <div class="col-md-12 radios">
+                                <input type="radio" name="price2" value="nrml_price" id="nrml_price" checked>
+                                <span class="prices" onclick="selectRadio('nrml_price')">Normal Price</span>
+
+                                <input type="radio" name="price2" value="urgent_price" id="urgent_price">
+                                <span class="prices" onclick="selectRadio('urgent_price')">Urgent Price</span>
+                            </div>
+
+
+                            <div class="designer">
+                                <label for="upload_design" class="custom-file-upload"></label>
+                                <input type="file" class="form-control @error('upload_design') is-invalid @enderror"
+                                    value="{{ old('upload_design') }}" id="upload_design" name="upload_design"
+                                    required />
+
+                                <label for="hire_designer" class="hire-designer"></label>
+                                <input name="hire_designer" id="hire_designer" class="hire_designer"
+                                    onclick="openWhatsAppChat()" />
+                            </div>
+
+
 
                     </div>
                 </div>
 
-                <form action="{{ route('postAddToCart', $product->slug) }}" method="POST" class="form">
-                    @csrf
-                    <input type="number" name="quantity" id="quantity" min="1" max="30" value="1" placeholder="quantity"
-                        style="height: 45px; width: 170px; text-align: center;">
-                    <button class="btn add-to-cart btn-buy-page">
-                        <i class="fa-solid fa-cart-shopping"></i><span>Add To Cart</span>
-                    </button>
-                    <button class="btn buy-now-button btn-buy-page">
+                <input type=" number" name="quantity" id="quantity" min="1" max="10000" value="1" placeholder="quantity"
+                    style="height: 45px; width: 170px; text-align: center;">
+                <button class="btn add-to-cart btn-buy-page" onclick="validateForm()">
+                    <i class="fa-solid fa-cart-shopping"></i><span>Add To Cart</span>
+                </button>
+                <button class="btn buy-now-button btn-buy-page">
+                    <a href="{{ route('getProceedToCheckout') }}" class="buyNow">
                         <span>Buy Now</span>
-                    </button>
+                    </a>
+                </button>
                 </form>
             </div>
+            @if ($product->qty_range1)
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Price List</h3>
+                    </div>
+                    <div class="card-body">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Quantity Range</th>
+                                    <th>Normal Price (/unit)</th>
+                                    <th>Urgent Price (/unit)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if ($product->qty_range1)
+                                <tr>
+                                    <td>{{ $product->qty_range1 }} - {{ $product->qty_range2 }}</td>
+                                    <td>Rs. {{ $product->nrml_price1 }}</td>
+                                    <td>Rs. {{ $product->urgent_price1 }}</td>
+                                    @else
+
+                                </tr>
+                                @endif
+                                @if ($product->qty_range3)
+                                <tr>
+                                    <td>{{ $product->qty_range3 }} - {{ $product->qty_range4 }}</td>
+                                    <td>Rs. {{ $product->nrml_price2 }}</td>
+                                    <td>Rs. {{ $product->urgent_price2 }}</td>
+                                    @else
+
+                                </tr>
+                                @endif
+                                @if ($product->qty_range5)
+                                <tr>
+                                    <td>{{ $product->qty_range5 }} - {{ $product->qty_range6 }}</td>
+                                    <td>Rs. {{ $product->nrml_price3 }}</td>
+                                    <td>Rs. {{ $product->urgent_price3 }}</td>
+                                    @else
+
+                                </tr>
+                                @endif
+                                @if ($product->qty_range6)
+                                <tr>
+                                    <td>{{ $product->qty_range7 }} - {{ $product->qty_range8 }}</td>
+                                    <td>Rs. {{ $product->nrml_price4 }}</td>
+                                    <td>Rs. {{ $product->urgent_price4 }}</td>
+                                    @else
+
+                                </tr>
+                                @endif
+                                @if ($product->qty_range3)
+                                <tr>
+                                    <td>{{ $product->qty_range9 }} - {{ $product->qty_range10 }}</td>
+                                    <td>Rs. {{ $product->nrml_price5 }}</td>
+                                    <td>Rs. {{ $product->urgent_price5 }}</td>
+                                    @else
+
+                                </tr>
+                                @endif
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            @else
+
+            @endif
         </div>
     </div>
 </section>
 
 
-<?php $related_products = App\Models\Product::where('category_id', $product->category_id)
-        ->where('deleted_at', null)
-        ->where('status', 'active')
-        ->where('id', '!=', $product->id)
-        ->limit(4)
-        ->get(); 
+<?php 
+$related_products = App\Models\Product::where('category_id', $product->category_id)
+->where('deleted_at', null)
+->where('status', 'active')
+->where('id', '!=', $product->id)
+->get(); 
+// dd($related_products);
+
 ?>
 
 @if (count($related_products) > 0)
@@ -209,7 +305,7 @@
                 </div>
             </div>
         </div>
-        @foreach ($related_products as $item)
+        @foreach ($related_products as $product)
         <div class="body">
             <section id="featuresProducts">
                 <div class="container">
@@ -241,10 +337,10 @@
                                                     @else
 
                                                     @endif
-
+                                                    <!-- 
                                                     <div class="price">
                                                         <h3>Rs.{{ $product->total }}</h3>
-                                                    </div>
+                                                    </div> -->
                                                     <a href="{{ route('getProductDetails', $product->slug) }}">Buy
                                                         Now</a>
                                                 </div>
@@ -267,3 +363,32 @@
 @endif
 
 @endsection
+
+<script>
+function selectRadio(radioId) {
+    document.getElementById(radioId).checked = true;
+}
+</script>
+
+<script>
+function validateForm() {
+    var uploadDesignInput = document.getElementById("upload_design");
+
+    if (uploadDesignInput.files.length === 0) {
+        toastr.error("You need to upload a design");
+        return false;
+    }
+}
+</script>
+
+
+<script>
+function openWhatsAppChat() {
+
+    var designerNumber = '9703516489';
+
+    var whatsappUrl = 'https://wa.me/' + designerNumber;
+
+    window.open(whatsappUrl, '_blank');
+}
+</script>

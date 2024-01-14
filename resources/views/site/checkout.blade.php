@@ -158,9 +158,9 @@
                                                                 <br>
                                                                 Quantity:- {{ $cart->quantity }}<br>
                                                                 Cost:- Rs.
-                                                                {{ $cart->getProductFromCart->total }} per<br>
+                                                                {{ $cart->price / $cart->quantity }} per<br>
                                                                 Total:- Rs.
-                                                                {{ $cart->quantity * $cart->getProductFromCart->total}}
+                                                                {{ $cart->total_price}}
                                                             </p>
                                                         </td>
                                                     </tr>

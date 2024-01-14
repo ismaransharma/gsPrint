@@ -16,9 +16,11 @@ return new class extends Migration
             $table->string('cart_code')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->UnsignedBigInteger('product_id');
-            $table->integer('quantity')->default(1);
+            $table->integer('quantity');
             $table->decimal('price');
+            $table->string('upload_design')->unique();
             $table->decimal('total_price');
+            $table->enum('price2',['nrml_price', 'urgent_price']);
             $table->timestamps();
 
 

@@ -27,13 +27,6 @@
                         </a> <span>/</span> <span>Shop</span>
                     </h5>
                 </div>
-                <div class="col-md-6">
-                    <div class="search">
-                        <form action="/search">
-                            <input type="search" name="search" id="search" placeholder="Search Product">
-                        </form>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -69,10 +62,10 @@
                                         @else
 
                                         @endif
-
+                                        <!-- 
                                         <div class="price">
                                             <h3>Rs.{{ $product->total }}</h3>
-                                        </div>
+                                        </div> -->
                                         <a href="{{ route('getProductDetails', $product->slug) }}">Buy Now</a>
                                     </div>
 

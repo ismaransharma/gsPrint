@@ -12,6 +12,10 @@ class Order extends Model
     protected $fillabel = [
         'cart_code',
         'price',
+        'product_name',
+        'quantity',
+        'price',
+        'price2',
         'name',
         'mobile_number',
         'email',
@@ -20,6 +24,7 @@ class Order extends Model
         'payment_method',
         'payment_status',
         'payment_amount',
+        'created_at'
 
     ];
 
@@ -27,4 +32,9 @@ class Order extends Model
     protected $casts = [
         'deleted_at' => 'datetime',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id'); 
+    }
 }

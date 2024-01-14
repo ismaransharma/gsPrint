@@ -18,8 +18,6 @@ return new class extends Migration
             $table->string('category_title');
             $table->string('product_image')->unique();
             $table->longText('product_description')->nullable();
-            $table->float('original_price');            
-            $table->float('discount_price')->nullable();
             $table->float('total', 10, 0)->nullable()->default('0');
             $table->string('slug')->unique();
             $table->unsignedBigInteger('weight');
@@ -29,15 +27,34 @@ return new class extends Migration
             $table->string('thickness')->nullable();
             $table->string('colour')->nullable()->default("Null");
             $table->enum('size', ['XS', 'S', 'M', 'L', 'XL', 'XXL', 'ALL'])->nullable();
-            $table->enum('sizeinc', ['sqft', 'sqm', 'cuft', 'inch', 'cm', 'm'])->nullable();
+            $table->enum('sizeinc', ['sqft', 'sqm', 'cuft', 'inch', 'cm', 'mm', 'm'])->nullable();
             $table->float('sizeincnum1')->nullable();
             $table->float('sizeincnum2')->nullable();
+            $table->unsignedBigInteger('qty_range1')->nullable();
+            $table->unsignedBigInteger('qty_range2')->nullable();
+            $table->unsignedBigInteger('qty_range3')->nullable();
+            $table->unsignedBigInteger('qty_range4')->nullable();
+            $table->unsignedBigInteger('qty_range5')->nullable();
+            $table->unsignedBigInteger('qty_range6')->nullable();
+            $table->unsignedBigInteger('qty_range7')->nullable();
+            $table->unsignedBigInteger('qty_range8')->nullable();
+            $table->unsignedBigInteger('qty_range9')->nullable();
+            $table->unsignedBigInteger('qty_range10')->nullable();
+            $table->float('nrml_price1', 10, 0)->nullable();
+            $table->float('nrml_price2', 10, 0)->nullable();
+            $table->float('nrml_price3', 10, 0)->nullable();
+            $table->float('nrml_price4', 10, 0)->nullable();
+            $table->float('nrml_price5', 10, 0)->nullable();
+            $table->float('urgent_price1', 10, 0)->nullable();
+            $table->float('urgent_price2', 10, 0)->nullable();
+            $table->float('urgent_price3', 10, 0)->nullable();
+            $table->float('urgent_price4', 10, 0)->nullable();
+            $table->float('urgent_price5', 10, 0)->nullable();
             $table->enum('status', ['active', 'inactive'])->default('active');
-            $table->unsignedInteger('stock');
             $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
 
-            $table->foreign('category_id')->on('categories')->references('id')->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
         });
     }
 

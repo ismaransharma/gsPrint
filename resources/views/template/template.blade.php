@@ -10,8 +10,8 @@
 
     <link rel="stylesheet" href="{{ asset('site/bootstrap/bootstrap.css') }}" />
 
-    <link rel="stylesheet" href="{{ asset('site/css/media.css') }}">
     <link rel="stylesheet" href="{{ asset('site/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('site/css/media.css') }}">
     <link rel="stylesheet" href="{{ asset('site/toastr/toastr.css') }}">
 
 
@@ -27,14 +27,16 @@
             <div class="col-md-9">
                 <div class="phoneNumber">
                     <span><i class="fa-solid fa-phone"></i></span>
-                    <span>OUR PHONE NUMBER: </span>
-                    <span>+977 (061) 525561</span>
+                    <span>Customer Service: </span>
+                    <span>+977 (061) 525561, 9856047078 </span>
                 </div>
             </div>
             <div class="col-md-1 bdr jijo">
                 <div class="myAccount">
-                    <span><i class="fa-solid fa-user"></i></span>
-                    <span>MY ACCOUNT</span>
+                    <a href="{{ route('getAccDashboard') }}">
+                        <span><i class="fa-solid fa-user"></i></span>
+                        <span>MY ACCOUNT</span>
+                    </a>
                 </div>
             </div>
             <div class="col-md-1 bdr uiui">
@@ -75,11 +77,11 @@
                 <div class="col-md-2 logocol">
                     <div class="logo">
                         <a href="{{ route('getHome') }}">
-                            <img src="{{ asset('site/images/logo.PNG') }}" alt="">
+                            <img src="{{ asset('site/images/logo.PNG') }}" alt="logo">
                         </a>
                     </div>
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-7">
                     <div class="main">
                         <nav class="navbar navbar-expand-lg">
                             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -88,64 +90,63 @@
                                 <span class="navbar-toggler-icon"></span>
                             </button>
                             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                                <ul class="navbar-nav ms-auto text-center">
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('getHome') }}">Home</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('getAboutUs') }}">About Us</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('getShop') }}">Shop</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('getContactUs') }}">Contact Us</a>
-                                    </li>
-                                    <li class="nav-item hiddenli">
-                                        <a href="">
-                                            <div class="row">
-                                                <div class="col-md-1 ed up">
-                                                    <div class="wishlist">
-                                                        <i class="fa-regular fa-heart wishlist-icon"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-1 ed up tutut">
-                                                    <div class="cart-total">
-                                                        <i class="fa-solid fa-cart-shopping"></i>
-                                                        <span>Rs 0.00</span>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                <div class="search">
+                                    <form action="/search">
+                                        <input type="search" placeholder="Search Product...." name="search" id="search"
+                                            class="@error('search') is-invalid @enderror round-left"
+                                            value="{{ $search }}">
+                                        <button class="round-right">
+                                            <i class="fa-solid fa-magnifying-glass"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                                @if (Auth::check())
+                                <div class="col-md-1 ed up hiu">
+                                    <div class="cart-total">
+                                        <a class="minCarTtl" data-bs-toggle="modal" data-bs-target="#checkCartModal">
+                                            <i class="fa-solid fa-cart-shopping"></i>
                                         </a>
-                                    </li>
-                                </ul>
+                                        @if ($total_amount)
+                                        <a class="minCarTtl" data-bs-toggle="modal" data-bs-target="#checkCartModal">
+                                            <span>Rs. {{ $total_amount }}</span>
+                                        </a>
+                                        @else
+                                        <span>Rs. 0</span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="col-md-1 bdr jijo">
+                                    <div class="myAccount">
+                                        <a href="{{ route('getAccDashboard') }}">
+                                            <span><i class="fa-solid fa-user"></i></span>
+                                            <span>MY ACCOUNT</span>
+                                        </a>
+                                    </div>
+                                </div>
+                                @else
+                                <div class="col-md-1 ed up hiu">
+                                    <div class="login">
+                                        <a href="{{ route('login') }}">
+                                            <i class="fa-solid fa-arrow-right-from-bracket"></i> <span>Login</span>
+                                        </a>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-1 ed up hiu">
+                                    <div class="login">
+                                        <a href="{{ route('register') }}">
+                                            <i class="fa-solid fa-user-plus"></i> <span>Register</span>
+                                        </a>
+
+                                    </div>
+                                </div>
+                                @endif
                             </div>
                         </nav>
                     </div>
                 </div>
-                <div class="col-md-1 ed up hiu">
-                    <div class="wishlist">
-                        <a href="">
-                            <i class="fa-regular fa-heart wishlist-icon"></i>
-                            <i class="fa-solid fa-heart filled-heart"></i>
-                        </a>
 
-                    </div>
-                </div>
-                <div class="col-md-1 ed up hiu">
-                    <div class="cart-total">
-                        <a class="minCarTtl" data-bs-toggle="modal" data-bs-target="#checkCartModal">
-                            <i class="fa-solid fa-cart-shopping"></i>
-                        </a>
-                        @if ($total_amount)
-                        <a class="minCarTtl" data-bs-toggle="modal" data-bs-target="#checkCartModal">
-                            <span>Rs. {{ $total_amount }}</span>
-                        </a>
-                        @else
-                        <span>Rs. 0</span>
-                        @endif
-                    </div>
-                </div>
+
             </div>
         </div>
     </section>
@@ -268,7 +269,7 @@
                                                                 <input type="number" class="form-control"
                                                                     name="quantity" id="quantity"
                                                                     style="width:70px; text-align: center;"
-                                                                    value="{{ $cart->quantity }}" max="30" min="1">
+                                                                    value="{{ $cart->quantity }}" max="10000" min="1">
                                                             </div>
                                                         </form>
                                                     </td>
@@ -363,6 +364,39 @@
     </script>
 
 
+    <script>
+    function togglePassword() {
+        var passwordInput = document.getElementById("password");
+        var eyeIcon = document.getElementById("eyeIcon");
+
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            eyeIcon.classList.remove("fa-eye");
+            eyeIcon.classList.add("fa-eye-slash");
+        } else {
+            passwordInput.type = "password";
+            eyeIcon.classList.remove("fa-eye-slash");
+            eyeIcon.classList.add("fa-eye");
+        }
+    }
+    </script>
+
+    <script>
+    function togglePasswordConfirm() {
+        var passwordInput = document.getElementById("password_confirmation");
+        var eyeIcon = document.getElementById("eyeIconConfirm");
+
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            eyeIcon.classList.remove("fa-eye");
+            eyeIcon.classList.add("fa-eye-slash");
+        } else {
+            passwordInput.type = "password";
+            eyeIcon.classList.remove("fa-eye-slash");
+            eyeIcon.classList.add("fa-eye");
+        }
+    }
+    </script>
 
 </body>
 

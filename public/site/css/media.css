@@ -1,5 +1,9 @@
 /* Mobile devices */
 @media (max-width: 600px) {
+    .ed {
+        text-align: left;
+        margin: 1.3rem 0;
+    }
     /* Top Header */
     #top-header {
         display: none;
@@ -16,11 +20,11 @@
     }
 
     #navbar .row.sow {
-        width: 38rem;
+        width: 36rem;
     }
 
     #navbar .row .col-md-2.logocol {
-        width: 8rem;
+        width: 19rem;
     }
 
     #navbar .row .col-md-8 {
@@ -35,8 +39,12 @@
         margin: 1rem 0 0 0;
     }
 
-    #navbar .row .col-md-1.ed.up.hiu {
-        display: none !important;
+    #navbar .row .col-md-7 {
+        width: 7rem;
+    }
+
+    #navbar .row .col-md-7 .main {
+        margin: 1rem 0 0 6rem !important;
     }
 
     #navbar .row .col-md-8 .main {
@@ -44,7 +52,33 @@
     }
 
     #navbar .collapse.navbar-collapse.show {
-        margin: 0 0 0px -132px;
+        width: 100%;
+    }
+
+    #navbar .main form {
+        margin: 1.4rem 0 0 -22rem;
+    }
+
+    #navbar .myAccount {
+        display: block !important;
+    }
+
+    #navbar .col-md-1.bdr.jijo {
+        width: 19rem;
+        margin: 1.5rem 0;
+    }
+
+    #navbar .col-md-1.bdr.jijo a {
+        color: #000;
+        text-decoration: underline;
+    }
+    /* slider Upper Category */
+    #cateAndSlider .row {
+        width: 101.6% !important;
+    }
+
+    #cateAndSlider .col-md-2 {
+        display: none;
     }
 
     /* Slider */
@@ -76,9 +110,46 @@
         height: 16.9rem;
     }
 
+    .containerji .card .contentBx a {
+        background-color: #0253a7;
+    }
+
     /* Buy Now  */
     #buyNowContainer .row .productImage img:hover {
         transform: scale(1) !important;
+    }
+
+    #buyNowContainer .row .col-md-6.prodDet {
+        width: 100%;
+    }
+
+    #buyNowContainer .row .col-md-3 .card {
+        margin: 2rem 0;
+        width: 100%;
+    }
+
+    .products-details .row {
+        width: 38rem;
+    }
+
+    #buyNowContainer .products-details .row form {
+        width: 100%;
+    }
+
+    #buyNowContainer .products-details .row form .col-md-12.radios {
+        width: 100%;
+    }
+
+    #buyNowContainer .row .designer {
+        width: 100%;
+    }
+
+    #buyNowContainer .row .hire-designer::before {
+        margin: 2rem 2rem;
+    }
+
+    #buyNowContainer .row .btn.buy-now-button.btn-buy-page {
+        margin: 2rem 14rem;
     }
 
     #specialEvent {
@@ -106,6 +177,46 @@
         margin: 4rem 0 !important;
     }
 
+    #pageHead {
+        max-height: 8rem;
+    }
+
+    .navBarMyAcc .col-md-3 {
+        min-width: 0;
+        max-width: 10rem;
+    }
+
+    #myAccount .card {
+        left: 0%;
+        width: 100%;
+    }
+
+    #myAccount .card .col-md-2.togglePassUp {
+        width: 1rem;
+    }
+
+    #myAccount .card .col-md-10.wd {
+        width: 37rem;
+    }
+
+    #orderSection table thead th {
+        font-size: 1.2rem;
+    }
+
+    /* Login And Register */
+    #login .main .box {
+        width: 80%;
+    }
+
+    #login .row .col-md-10 {
+        width: 84%;
+    }
+
+    #login .row .col-md-2.col-md-2.togglePassUp {
+        width: 12%;
+        margin: 0;
+    }
+
     /* Footer */
     #footer {
         margin: 0.2rem 0 0 0;
@@ -124,7 +235,7 @@
         margin: 0.2rem 0 0 0;
         min-height: 72rem;
         max-height: 72rem;
-        width: 114.6rem !important;
+        max-width: 114.6rem !important;
     }
 
     #footer .footer-top img {

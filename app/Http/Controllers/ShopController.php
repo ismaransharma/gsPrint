@@ -35,11 +35,13 @@ class ShopController extends Controller
 
             $category_image = $unique_name . '.' . $extension;
 
+            // dd($category_image, $image);
+
             $image->move('uploads/category/', $category_image);
             
         }
         
-        // dd($request->all());
+        // dd($image);
 
 
         $category = new Category;
@@ -145,11 +147,10 @@ class ShopController extends Controller
             'product_image' => 'required|image|mimes:jpeg,jpg,png,gif',
             'status' => 'required|in:active,inactive',
             'size' => 'nullable|in:XS,S,M,L,XL,XXL,ALL',
-            'sizeinc' => 'nullable|in:sqft,sqm,cuft,inch,cm,m',
+            'sizeinc' => 'nullable|in:sqft,sqm,cuft,inch,cm,mm,m',
             'sizeincnum1' => 'nullable|numeric|integer',
             'sizeincnum2' => 'nullable|numeric|integer',
-            'stock'=>'required| integer',
-            'original_price' => 'required|numeric',
+            'original_price' => 'nullable|numeric',
             'discount_price'=>'numeric',
             'product_description'=>'required',
             'colour'=>'nullable|string',
@@ -158,6 +159,27 @@ class ShopController extends Controller
             'paper_type'=>'nullable|in:A1,A2,A3,A4,A5,A6',
             'print_type'=>'nullable|in:multi_colour_print,black_and_white_print',
             'thickness'=>'nullable|numeric',
+            'qty_range1' => 'nullable|integer',
+            'qty_range2' => 'nullable|integer',
+            'qty_range3' => 'nullable|integer',
+            'qty_range4' => 'nullable|integer',
+            'qty_range5' => 'nullable|integer',
+            'qty_range6' => 'nullable|integer',
+            'qty_range7' => 'nullable|integer',
+            'qty_range8' => 'nullable|integer',
+            'qty_range9' => 'nullable|integer',
+            'qty_range10' => 'nullable|integer',
+            'nrml_price1' => 'nullable|integer|numeric',
+            'nrml_price2' => 'nullable|integer|numeric',
+            'nrml_price3' => 'nullable|integer|numeric',
+            'nrml_price4' => 'nullable|integer|numeric',
+            'nrml_price5' => 'nullable|integer|numeric',
+            'urgent_price1' => 'nullable|integer|numeric',
+            'urgent_price2' => 'nullable|integer|numeric',
+            'urgent_price3' => 'nullable|integer|numeric',
+            'urgent_price4' => 'nullable|integer|numeric',
+            'urgent_price5' => 'nullable|integer|numeric',
+            
         ]);
 
         // dd($request->all());
@@ -191,15 +213,34 @@ class ShopController extends Controller
         
         $category_id = $request->input('category_id');
         $category = Category::where('id', $category_id)->where('deleted_at', null)->limit(1)->first();
-
+        
         if (is_null($category)) {
             return redirect()->back()->with('error', 'Category Not Found');
         }
-
+        
         $image = $request->file('product_image');
-        $stock = $request->input('stock');
         $original_price = $request->input('original_price');
         $discount_price = $request->input('discount_price');
+        $qty_range1 = $request->input('qty_range1');
+        $qty_range2 = $request->input('qty_range2');
+        $qty_range3 = $request->input('qty_range3');
+        $qty_range4 = $request->input('qty_range4');
+        $qty_range5 = $request->input('qty_range5');
+        $qty_range6 = $request->input('qty_range6');
+        $qty_range7 = $request->input('qty_range7');
+        $qty_range8 = $request->input('qty_range8');
+        $qty_range9 = $request->input('qty_range9');
+        $qty_range10 = $request->input('qty_range10');
+        $nrml_price1 = $request->input('nrml_price1');
+        $nrml_price2 = $request->input('nrml_price2');
+        $nrml_price3 = $request->input('nrml_price3');
+        $nrml_price4 = $request->input('nrml_price4');
+        $nrml_price5 = $request->input('nrml_price5');
+        $urgent_price1 = $request->input('urgent_price1');
+        $urgent_price2 = $request->input('urgent_price2');
+        $urgent_price3 = $request->input('urgent_price3');
+        $urgent_price4 = $request->input('urgent_price4');
+        $urgent_price5 = $request->input('urgent_price5');
         
 
         
@@ -210,8 +251,6 @@ class ShopController extends Controller
             $extension = $image->getClientOriginalExtension();
             
             $product_image = $unique_name . '.' . $extension;
-            
-            
             
             $image->move('uploads/product/', $product_image);
             
@@ -232,6 +271,8 @@ class ShopController extends Controller
         {
             $total = $original_price;
         }
+
+        
         
         $product = new Product;
 
@@ -245,7 +286,6 @@ class ShopController extends Controller
         $product->sizeincnum1=$sizeincnum1;
         $product->sizeincnum2=$sizeincnum2;
         $product->slug=$slug;
-        $product->stock=$stock;
         $product->original_price=$original_price;
         $product->discount_price=$discount_price;
         $product->colour=$colour;
@@ -255,12 +295,32 @@ class ShopController extends Controller
         $product->print_type=$print_type;
         $product->thickness=$thickness;
         $product->total=$total;
+        $product->qty_range1=$qty_range1;
+        $product->qty_range2=$qty_range2;
+        $product->qty_range3=$qty_range3;
+        $product->qty_range4=$qty_range4;
+        $product->qty_range5=$qty_range5;
+        $product->qty_range6=$qty_range6;
+        $product->qty_range7=$qty_range7;
+        $product->qty_range8=$qty_range8;
+        $product->qty_range9=$qty_range9;
+        $product->qty_range10=$qty_range10;
+        $product->nrml_price1=$nrml_price1;
+        $product->nrml_price2=$nrml_price2;
+        $product->nrml_price3=$nrml_price3;
+        $product->nrml_price4=$nrml_price4;
+        $product->nrml_price5=$nrml_price5;
+        $product->urgent_price1=$urgent_price1;
+        $product->urgent_price2=$urgent_price2;
+        $product->urgent_price3=$urgent_price3;
+        $product->urgent_price4=$urgent_price4;
+        $product->urgent_price5=$urgent_price5;
         
         if($image){
             $product->product_image=$product_image;
         }
         
-        // dd($request->all());
+        // dd($product);
         
 
         $product->save();
@@ -284,11 +344,10 @@ class ShopController extends Controller
             'product_image' => 'image|mimes:jpeg,jpg,png,gif',
             'status' => 'in:active,inactive',
             'size' => 'nullable|in:XS,S,M,L,XL,XXL,ALL',
-            'sizeinc' => 'nullable|in:sqft,sqm,cuft,inch,cm,m',
+            'sizeinc' => 'nullable|in:sqft,sqm,cuft,inch,cm,mm,m',
             'sizeincnum1' => 'nullable|numeric|integer',
             'sizeincnum2' => 'nullable|numeric|integer',
-            'stock'=>' integer',
-            'original_price' => 'numeric',
+            'original_price' => 'nullable|numeric',
             'discount_price'=>'numeric',
             'colour'=>'string',
             'weight'=>'integer',
@@ -296,6 +355,26 @@ class ShopController extends Controller
             'paper_type'=>'nullable|in:A1,A2,A3,A4,A5,A6',
             'print_type'=>'nullable|in:multi_colour_print,black_and_white_print',
             'thickness'=>'nullable|numeric',
+            'qty_range1' => 'nullable|integer',
+            'qty_range2' => 'nullable|integer',
+            'qty_range3' => 'nullable|integer',
+            'qty_range4' => 'nullable|integer',
+            'qty_range5' => 'nullable|integer',
+            'qty_range6' => 'nullable|integer',
+            'qty_range7' => 'nullable|integer',
+            'qty_range8' => 'nullable|integer',
+            'qty_range9' => 'nullable|integer',
+            'qty_range10' => 'nullable|integer',
+            'nrml_price1' => 'nullable|integer|numeric',
+            'nrml_price2' => 'nullable|integer|numeric',
+            'nrml_price3' => 'nullable|integer|numeric',
+            'nrml_price4' => 'nullable|integer|numeric',
+            'nrml_price5' => 'nullable|integer|numeric',
+            'urgent_price1' => 'nullable|integer|numeric',
+            'urgent_price2' => 'nullable|integer|numeric',
+            'urgent_price3' => 'nullable|integer|numeric',
+            'urgent_price4' => 'nullable|integer|numeric',
+            'urgent_price5' => 'nullable|integer|numeric',
         ]);
 
 
@@ -332,10 +411,28 @@ class ShopController extends Controller
         $sizeincnum2 = $request->input('sizeincnum2');
         $product_description = $request->input('product_description');
         $image = $request->file('product_image');
-        $stock = $request->input('stock');
         $original_price = $request->input('original_price');
         $discount_price = $request->input('discount_price');
-
+        $qty_range1 = $request->input('qty_range1');
+        $qty_range2 = $request->input('qty_range2');
+        $qty_range3 = $request->input('qty_range3');
+        $qty_range4 = $request->input('qty_range4');
+        $qty_range5 = $request->input('qty_range5');
+        $qty_range6 = $request->input('qty_range6');
+        $qty_range7 = $request->input('qty_range7');
+        $qty_range8 = $request->input('qty_range8');
+        $qty_range9 = $request->input('qty_range9');
+        $qty_range10 = $request->input('qty_range10');
+        $nrml_price1 = $request->input('nrml_price1');
+        $nrml_price2 = $request->input('nrml_price2');
+        $nrml_price3 = $request->input('nrml_price3');
+        $nrml_price4 = $request->input('nrml_price4');
+        $nrml_price5 = $request->input('nrml_price5');
+        $urgent_price1 = $request->input('urgent_price1');
+        $urgent_price2 = $request->input('urgent_price2');
+        $urgent_price3 = $request->input('urgent_price3');
+        $urgent_price4 = $request->input('urgent_price4');
+        $urgent_price5 = $request->input('urgent_price5');
     
 
         
@@ -378,7 +475,6 @@ class ShopController extends Controller
         $product->sizeincnum1=$sizeincnum1;
         $product->sizeincnum2=$sizeincnum2;
         $product->slug=$slug;
-        $product->stock=$stock;
         $product->original_price=$original_price;
         $product->discount_price=$discount_price;
         $product->colour=$colour;
@@ -387,6 +483,26 @@ class ShopController extends Controller
         $product->paper_type=$paper_type;
         $product->print_type=$print_type;
         $product->thickness=$thickness;
+        $product->qty_range1=$qty_range1;
+        $product->qty_range2=$qty_range2;
+        $product->qty_range3=$qty_range3;
+        $product->qty_range4=$qty_range4;
+        $product->qty_range5=$qty_range5;
+        $product->qty_range6=$qty_range6;
+        $product->qty_range7=$qty_range7;
+        $product->qty_range8=$qty_range8;
+        $product->qty_range9=$qty_range9;
+        $product->qty_range10=$qty_range10;
+        $product->nrml_price1=$nrml_price1;
+        $product->nrml_price2=$nrml_price2;
+        $product->nrml_price3=$nrml_price3;
+        $product->nrml_price4=$nrml_price4;
+        $product->nrml_price5=$nrml_price5;
+        $product->urgent_price1=$urgent_price1;
+        $product->urgent_price2=$urgent_price2;
+        $product->urgent_price3=$urgent_price3;
+        $product->urgent_price4=$urgent_price4;
+        $product->urgent_price5=$urgent_price5;
         $product->total=$total;
 
         // dd($request->all());
