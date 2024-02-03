@@ -14,22 +14,34 @@ class AdminController extends Controller
     public function dashboard()
     {
         $user = Auth::user();
-        $userName = $user->name;
+        // dd($user->u_a_mngt);
         
-        $order = Order::where('deleted_at', null)->get();
+        if($user->u_a_mngt == 1)
+        {
+            $user = Auth::user();
+            $userName = $user->name;
+            $order = Order::where('deleted_at', null)->get();
 
-        $total = $order->sum('payment_amount');
-        // dd($total);
+            $total = $order->sum('payment_amount');
+            // dd($total);
+            
+            $data = [
+                'categories' => Category::whereNull('deleted_at')->orderBy('id', 'asc')->get(),
+                'products' => Product::whereNull('deleted_at')->orderBy('id', 'asc')->get(),
+                'Orders' => Order::whereNull('deleted_at')->count(),
+                'user' => $userName,
+                'totalEarnings' => $total
+            ];
+
+            return view('admin.adminHome', $data);
+        }
+        else
+        {
+            return redirect('/login')->with('error', 'Please Login as Admin');
         
-        $data = [
-            'categories' => Category::whereNull('deleted_at')->orderBy('id', 'asc')->get(),
-            'products' => Product::whereNull('deleted_at')->orderBy('id', 'asc')->get(),
-            'Orders' => Order::whereNull('deleted_at')->count(),
-            'user' => $userName,
-            'totalEarnings' => $total
-        ];
-
-        return view('admin.adminHome', $data);
+        }
+        
+        
     }
 
     public function manageAboutUs()
@@ -147,5 +159,10 @@ class AdminController extends Controller
         }
 
         return redirect()->back()->with('success', 'Order payment status changed.');
+    }
+
+        public function __construct()
+    {
+        $this->middleware('checkUserRole');
     }
 }

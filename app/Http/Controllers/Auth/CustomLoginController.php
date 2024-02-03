@@ -20,19 +20,18 @@ class CustomLoginController extends Controller
 
     public function showLoginForm()
     {
-        $user = Auth::user(); // Get the currently authenticated user
+        $user = Auth::user(); 
     
         if ($user) {
-            $cart_code = $user->cart_code; // Assuming you have a 'cart_code' field in your User model
-            $carts = Cart::where('cart_code', $cart_code)->get(); // Retrieve the user's cart items
-            $cartCount = $carts->count(); // Get the count of cart items
+            $cart_code = $user->cart_code; 
+            $carts = Cart::where('cart_code', $cart_code)->get(); 
+            $cartCount = $carts->count(); 
     
-            // Calculate the total amount from the cart items
             $total_amount = $carts->sum('total_price');
         } else {
-            $carts = collect(); // Create an empty collection if the user is not authenticated
-            $cartCount = 0; // Set the count to 0
-            $total_amount = 0; // Set the total amount to 0 if the user is not authenticated
+            $carts = collect(); 
+            $cartCount = 0; 
+            $total_amount = 0; 
         }
 
         $searchedItem = session('searchedItem');
@@ -41,9 +40,9 @@ class CustomLoginController extends Controller
         $data = [
             'categories' => Category::where('status', 'active')->where('deleted_at', null)->limit(3)->get(),
             'products' => Product::where('status', 'active')->where('deleted_at', null)->limit(3)->get(),
-            'carts' => $carts, // Pass the carts to the view
-            'cartCount' => $cartCount, // Pass the cart count to the view
-            'total_amount' => $total_amount, // Pass the total amount to the view
+            'carts' => $carts, 
+            'cartCount' => $cartCount, 
+            'total_amount' => $total_amount,
             'user' => $user,
             'search' => $searchedItem
         ];
@@ -53,19 +52,17 @@ class CustomLoginController extends Controller
 
     public function showRegisterForm()
     {
-        $user = Auth::user(); // Get the currently authenticated user
+        $user = Auth::user(); 
     
         if ($user) {
-            $cart_code = $user->cart_code; // Assuming you have a 'cart_code' field in your User model
-            $carts = Cart::where('cart_code', $cart_code)->get(); // Retrieve the user's cart items
-            $cartCount = $carts->count(); // Get the count of cart items
-    
-            // Calculate the total amount from the cart items
+            $cart_code = $user->cart_code;  
+            $carts = Cart::where('cart_code', $cart_code)->get(); 
+            $cartCount = $carts->count(); 
             $total_amount = $carts->sum('total_price');
         } else {
-            $carts = collect(); // Create an empty collection if the user is not authenticated
-            $cartCount = 0; // Set the count to 0
-            $total_amount = 0; // Set the total amount to 0 if the user is not authenticated
+            $carts = collect(); 
+            $cartCount = 0; 
+            $total_amount = 0; 
         }
 
         $searchedItem = session('searchedItem');
@@ -74,9 +71,9 @@ class CustomLoginController extends Controller
         $data = [
             'categories' => Category::where('status', 'active')->where('deleted_at', null)->limit(3)->get(),
             'products' => Product::where('status', 'active')->where('deleted_at', null)->limit(3)->get(),
-            'carts' => $carts, // Pass the carts to the view
-            'cartCount' => $cartCount, // Pass the cart count to the view
-            'total_amount' => $total_amount, // Pass the total amount to the view
+            'carts' => $carts, 
+            'cartCount' => $cartCount, 
+            'total_amount' => $total_amount, 
             'user' => $user,
             'search' => $searchedItem
         ];

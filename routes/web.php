@@ -69,7 +69,7 @@ Route::middleware('auth')->middleware(['auth','verified'])->group(function () {
 
 
 
-Route::prefix("admin")->group(function(){
+Route::group(['prefix' => 'admin', 'middleware' => 'checkUserRole'], function () {
 
     Route::get('',[AdminController::class,'dashboard'])->name('getDashboard');
 
@@ -126,6 +126,7 @@ Route::prefix("admin")->group(function(){
 
     
 });
+
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');

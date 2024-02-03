@@ -17,7 +17,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('cart_code')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password')->default(''); 
+            $table->string('password')->default('');
+            $table->integer('u_a_mngt')->default(0); 
             $table->rememberToken();
             $table->timestamps();
         });

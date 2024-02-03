@@ -84,17 +84,30 @@ span.togglePass {
     --bs-gutter-x: none;
 }
 
+#top-header .row .col-md-9 {
+    width: 71%;
+}
+
 #top-header .row .col-md-9 .phoneNumber {
     padding-left: 4.2rem;
 }
 
 #top-header .row .col-md-1 {
     /* text-align: end; */
-    padding: 0 0 0 1.8rem;
+    padding: 0 0 0 0.8rem;
 }
 
 #top-header .row .col-md-1.bdr {
     border-right: 0.1rem solid gray;
+    width: 12%;
+}
+
+#top-header .col-md-1.bdr.uiui {
+    width: 6%;
+}
+
+#top-header .row .col-md-1.ccio {
+    width: 10%;
 }
 
 #top-header a {
@@ -346,12 +359,11 @@ span.togglePass {
 }
 
 #slider .carousel-inner {
-    height: 47rem;
+    height: auto;
 }
 
 #slider .carousel-inner .carousel-item img {
-    height: 52rem;
-    width: 100%;
+    height: auto;
 }
 
 #slider #carouselExampleCaptions button {
@@ -453,8 +465,7 @@ span.togglePass {
 }
 
 #featuresProducts .container {
-    margin: 0;
-    width: 100%;
+    margin: 0 auto;
 }
 
 #featuresProducts .featProd .ProdHeader .first {
@@ -1301,13 +1312,13 @@ span.togglePass {
     width: 100%;
     background-color: var(--header);
     margin: 5.5rem 0 0 0;
-    padding: 5rem 0 0 5rem;
+    padding: 3rem 0 0 1rem;
     font-family: Karla, Arial, Helvetica, sans-serif;
     /* display: none !important; */
 }
 
 #footer .footer-top img {
-    height: 12rem;
+    height: auto;
     width: 100%;
 }
 
