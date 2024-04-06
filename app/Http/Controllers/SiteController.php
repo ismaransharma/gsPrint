@@ -254,6 +254,45 @@ class SiteController extends Controller
 
     }
 
+    public function cateShop($id)
+    {
+        $user = Auth::user(); 
+
+        if ($user) {
+            $cart_code = $user->cart_code; 
+            $carts = Cart::where('cart_code', $cart_code)->get(); 
+            $cartCount = $carts->count(); 
+    
+            $total_amount = $carts->sum('total_price');
+        } else {
+            $carts = collect(); 
+            $cartCount = 0; 
+            $total_amount = 0; 
+        }
+
+        $Category = Category::where('id', $id)->where('status', 'active')->where('deleted_at', null)->get();
+        $Product = Product::where('category_id',$id)->where('deleted_at', null)->get();
+        $searchedItem = session('searchedItem');
+
+        $allCate = Category::where('status', 'active')->where('deleted_at',null)->get();
+
+        
+        $data = [
+            'category' => $Category,
+            'products' => $Product,
+            'search' => $searchedItem,
+            'carts' => $carts,
+            'cartCount' => $cartCount,
+            'categories' => $allCate
+        ];
+        
+        // dd($data);
+
+
+        return view('site.cateShop',$data);
+        
+    }
+
     // Cart 
     public function getCart()
     {

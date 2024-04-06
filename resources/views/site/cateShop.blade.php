@@ -1,6 +1,11 @@
 @extends('template.template')
 @section('content')
 
+<?php
+    // dd($products);
+?>
+
+
 @if (count($categories) > 0)
 <section id="shopPageTitle">
     <div class="container">
@@ -26,7 +31,8 @@
                     <h5>
                         <a href="{{ route('getHome') }}">
                             <i class="fa-solid fa-house"></i> <span>HOME</span>
-                        </a> <span>/</span> <span>Shop</span>
+                        </a> <span>/</span> <span><a href="{{ route('getShop') }}">Shop</a></span> <span>/</span>
+                        <span>Category Product</span>
                     </h5>
                 </div>
             </div>
@@ -79,6 +85,8 @@
 
                 </div>
             </div>
+        </div>
+    </div>
 </section>
 
 @endsection

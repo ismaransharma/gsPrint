@@ -34,6 +34,8 @@ Route::get('/AboutUs',[SiteController::class, 'aboutUs'])->name('getAboutUs');
 
 Route::get('/shop',[SiteController::class, 'shop'])->name('getShop');
 
+Route::get('/shop/category/{id}',[SiteController::class, 'cateShop'])->name('getCateShop');
+
 Route::get('/product/details/{slug}',[SiteController::class, 'productDetails'])->name('getProductDetails');
 
 
@@ -68,7 +70,7 @@ Route::middleware('auth')->middleware(['auth','verified'])->group(function () {
 });
 
 
-
+// Admin routes
 Route::group(['prefix' => 'admin', 'middleware' => 'checkUserRole'], function () {
 
     Route::get('',[AdminController::class,'dashboard'])->name('getDashboard');

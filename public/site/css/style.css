@@ -70,6 +70,14 @@ span.togglePass {
     cursor: not-allowed;
 }
 
+.white {
+    color: #fff;
+}
+
+.text-dec-none {
+    text-decoration: none;
+}
+
 /* Top Header Css Starts Here */
 #top-header {
     height: 3rem;
