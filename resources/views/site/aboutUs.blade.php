@@ -59,8 +59,10 @@
                 <p>Visiting Cards, Invitations Cards, Letterheads, Wedding Cards</p>
             </div>
             <div class="col-md-2">
-                <h5>OUR</h5>
-                <h5>SERVICES</h5>
+                <div class="text">
+                    <h5>OUR</h5>
+                    <h5>SERVICES</h5>
+                </div>
             </div>
             <div class="col-md-5">
                 <!-- First -->
@@ -73,6 +75,77 @@
                 <!-- Third -->
                 <h1>STATIONERY</h1>
                 <p>Marketing Materials Direct Mail, Specialist books, Photo products.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="gsMembers">
+    <div class="container">
+        <div class="mainBox">
+            <div class="members">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="box">
+                            <div class="images">
+                                <img src="{{ asset('site/images/gsMembers/test.jpg') }}" alt="">
+                            </div>
+                            <div class="nameNPos">
+                                <h5 class="name">Ghanshyam Gautam</h5>
+                                <span class="pos">Managing Director
+                                </span>
+                            </div>
+                            <div class="memberLinks">
+                                <a href="" class="whatsapp">
+                                    <i class="fa-brands fa-whatsapp"></i>
+                                </a>
+                                <a href="" class="facebook">
+                                    <i class="fa-brands fa-facebook"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="box">
+                            <div class="images">
+                                <img src="{{ asset('site/images/gsMembers/test.jpg') }}" alt="">
+                            </div>
+                            <div class="nameNPos">
+                                <h5 class="name">Ghanshyam Gautam</h5>
+                                <span class="pos">Managing Director
+                                </span>
+                            </div>
+                            <div class="memberLinks">
+                                <a href="" class="whatsapp">
+                                    <i class="fa-brands fa-whatsapp"></i>
+                                </a>
+                                <a href="" class="facebook">
+                                    <i class="fa-brands fa-facebook"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="box">
+                            <div class="images">
+                                <img src="{{ asset('site/images/gsMembers/test.jpg') }}" alt="">
+                            </div>
+                            <div class="nameNPos">
+                                <h5 class="name">Ghanshyam Gautam</h5>
+                                <span class="pos">Managing Director
+                                </span>
+                            </div>
+                            <div class="memberLinks">
+                                <a href="" class="whatsapp">
+                                    <i class="fa-brands fa-whatsapp"></i>
+                                </a>
+                                <a href="" class="facebook">
+                                    <i class="fa-brands fa-facebook"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

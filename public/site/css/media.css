@@ -157,15 +157,19 @@
     }
 
     #ourServices .row .col-md-5.left {
-        text-align: left !important;
+        text-align: left;
     }
 
     #ourServices .row .col-md-2 {
-        margin: 2rem 90px !important;
+        margin: 2rem 90px;
     }
 
     #ourServices .row .col-md-5 {
-        margin: 4rem 0 !important;
+        margin: 4rem 0;
+    }
+
+    #ourObjectives .row .col-md-7 {
+        text-align: center;
     }
 
     #pageHead {
@@ -295,6 +299,42 @@
     }
     #login .login .row .col-md-12 .col-md-2.togglePassUp {
         width: 10%;
+    }
+
+    /* About Us */
+    #ourObjectives {
+        height: 50rem;
+    }
+
+    #ourObjectives .row .col-md-7 {
+        text-align: center;
+        margin: 0;
+    }
+
+    #ourObjectives .row .col-md-7 img {
+        width: 25rem;
+        height: auto;
+        margin: 2rem 0;
+    }
+
+    #ourServices .row .col-md-5 {
+        margin: 4rem 0;
+    }
+
+    #ourServices .row .col-md-5.left {
+        text-align: left;
+    }
+
+    #ourServices .row .col-md-2 {
+        margin: 0.5rem 0;
+    }
+
+    #gsMembers .mainBox .box {
+        width: 90%;
+    }
+
+    #gsMembers .mainBox .box-header {
+        width: 90%;
     }
 
     /* Footer */

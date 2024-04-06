@@ -826,7 +826,7 @@ span.togglePass {
 }
 
 #ourServices .row .col-md-2 {
-    margin: 15rem 0;
+    margin: 12rem 0;
     text-align: center;
     background-color: var(--header);
     height: 15rem;
@@ -835,10 +835,64 @@ span.togglePass {
     color: var(--white);
     padding: 4.6rem 0px;
     transition: 0.4s ease-in-out;
+    display: flex;
+    min-height: 5vh;
+    align-items: center;
+    justify-content: center;
 }
 
 #ourServices .row .col-md-2:hover {
     background-color: var(--green);
+}
+
+#gsMembers .mainBox {
+    min-height: 85vh;
+    border: 1px solid #000;
+    width: 100%;
+}
+
+#gsMembers .mainBox .box {
+    width: 100%;
+    margin: 3rem;
+    text-align: center;
+    transition: 0.4s ease-in-out;
+}
+
+#gsMembers .mainBox .box .images img {
+    height: auto;
+    width: 40%;
+}
+
+#gsMembers .mainBox .box .nameNPos {
+    margin: 1.2rem;
+}
+
+#gsMembers .mainBox .box .nameNPos h5 {
+    color: #000;
+    font-weight: 600;
+    font-size: 1.5rem;
+}
+
+#gsMembers .mainBox .box .nameNPos span.pos {
+    color: #c0c0c0;
+    font-weight: 400;
+    font-size: 1.2rem;
+}
+
+#gsMembers .mainBox .box .memberLinks a.whatsapp,
+#gsMembers .mainBox .box .memberLinks a.facebook {
+    font-size: 2.5rem;
+    color: var(--black);
+    text-decoration: none;
+    margin: 0 1.2rem;
+}
+
+#gsMembers .mainBox .box .memberLinks a.whatsapp:hover {
+    color: var(--green);
+}
+
+#gsMembers .mainBox .box .memberLinks a.facebook:hover {
+    color: var(--header);
 }
 /* About Us Page CSS Ends Here */
 
@@ -1361,6 +1415,10 @@ span.togglePass {
 
 #footer .footer-middle .addnumlink .fbinsta .fb {
     margin: 0 15px 0 0;
+}
+
+#footer .col-md-4 .links a:hover {
+    color: var(--green);
 }
 
 /* Footer CSS Ends Here */
