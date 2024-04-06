@@ -183,11 +183,19 @@ class SiteController extends Controller
     {
 
         // dd($request->all());
-
-        if ($request->input('search') === null) 
-        {
+        
+        if ($request->input('search') == null) 
+        {   
             
-            return redirect('/')->with('error','Please enter any product name');
+            $search = $request->input('search');
+            if ($search === null) {
+                $search = 'null';
+                session(['searchedItem' => null]);
+                return back()->with('error','Please enter any product name');
+            } else {
+                session(['searchedItem' => $search]);
+            }
+            
         }
         
         else
@@ -208,8 +216,13 @@ class SiteController extends Controller
 
 
             $search = $request->input('search');
-
-            session(['searchedItem' => $search]);
+            if ($search === null) {
+                $search = 'null';
+                session(['searchedItem' => null]);
+            } else {
+                session(['searchedItem' => $search]);
+            }
+            
 
 
             $products = Product::where('product_title', 'like', '%' . $search . '%')->get();
@@ -238,7 +251,6 @@ class SiteController extends Controller
                 'cartCount' => $cartCount,
                 'total_amount' => $total_amount, 
                 'user' => $user,
-                'search' => $search
 
             ];
             
