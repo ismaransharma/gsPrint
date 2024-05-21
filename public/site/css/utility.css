@@ -1,0 +1,87 @@
+.black {
+    color: #000;
+}
+
+.white {
+    color: #fff;
+}
+
+.left {
+    text-align: left;
+}
+
+.center {
+    text-align: center;
+}
+
+.end {
+    text-align: end;
+}
+
+.bg-black {
+    background-color: #000;
+}
+
+.fw-400 {
+    font-weight: 400;
+}
+
+.fw-600 {
+    font-weight: 600;
+}
+
+.fw-800 {
+    font-weight: 800;
+}
+
+.bold {
+    font-weight: 600;
+}
+
+.block {
+    display: block;
+}
+
+.flex {
+    display: flex;
+}
+
+.jc-center {
+    justify-content: center;
+}
+
+.jc-end {
+    justify-content: end;
+}
+
+.ai-center {
+    align-items: center;
+}
+
+.ai-end {
+    align-items: end;
+}
+
+.pl-1 {
+    padding-left: 1rem;
+}
+
+.div-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.div-end {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.w-100p {
+    width: 100%;
+}
+
+.w-auto {
+    width: auto;
+}

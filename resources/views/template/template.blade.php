@@ -12,6 +12,7 @@
 
     <link rel="stylesheet" href="{{ asset('site/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('site/css/media.css') }}">
+    <link rel="stylesheet" href="{{ asset('site/css/utility.css') }}">
     <link rel="stylesheet" href="{{ asset('site/toastr/toastr.css') }}">
 
 
@@ -24,29 +25,33 @@
 
     <div id="top-header">
         <div class="row">
-            <div class="col-md-9">
+            <div class="col-md-5 col-lg-6 col-sm-7 pl-1">
                 <div class="phoneNumber">
                     <span><i class="fa-solid fa-phone"></i></span>
                     <span>Customer Service: </span>
                     <span>+977 (061) 525561, 9856047078 </span>
                 </div>
             </div>
-            <div class="col-md-1 bdr jijo">
-                <div class="myAccount">
-                    <a href="{{ route('getAccDashboard') }}">
-                        <span><i class="fa-solid fa-user"></i></span>
-                        <span>MY ACCOUNT</span>
-                    </a>
-                </div>
-            </div>
-            <div class="col-md-1 bdr uiui">
-                <div class="home">
-                    <span><a href="{{ route('getHome') }}">HOME</a></span>
-                </div>
-            </div>
-            <div class="col-md-1 ccio">
-                <div class="cart">
-                    <span class="temCart" data-bs-toggle="modal" data-bs-target="#checkCartModal">CART</span>
+            <div class="col-md-7 col-lg-6 col-sm-5 center">
+                <div class="row p-0 jc-end">
+                    <div class="col-md-3 bdr jijo">
+                        <div class="myAccount">
+                            <a href="{{ route('getAccDashboard') }}">
+                                <span><i class="fa-solid fa-user"></i></span>
+                                <span>MY ACCOUNT</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-2 bdr uiui">
+                        <div class="home">
+                            <span><a href="{{ route('getHome') }}">HOME</a></span>
+                        </div>
+                    </div>
+                    <div class="col-md-2 ccio">
+                        <div class="cart">
+                            <span class="temCart" data-bs-toggle="modal" data-bs-target="#checkCartModal">CART</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -72,78 +77,84 @@
 
 
     <section id="navbar">
-        <div class="container">
-            <div class="row sow">
-                <div class="col-md-2 logocol">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-2 col-md-3 col-sm-3 col-xs-4 wd-10p">
                     <div class="logo">
-                        <a href="{{ route('getHome') }}">
+                        <a href="{{ route('getHome') }}" class="d-inline-block">
                             <img src="{{ asset('site/images/logo.PNG') }}" alt="logo">
                         </a>
                     </div>
                 </div>
-                <div class="col-md-7">
-                    <div class="main">
-                        <nav class="navbar navbar-expand-lg">
+                <div class="col-lg-10 col-md-9 col-sm-9 col-xs-10 wd-90p div-end">
+                    <nav class="navbar navbar-expand-lg col-lg-12 col-md-12 col-sm-6 col-xs-2 jc-end w-100p">
+                        <div class="toggler-btn div-end">
                             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                                 aria-expanded="false" aria-label="Toggle navigation">
                                 <span class="navbar-toggler-icon"></span>
                             </button>
-                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                                <div class="search">
-                                    <form action="/search">
-                                        <input type="search" placeholder="Search Product...." name="search" id="search"
-                                            class="@error('search') is-invalid @enderror round-left"
-                                            value="{{ $search }}">
-                                        <button class="round-right">
-                                            <i class="fa-solid fa-magnifying-glass"></i>
-                                        </button>
-                                    </form>
+                        </div>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <div class="row w-100p mt-sm-04 newio">
+                                <div class="col-lg-9 col-md-8 .col-sm-12 .col-xs-6 jc-center">
+                                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                        <div class="search w-100p">
+                                            <form action="/search">
+                                                <input type="search" placeholder="Search Product...." name="search" id="search"
+                                                    class="@error('search') is-invalid @enderror round-left"
+                                                    value="{{ $search }}">
+                                                <button class="round-right">
+                                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
+    
                                 @if (Auth::check())
-                                <div class="col-md-1 ed up hiu">
-                                    <div class="cart-total">
-                                        <a class="minCarTtl" data-bs-toggle="modal" data-bs-target="#checkCartModal">
-                                            <i class="fa-solid fa-cart-shopping"></i>
-                                        </a>
-                                        @if ($total_amount)
-                                        <a class="minCarTtl" data-bs-toggle="modal" data-bs-target="#checkCartModal">
-                                            <span>Rs. {{ $total_amount }}</span>
-                                        </a>
-                                        @else
-                                        <span>Rs. 0</span>
-                                        @endif
+                                    <div class="col-lg-3 col-md-4 col-sm-12 .col-xs-6 jc-center ai-center flex chg-10 wd-10p mt-sm-1 newio">
+                                        <div class="cart-total">
+                                            <a class="minCarTtl" data-bs-toggle="modal" data-bs-target="#checkCartModal">
+                                                <i class="fa-solid fa-cart-shopping"></i>
+                                            </a>
+                                            @if ($total_amount)
+                                            <a class="minCarTtl" data-bs-toggle="modal" data-bs-target="#checkCartModal">
+                                                <span>Rs. {{ $total_amount }}</span>
+                                            </a>
+                                            @else
+                                            <span>Rs. 0</span>
+                                            @endif
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-1 bdr jijo">
-                                    <div class="myAccount">
-                                        <a href="{{ route('getAccDashboard') }}">
-                                            <span><i class="fa-solid fa-user"></i></span>
-                                            <span>MY ACCOUNT</span>
-                                        </a>
-                                    </div>
-                                </div>
+    
                                 @else
-                                <div class="col-md-1 ed up hiu">
-                                    <div class="login">
-                                        <a href="{{ route('login') }}">
-                                            <i class="fa-solid fa-arrow-right-from-bracket"></i> <span>Login</span>
-                                        </a>
-
+                                    <div class="col-lg-3 col-md-4 col-sm-12 .col-xs-6 jc-center ai-center flex chg-10 wd-10p mt-sm-1 newio">
+                                        <div class="row">
+                                            <div class="col-md-6 w-auto jc-center">
+                                                <div class="login">
+                                                    <a href="{{ route('login') }}">
+                                                        <i class="fa-solid fa-arrow-right-from-bracket"></i> <span>Login</span>
+                                                    </a>
+                
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 w-auto jc-center">
+                                                <div class="login">
+                                                    <a href="{{ route('register') }}">
+                                                        <i class="fa-solid fa-user-plus"></i> <span>Register</span>
+                                                    </a>
+                
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-1 ed up hiu">
-                                    <div class="login">
-                                        <a href="{{ route('register') }}">
-                                            <i class="fa-solid fa-user-plus"></i> <span>Register</span>
-                                        </a>
-
-                                    </div>
-                                </div>
                                 @endif
+                                    
+                                </div>
                             </div>
-                        </nav>
-                    </div>
+                        </div>
+                    </nav>
                 </div>
 
 
@@ -397,6 +408,18 @@
         }
     }
     </script>
+
+    <script>
+        $(document).ready(function() {
+            // Hover functionality for dropdown
+            $("#hoverDropdown").hover(function() {
+                $(this).find(".dropdown-menu").addClass("show");
+            }, function() {
+                $(this).find(".dropdown-menu").removeClass("show");
+            });
+        });
+    </script>
+
 
 </body>
 

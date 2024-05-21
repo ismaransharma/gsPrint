@@ -104,7 +104,6 @@ use Carbon\Carbon;
     $formattedDate = $carbonTimestamp->format('d-F'); 
     $formattedTime = $carbonTimestamp->format('g:i A'); 
 
-    // Check if the order was placed today, yesterday, or X days ago
     $humanReadableTime = $carbonTimestamp->diffForHumans();
 
     $actualOrderTime = $formattedDate . ' at ' . $formattedTime . ' (' . $humanReadableTime . ')';

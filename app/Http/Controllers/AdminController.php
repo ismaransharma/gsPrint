@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\Member;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Position;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,7 +22,7 @@ class AdminController extends Controller
         {
             $user = Auth::user();
             $userName = $user->name;
-            $order = Order::where('deleted_at', null)->get();
+            $order = Order::where('payment_status', 'Y')->where('deleted_at', null)->get();
 
             $total = $order->sum('payment_amount');
             // dd($total);
@@ -28,7 +30,7 @@ class AdminController extends Controller
             $data = [
                 'categories' => Category::whereNull('deleted_at')->orderBy('id', 'asc')->get(),
                 'products' => Product::whereNull('deleted_at')->orderBy('id', 'asc')->get(),
-                'Orders' => Order::whereNull('deleted_at')->count(),
+                'Orders' => Order::where('payment_status', 'Y')->whereNull('deleted_at')->count(),
                 'user' => $userName,
                 'totalEarnings' => $total
             ];
@@ -46,7 +48,16 @@ class AdminController extends Controller
 
     public function manageAboutUs()
     {
-        return view('admin.aboutUs.manageAboutUs');
+
+        $position = Position::where('deleted_at', null)->get();
+        $member = Member::where('deleted_at', null)->get();
+
+        $data = [
+            'positions' => $position,
+            'members' => $member,
+        ];
+
+        return view('admin.aboutUs.manageAboutUs', $data);
     }
 
     public function manageContactUs()
@@ -161,8 +172,135 @@ class AdminController extends Controller
         return redirect()->back()->with('success', 'Order payment status changed.');
     }
 
-        public function __construct()
+    public function __construct()
     {
         $this->middleware('checkUserRole');
     }
+
+
+    // About Us 
+
+    // Add Memeber Position
+    public function postAddPosition(Request $request)
+    {
+        
+        // dd($request->all());
+        $request->validate([
+            'member_position' => 'string|unique:positions',
+        ]);
+
+        
+        $member_position = $request->input('member_position');
+        
+        
+        $position = new Position;
+        
+        $position->member_position = $member_position; 
+        
+
+        $position->save();
+        return redirect()->back()->with('success', 'Member Position Added Successfully...');
+    }
+
+    // Edit Memeber Position
+    public function postEditMemberPosition(Request $request,$id)
+    {
+        
+        // dd($id);
+
+
+        
+        $position = Position::where('id', $id)->where('deleted_at', null)->limit(1)->first();
+
+        if (is_null ($position)) {
+            return redirect()->back()->with('error', 'Position not found');
+        }
+
+
+
+        $request->validate([
+            'member_position' => 'string',
+        ]);
+
+        
+        $member_position = $request->input('member_position');
+
+        // dd($member_position);
+        
+        
+        
+        $position->member_position = $member_position; 
+        
+
+        $position->save();
+        return redirect()->back()->with('success', 'Member Position Edited Successfully...');
+    }
+
+    // Delete Member Position
+    public function getDeleteMemberPosition(){
+        
+    }
+
+    // Add Members
+    public function postAddMember(Request $request)
+    {
+        // dd($request->all());
+        
+        $request->validate([
+            'member_name' => 'required|string',
+            'member_position_id' => 'required|integer|exists:positions,id',
+            'member_image' => 'required|image|mimes:jpeg,jpg,png,gif',
+            'member_number' => 'required|integer',
+            'member_facebook' => 'required|string',
+            'member_email' => 'required',
+        ]);
+
+        $member_name = $request->input('member_name');
+        $member_number = $request->input('member_number');
+        $member_facebook = $request->input('member_facebook');
+        $member_email = $request->input('member_email');
+        
+        $position_id = $request->input('member_position_id');
+        
+        $position = Position::where('id', $position_id)->where('deleted_at',null)->limit(1)->first();
+        
+        // dd($position);
+
+        if(!$position_id ){
+            return redirect()->back()->with('error', 'Member Position Not Found!!!');
+        }
+        
+        $image = $request->file('member_image');
+        
+        if($image)
+        {
+            $unique_name = sha1(time());
+            $extension = $image->getClientOriginalExtension();
+            $member_image = $unique_name . '.' . $extension;
+
+            $image->move('uploads/members/', $member_image);
+            
+        }
+        // dd($image);
+        
+        $member = new Member;
+
+        $member->member_name = $member_name;
+        $member->member_position_id = $position_id;
+        $member->member_position_title = $position->member_position;
+        $member->member_number = $member_number;
+        $member->member_facebook = $member_facebook;
+        $member->member_email = $member_email;
+
+        
+        if($image){
+            $member->member_image=$member_image;
+        }
+        
+        $member->save();
+        return back()->with('success', 'Member Added Successfully!');
+
+    }
+
+
 }

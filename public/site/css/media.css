@@ -1,77 +1,32 @@
 /* Mobile devices */
 @media (max-width: 600px) {
-    .ed {
-        text-align: left;
-        margin: 1.3rem 0;
-    }
     /* Top Header */
     #top-header {
         display: none;
     }
 
-    /* Navbar */
-    #navbar {
+    /* Navbar  */
+
+    .wd-10p {
+        width: 10%;
+    }
+
+    .wd-90p {
+        width: 90%;
+    }
+
+    #navbar .mt-sm-01.newio {
+        margin-top: 1rem;
+    }
+
+    #navbar .mt-sm-04.newio {
+        margin-top: 4rem;
+    }
+
+    #navbar .chg-10.wd-10p {
         width: 100%;
     }
 
-    #navbar .container {
-        margin: 0;
-        padding: 0;
-    }
-
-    #navbar .row.sow {
-        width: 36rem;
-    }
-
-    #navbar .row .col-md-2.logocol {
-        width: 19rem;
-    }
-
-    #navbar .row .col-md-8 {
-        width: 5rem !important;
-    }
-
-    #navbar .row .col-md-8 .navbar.navbar-expand-lg .navbar-toggler {
-        margin: 1rem 13rem;
-    }
-
-    #navbar .row .col-md-8 .navbar.navbar-expand-lg .nav-tem .nav-link {
-        margin: 1rem 0 0 0;
-    }
-
-    #navbar .row .col-md-7 {
-        width: 7rem;
-    }
-
-    #navbar .row .col-md-7 .main {
-        margin: 1rem 0 0 6rem !important;
-    }
-
-    #navbar .row .col-md-8 .main {
-        padding-left: 15rem !important;
-    }
-
-    #navbar .collapse.navbar-collapse.show {
-        width: 100%;
-    }
-
-    #navbar .main form {
-        margin: 1.4rem 0 0 -22rem;
-    }
-
-    #navbar .myAccount {
-        display: block !important;
-    }
-
-    #navbar .col-md-1.bdr.jijo {
-        width: 19rem;
-        margin: 1.5rem 0;
-    }
-
-    #navbar .col-md-1.bdr.jijo a {
-        color: #000;
-        text-decoration: underline;
-    }
     /* slider Upper Category */
     #cateAndSlider .row {
         width: 101.6% !important;
@@ -89,7 +44,7 @@
     /* Products */
     #featuresProducts .containerji .card {
         height: 25.7rem;
-        width: 37.2rem;
+        width: auto;
     }
 
     #featuresProducts .containerji .card .imgBx img {
@@ -200,7 +155,7 @@
 
     /* Login And Register */
     #login .main .box {
-        width: 80%;
+        width: auto;
     }
 
     #login .row .col-md-10 {
@@ -223,61 +178,36 @@
 @media (min-width: 601px) and (max-width: 768px) {
     /* Top Header */
 
-    #navbar .container {
-        margin: 0;
+    #top-header .jc-end {
+        justify-content: left;
     }
 
-    #top-header .col-md-9 {
-        width: 56%;
+    #top-header .col-md-3,
+    #top-header .col-md-2 {
+        width: auto;
+        padding: 0 1rem;
     }
 
-    #top-header .row .col-md-1 {
-        padding: 0 0 0 0.3rem;
+    /* Navbar  */
+
+    .wd-10p {
+        width: 10%;
     }
 
-    #top-header .col-md-1.bdr.jijo {
-        width: 16%;
-        margin: 0 0 0 3rem;
+    .wd-90p {
+        width: 90%;
     }
 
-    #top-header .col-md-1.bdr.uiui {
-        width: 11%;
+    #navbar .mt-sm-01.newio {
+        margin-top: 1rem;
     }
 
-    #top-header .col-md-1.ccio {
-        width: 11%;
+    #navbar .mt-sm-04.newio {
+        margin-top: 4rem;
     }
 
-    /* NavBar */
-
-    #navbar .col-md-2.logocol {
-        width: 21rem;
-        margin: 0;
-    }
-
-    #navbar .row .col-md-7 {
-        width: 30rem;
-        margin: 1rem 0 0 0;
-    }
-
-    #navbar .row .col-md-7 .main {
-        margin: 0;
-    }
-
-    #navbar .col-md-7 .main .navbar-toggler {
-        margin: 0 29rem;
-    }
-
-    #navbar .row .col-md-7 .main .search {
-        margin: 1rem 0;
-    }
-
-    #navbar .row .col-md-7 .main .search input {
-        width: 30rem;
-    }
-
-    #navbar .row .col-md-7 .col-md-1.ed.up.hiu {
-        text-align: left;
+    #navbar .chg-10.wd-10p {
+        width: 100%;
     }
 
     /* Cate And Slider */
@@ -348,50 +278,30 @@
 
 /* Tablets */
 @media (min-width: 769px) and (max-width: 991px) {
-    /* Top Header */
-    #top-header .col-md-9 {
-        width: 66%;
-    }
-
-    #top-header .row .col-md-1.bdr {
-        width: 16%;
-        padding: 0 0 0 0.3rem;
-    }
-
-    #top-header .col-md-1.bdr.uiui {
-        width: 6%;
-    }
-
     /* Navbar */
 
-    #navbar .col-md-2.logocol {
-        width: 21rem;
-        margin: 0;
+    .wd-10p {
+        width: 10%;
     }
 
-    #navbar .row .col-md-7 {
-        width: 30rem;
-        margin: 1rem 0 0 0;
+    .wd-90p {
+        width: 90%;
     }
 
-    #navbar .row .col-md-7 .main {
-        margin: 0;
+    #navbar .mt-sm-01.newio {
+        margin-top: 1rem;
     }
 
-    #navbar .col-md-7 .main .navbar-toggler {
-        margin: 0 48rem;
+    #navbar .mt-sm-04.newio {
+        margin-top: 4rem;
     }
 
-    #navbar .row .col-md-7 .main .search {
-        margin: 1rem 0;
+    #navbar .chg-10.wd-10p {
+        width: 100%;
     }
 
-    #navbar .row .col-md-7 .main .search input {
-        width: 30rem;
-    }
-
-    #navbar .row .col-md-7 .col-md-1.ed.up.hiu {
-        text-align: left;
+    #navbar .mt-sm-04.newio .col-md-8 {
+        width: 90%;
     }
 
     /* Cate And Slider */
@@ -406,12 +316,13 @@
 
 /* Laptops and Desktops */
 @media (min-width: 992px) and (max-width: 1199px) {
-    #navbar form input#search {
-        width: 44rem;
-    }
 }
 
 /* Large Desktops and Screens */
 @media (min-width: 1200px) {
-    /* Add styles specific to large screens here */
+    /* Navbar */
+
+    #navbar .wd-auto {
+        width: auto;
+    }
 }

@@ -38,7 +38,7 @@
                                         <input id="email" type="email"
                                             class=" @error('email') is-invalid @enderror loginp" name="email"
                                             value="{{ old('email') }}" required autocomplete="email"
-                                            placeholder="   Enter Your Email" autofocus required>
+                                            placeholder="Enter Your Email" autofocus required>
                                         @error('email')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>

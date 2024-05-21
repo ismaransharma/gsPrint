@@ -1,5 +1,4 @@
 @import url("https://fonts.googleapis.com/css?family=Poppins:100,300,400,500,600,700,800, 800i, 900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Lekton:ital@0;1&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 
@@ -26,7 +25,9 @@ html {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Montserrat", sans-serif;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.05rem;
 }
 
 .ed {
@@ -37,10 +38,6 @@ html {
     margin: 0;
     padding: 0;
     min-width: 8.6rem;
-}
-
-.navbar-toggler {
-    margin: 0 10rem;
 }
 
 .hiddenli {
@@ -78,6 +75,29 @@ span.togglePass {
     text-decoration: none;
 }
 
+.bold {
+    font-weight: 600;
+}
+
+.center {
+    text-align: center;
+}
+
+.fs-4-0 {
+    font-size: 4rem;
+}
+
+.clr-header {
+    color: var(--header);
+}
+
+.bg-f1 {
+    background-color: #f1f1f1;
+}
+
+.wd-100 {
+    width: 100%;
+}
 /* Top Header Css Starts Here */
 #top-header {
     height: 3rem;
@@ -92,30 +112,13 @@ span.togglePass {
     --bs-gutter-x: none;
 }
 
-#top-header .row .col-md-9 {
-    width: 71%;
-}
-
-#top-header .row .col-md-9 .phoneNumber {
+#top-header .row .col-md-4 .phoneNumber {
     padding-left: 4.2rem;
 }
 
-#top-header .row .col-md-1 {
-    /* text-align: end; */
-    padding: 0 0 0 0.8rem;
-}
-
-#top-header .row .col-md-1.bdr {
+#top-header .row .col-md-2.bdr,
+#top-header .row .col-md-3.bdr {
     border-right: 0.1rem solid gray;
-    width: 12%;
-}
-
-#top-header .col-md-1.bdr.uiui {
-    width: 6%;
-}
-
-#top-header .row .col-md-1.ccio {
-    width: 10%;
 }
 
 #top-header a {
@@ -158,30 +161,23 @@ span.togglePass {
     z-index: 1000;
     background-color: var(--white);
     font-size: 1.4rem;
+    overflow: hidden;
 }
 
-#navbar .row .col-md-7 {
-    width: 75.8rem;
-}
-
-#navbar .row .col-md-7 .main .search {
-    margin: 1rem 7rem;
-}
-
-#navbar .row .col-md-7 .main .search form {
+#navbar .row .search form {
     display: flex;
 }
 
-#navbar .row .col-md-7 .main .search input {
+#navbar .row .search input {
     height: 3rem;
-    width: 62rem;
+    width: 100%;
     outline: none;
     border: none;
     background-color: #f2f2f2;
     padding: 0 2rem;
 }
 
-#navbar .row .col-md-7 .main .search button {
+#navbar .row .search button {
     height: 3.1rem;
     width: 3rem;
     outline: none;
@@ -189,34 +185,34 @@ span.togglePass {
     color: #7b716f;
 }
 
-#navbar .row .col-md-7 .main .search .round-left {
+#navbar .row .search .round-left {
     border-top-left-radius: 0.3rem;
     border-bottom-left-radius: 0.3rem;
 }
 
-#navbar .row .col-md-7 .main .search .round-right {
+#navbar .row .search .round-right {
     border-top-right-radius: 0.3rem;
     border-bottom-right-radius: 0.3rem;
 }
 
-#navbar .row .col-md-7 .main .nav-item {
+#navbar .row .nav-item {
     padding: 0.6rem 0 0 4.5rem;
 }
 
-#navbar .row .col-md-1 .login a {
+#navbar .row .login a {
     color: var(--black);
     text-decoration: none;
 }
 /* NavBar Css Ends Here */
 
-#navbar .row .col-md-1 .cart-total a {
+#navbar .row .cart-total a {
     cursor: pointer;
     color: var(--black);
     text-decoration: none;
     transition: 0.4s ease-in-out;
 }
 
-#navbar .row .col-md-1 .cart-total a:hover {
+#navbar .row .cart-total a:hover {
     color: var(--green);
 }
 /* NavBar Css Ends Here */
@@ -438,6 +434,9 @@ span.togglePass {
 #featuresCategories .featCate .cateBody .row .col-md-3 .cateimg {
     min-height: 21rem;
     max-height: 21rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #featuresCategories .featCate .cateBody .row .col-md-3 img {
@@ -855,20 +854,34 @@ span.togglePass {
 
 #gsMembers .mainBox {
     min-height: 85vh;
-    border: 1px solid #000;
+    /* border: 1px solid #000; */
     width: 100%;
 }
 
 #gsMembers .mainBox .box {
-    width: 100%;
+    height: auto;
+    width: 80%;
     margin: 3rem;
+    padding: 1rem;
+    border-radius: 1rem;
+    box-shadow: 0.1rem 0.1rem 0.5rem #c0c0c0;
     text-align: center;
     transition: 0.4s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#gsMembers .mainBox .box .images {
+    width: 100%;
+    height: 20rem;
+    overflow: hidden;
 }
 
 #gsMembers .mainBox .box .images img {
-    height: auto;
-    width: 40%;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
 #gsMembers .mainBox .box .nameNPos {
@@ -887,12 +900,21 @@ span.togglePass {
     font-size: 1.2rem;
 }
 
-#gsMembers .mainBox .box .memberLinks a.whatsapp,
-#gsMembers .mainBox .box .memberLinks a.facebook {
+#gsMembers .mainBox .box .memberLinks {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+#gsMembers .mainBox .box .memberLinks a {
     font-size: 2.5rem;
     color: var(--black);
     text-decoration: none;
     margin: 0 1.2rem;
+}
+
+#gsMembers .mainBox .box .memberLinks a:hover {
+    cursor: pointer;
 }
 
 #gsMembers .mainBox .box .memberLinks a.whatsapp:hover {
@@ -902,6 +924,7 @@ span.togglePass {
 #gsMembers .mainBox .box .memberLinks a.facebook:hover {
     color: var(--header);
 }
+
 /* About Us Page CSS Ends Here */
 
 /* Shop CSS Starts Here */
@@ -1006,6 +1029,7 @@ span.togglePass {
     width: 45%;
 }
 
+#buyNowContainer a,
 #buyNowContainer a.buyNow {
     text-decoration: none;
     color: #fff;
@@ -1403,7 +1427,7 @@ span.togglePass {
 
 #footer a {
     color: var(--white);
-    text-decoration: none;
+    /* text-decoration: none; */
 }
 
 #footer .footer-middle .links h5 {
@@ -1476,7 +1500,6 @@ span.togglePass {
 }
 
 #login .main .right .loginp {
-    /* font-family: FontAwesome ; */
     height: 3rem;
     width: 100%;
     border: 0;
@@ -1484,6 +1507,7 @@ span.togglePass {
     border-bottom: 0.1rem solid #d3cece;
     outline: none;
     font-size: 1.5rem;
+    padding: 0 0.5rem;
 }
 
 #login .main .right .loginp:hover,

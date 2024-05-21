@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\User;
 use App\Models\Order;
+use App\Models\Member;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Support\Str;
@@ -110,7 +111,8 @@ class SiteController extends Controller
             'cartCount' => $cartCount,
             'total_amount' => $total_amount, 
             'user' => $user,
-            'search' => $searchedItem
+            'search' => $searchedItem,
+            'members' => Member::where('deleted_at', null)->get(),
         ];
         
         return view('site.aboutUs', $data);
@@ -373,6 +375,7 @@ class SiteController extends Controller
         return view('site.checkout', $data);
     }
 
+
     public function postCheckout(Request $request)
     {
         $user = Auth::user(); 
@@ -458,6 +461,9 @@ class SiteController extends Controller
         $order->total = $total;
         $order->upload_design = $upload_design;
         $order->price2 = $price2;
+
+
+        // dd($order);
         $order->save();
     
         // Mail Pathauni logic
@@ -481,13 +487,16 @@ class SiteController extends Controller
             'order_items' => $orderItemsHTML
         ];
     
+        
         Mail::send('email.order', $maildata, function ($message) use ($maildata) {
-            $message->from('boyg5729@gmail.com', 'Gs Print');
-            $message->sender('boyg5729@gmail.com', 'Gs Print');
+            $message->from('smaransharma90@gmail.com', 'Gs Print');
+            $message->sender('smaransharma90@gmail.com', 'Gs Print');
             $message->to($maildata['email'], $maildata['name']);
             $message->subject('Your Order has been Successfully Placed!');
             $message->priority(1);
         });
+        
+        // dd($order);
         
         // dd($cart_code);
 
@@ -542,6 +551,138 @@ class SiteController extends Controller
             }
 
         }
+    }
+
+    public function postAddToCartAndDirectProceedToCheckOut(Request $request, $slug)
+    {
+
+        
+        $request->validation = ([
+            'upload_design' => 'image|mimes:jpeg,jpg,png,gif'
+        ]);
+        // dd($request->upload_design);
+        
+        $cart_code = Session::get('cart_code');
+        $user = Auth::user();
+
+                
+        if (is_null($user)) {
+            return redirect()->route('login')->with('error', 'Please log in to buy the Product.');
+        }
+        
+        $product = Product::where('slug', $slug)
+        ->where('deleted_at', null)
+        ->where('status', 'active')
+        ->first();
+
+        if (is_null($product)) {
+            return redirect()->back()->with('error', 'Product not found.');
+        }
+        
+        if (is_null($cart_code)) {
+            $cart_code = Str::random(8);
+            session(['cart_code' => $cart_code]);
+        }
+
+        $price2 = $request->input('price2');
+        $quantity = $request->input('quantity');
+        $image = $request->file('upload_design');
+        $price = 0; 
+        // dd($image);
+        
+        if($image){
+            
+            $unique_name = sha1(time());
+
+            $extension = $image->getClientOriginalExtension();
+            
+            $design_image = $unique_name . '.' . $extension;
+            
+            // dd($design_image, $image);
+
+            
+            $image->move('uploads/uploadADesign/', $design_image);
+            
+        }
+
+
+
+        if($price2 == 'nrml_price')
+        {
+            if ($quantity >= $product->qty_range1 && $quantity <= $product->qty_range2) {
+                $price = $quantity * $product->nrml_price1;
+            }
+            elseif ($quantity >= $product->qty_range3 && $quantity <= $product->qty_range4)
+            {
+                $price = $quantity * $product->nrml_price2;
+
+            }
+            else if($quantity >= $product->qty_range5 && $quantity <= $product->qty_range6)
+            {
+                $price = $quantity * $product->nrml_price3;
+            }
+            else if($quantity >= $product->qty_range7 && $quantity <= $product->qty_range8)
+            {
+                $price = $quantity * $product->nrml_price4;
+            }
+            else if($quantity >= $product->qty_range9 && $quantity <= $product->qty_range10)
+            {
+                $price = $quantity * $product->nrml_price5;
+            }
+
+        }
+        else 
+        {
+            if ($quantity >= $product->qty_range1 && $quantity <= $product->qty_range2) {
+                $price = $quantity * $product->urgent_price1;
+            }
+            elseif ($quantity >= $product->qty_range3 && $quantity <= $product->qty_range4)
+            {
+                $price = $quantity * $product->urgent_price2;
+
+            }
+            else if($quantity >= $product->qty_range5 && $quantity <= $product->qty_range6)
+            {
+                $price = $quantity * $product->urgent_price3;
+            }
+            else if($quantity >= $product->qty_range7 && $quantity <= $product->qty_range8)
+            {
+                $price = $quantity * $product->urgent_price4;
+            }
+            else if($quantity >= $product->qty_range9 && $quantity <= $product->qty_range10)
+            {
+                $price = $quantity * $product->urgent_price5;
+            }
+
+
+            
+        }
+    
+        $total_price = $price;
+
+        // dd($total_price);
+    
+        
+        $cart = new Cart;
+        $cart->cart_code = $cart_code;
+        $cart->user_id = $user->id;
+        $cart->product_id = $product->id;
+        $cart->price = $price;
+        $cart->price2 = $price2;
+        $cart->total_price = $total_price;
+        $cart->quantity = $quantity;
+        
+        if($image){
+            $cart->upload_design=$design_image;
+        }
+
+        $cart->save();
+
+        $user->cart_code = $cart->cart_code;
+        $user->save();
+    
+    
+        return redirect()->route('getProceedToCheckout')->with('success', 'Proceeding to Checkout.');
     }
 
     public function postAddToCart(Request $request, $slug)

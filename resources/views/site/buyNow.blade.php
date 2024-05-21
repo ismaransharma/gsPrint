@@ -169,46 +169,39 @@
                         </div>
                         @endif
 
-                        <form action="{{ route('postAddToCart', $product->slug) }}" method="POST" class="form"
-                            enctype="multipart/form-data">
+                        <form action="" method="POST" id="myCartAndCheckOut" class="form" enctype="multipart/form-data">
                             @csrf
-
+                        
                             <div class="col-md-12 radios">
                                 <input type="radio" name="price2" value="nrml_price" id="nrml_price" checked>
                                 <span class="prices" onclick="selectRadio('nrml_price')">Normal Price</span>
-
+                        
                                 <input type="radio" name="price2" value="urgent_price" id="urgent_price">
                                 <span class="prices" onclick="selectRadio('urgent_price')">Urgent Price</span>
                             </div>
-
-
+                        
                             <div class="designer">
                                 <label for="upload_design" class="custom-file-upload"></label>
-                                <input type="file" class="form-control @error('upload_design') is-invalid @enderror"
-                                    value="{{ old('upload_design') }}" id="upload_design" name="upload_design"
-                                    required />
-
+                                <input type="file" class="form-control @error('upload_design') is-invalid @enderror" value="{{ old('upload_design') }}" id="upload_design" name="upload_design" required />
+                        
                                 <label for="hire_designer" class="hire-designer"></label>
-                                <input name="hire_designer" id="hire_designer" class="hire_designer"
-                                    onclick="openWhatsAppChat()" />
+                                <input name="hire_designer" id="hire_designer" class="hire_designer" onclick="openWhatsAppChat()" />
                             </div>
-
+                        
+                            <input type="number" name="quantity" id="quantity" min="1" max="10000" value="1" placeholder="quantity" style="height: 45px; width: 170px; text-align: center;">
+                        
+                            <button class="btn add-to-cart btn-buy-page" type="button" onclick="validateAddToCart()">
+                                <i class="fa-solid fa-cart-shopping"></i><span>Add To Cart</span>
+                            </button>
+                            <button class="btn buy-now-button btn-buy-page" type="button" onclick="validateBuyNow()"> 
+                                <span class="buyNow">Buy Now</span>
+                            </button>
+                        </form>
 
 
                     </div>
                 </div>
 
-                <input type=" number" name="quantity" id="quantity" min="1" max="10000" value="1" placeholder="quantity"
-                    style="height: 45px; width: 170px; text-align: center;">
-                <button class="btn add-to-cart btn-buy-page" onclick="validateForm()">
-                    <i class="fa-solid fa-cart-shopping"></i><span>Add To Cart</span>
-                </button>
-                <button class="btn buy-now-button btn-buy-page">
-                    <a href="{{ route('getProceedToCheckout') }}" class="buyNow">
-                        <span>Buy Now</span>
-                    </a>
-                </button>
-                </form>
             </div>
             @if ($product->qty_range1)
             <div class="col-md-3">
@@ -381,6 +374,32 @@ function validateForm() {
 }
 </script>
 
+<script>
+    function validateAddToCart() {
+        var uploadDesignInput = document.getElementById("upload_design");
+
+        if (uploadDesignInput.files.length === 0) {
+            toastr.error("You need to upload a design");
+            return false;
+        }
+
+        document.getElementById("myCartAndCheckOut").action = "{{ route('postAddToCart', $product->slug) }}";
+        document.getElementById("myCartAndCheckOut").submit();
+    }
+
+    function validateBuyNow() {
+        var uploadDesignInput = document.getElementById("upload_design");
+
+        if (uploadDesignInput.files.length === 0) {
+            toastr.error("You need to upload a design");
+            return false;
+        }
+
+        document.getElementById("myCartAndCheckOut").action = "{{ route('postAddToCartAndDirectProceedToCheckOut', $product->slug) }}";
+        document.getElementById("myCartAndCheckOut").submit();
+
+    }
+</script>
 
 <script>
 function openWhatsAppChat() {

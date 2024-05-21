@@ -15,6 +15,10 @@ html {
     width: 74rem;
 }
 
+.mind {
+    min-height: 20vh !important;
+}
+
 #admin-navbar {
     font-size: 1.5rem;
     background-color: var(--adminNav);

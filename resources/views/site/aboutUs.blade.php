@@ -1,5 +1,8 @@
 @extends('template.template')
 @section('content')
+<?php 
+    // dd($members);
+?>
 
 <div id="aboutUs">
     <div class="header">
@@ -80,75 +83,53 @@
     </div>
 </section>
 
-<section id="gsMembers">
+@if (is_null($members))
+
+@else
+<section id="gsMembers" class="bg-f1">
     <div class="container">
+        <div class="upper center ">
+            <h1 class="bold fs-4-0">Our Team</h1>
+        </div>
         <div class="mainBox">
             <div class="members">
                 <div class="row">
+                    @foreach ($members as $member)
                     <div class="col-md-4">
                         <div class="box">
                             <div class="images">
-                                <img src="{{ asset('site/images/gsMembers/test.jpg') }}" alt="">
+                                <img src="{{ asset('uploads/members/'. $member->member_image) }}" alt="{{ $member->member_name }}">
                             </div>
                             <div class="nameNPos">
-                                <h5 class="name">Ghanshyam Gautam</h5>
-                                <span class="pos">Managing Director
-                                </span>
+                                <h5 class="name">{{ $member->member_name }}</h5>
+                                <span class="pos">{{ $member->member_position_title }}</span>
                             </div>
                             <div class="memberLinks">
-                                <a href="" class="whatsapp">
+                                <a href="https://wa.me/{{ $member->member_number }}" class="whatsapp" target="_blank">
                                     <i class="fa-brands fa-whatsapp"></i>
                                 </a>
-                                <a href="" class="facebook">
+                                @php
+                                    $facebookLink = $member->member_facebook;
+                                @endphp
+
+                                @if (Str::startsWith($facebookLink, ['http://', 'https://']))
+                                    <a href="{{ $facebookLink }}" class="facebook" target="_blank">
+                                @else
+                                    <a href="https://{{ $facebookLink }}" class="facebook" target="_blank">
+                                @endif
                                     <i class="fa-brands fa-facebook"></i>
+                                </a>
                                 </a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="box">
-                            <div class="images">
-                                <img src="{{ asset('site/images/gsMembers/test.jpg') }}" alt="">
-                            </div>
-                            <div class="nameNPos">
-                                <h5 class="name">Ghanshyam Gautam</h5>
-                                <span class="pos">Managing Director
-                                </span>
-                            </div>
-                            <div class="memberLinks">
-                                <a href="" class="whatsapp">
-                                    <i class="fa-brands fa-whatsapp"></i>
-                                </a>
-                                <a href="" class="facebook">
-                                    <i class="fa-brands fa-facebook"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="box">
-                            <div class="images">
-                                <img src="{{ asset('site/images/gsMembers/test.jpg') }}" alt="">
-                            </div>
-                            <div class="nameNPos">
-                                <h5 class="name">Ghanshyam Gautam</h5>
-                                <span class="pos">Managing Director
-                                </span>
-                            </div>
-                            <div class="memberLinks">
-                                <a href="" class="whatsapp">
-                                    <i class="fa-brands fa-whatsapp"></i>
-                                </a>
-                                <a href="" class="facebook">
-                                    <i class="fa-brands fa-facebook"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+                    
+                    @endforeach
                 </div>
             </div>
         </div>
     </div>
 </section>
+@endif
 
 @endsection

@@ -114,7 +114,7 @@
                                     </div>
                                     <div class="col-md-12 mt-3">
                                         <div class="form-group">
-                                            <label for="additional_information">Additon Informations*</label>
+                                            <label for="additional_information">Additon Informations</label>
                                             <textarea
                                                 class="form-control @error('additional_information') is-invalid @enderror"
                                                 name="additional_information" id="additional_information"

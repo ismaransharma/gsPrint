@@ -60,7 +60,9 @@ Route::middleware('auth')->middleware(['auth','verified'])->group(function () {
     Route::get('/cart/{id}/delete', [SiteController::class, 'getDeleteCart'])->name('getDeleteCart');
 
     Route::get('/checkout', [SiteController::class, 'getProceedToCheckout'])->name('getProceedToCheckout');
-
+    
+    Route::post('/direct/checkout/{slug}', [SiteController::class, 'postAddToCartAndDirectProceedToCheckOut'])->name('postAddToCartAndDirectProceedToCheckOut');
+    
     Route::post('/checkout', [SiteController::class, 'postCheckout'])->name('postCheckout');
 
     Route::get('/profile', [AccountController::class, 'edit'])->name('profile.edit');
@@ -73,11 +75,10 @@ Route::middleware('auth')->middleware(['auth','verified'])->group(function () {
 // Admin routes
 Route::group(['prefix' => 'admin', 'middleware' => 'checkUserRole'], function () {
 
-    Route::get('',[AdminController::class,'dashboard'])->name('getDashboard');
+    Route::get('',[AdminController::class,'dashboard'])->name('Dashboard');
 
     Route::get('/dashboard',[AdminController::class,'dashboard'])->name('getDashboard');
     
-    Route::get('/manageAboutUs',[AdminController::class,'manageAboutUs'])->name('getManageAboutUs');
     
     Route::get('/manageContactUs',[AdminController::class,'manageContactUs'])->name('getManageContactUs');
     
@@ -114,6 +115,19 @@ Route::group(['prefix' => 'admin', 'middleware' => 'checkUserRole'], function ()
         Route::post('edit/{slug}', [ShopController::class, 'postEditProduct'])->name('postEditProduct');
 
         
+    });
+
+    Route::prefix('aboutUs')->group(function(){
+        Route::get('/manageAboutUs',[AdminController::class,'manageAboutUs'])->name('getManageAboutUs');
+
+        Route::post('add/pos', [AdminController::class, 'postAddPosition'])->name('postAddPosition');
+
+        Route::post('add/member', [AdminController::class, 'postAddMember'])->name('postAddMember');
+
+        Route::post('edit/{id}', [AdminController::class, 'postEditMemberPosition'])->name('postEditMemberPosition');
+
+        Route::get('delete/{id}', [AdminController::class, 'getDeleteMemberPosition'])->name('getDeleteMemberPosition');
+
     });
 
     Route::prefix('orders')->group (function (){

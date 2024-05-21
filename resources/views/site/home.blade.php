@@ -237,15 +237,4 @@
 </section> -->
 
 
-<script>
-$(document).ready(function() {
-    $("#hoverDropdown").hover(function() {
-        $(this).find(".dropdown-menu").addClass("show");
-    }, function() {
-        $(this).find(".dropdown-menu").removeClass("show");
-    });
-});
-</script>
-
-
 @endsection
