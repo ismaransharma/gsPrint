@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{{ asset('site/css/media.css') }}">
     <link rel="stylesheet" href="{{ asset('site/toastr/toastr.css') }}">
     <link rel="stylesheet" href="{{ asset('site/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('site/css/utility.css') }}">
     <link rel="stylesheet" href="{{ asset('site/css/admin.css') }}">
 </head>
 
@@ -49,6 +50,7 @@
     <script src="{{ asset('site/jquery/jquery.js') }}"></script>
     <script src="{{ asset('site/toastr/toastr.min.js') }}"></script>
     <script src="{{ asset('site/fontawesome/all.js') }}"></script>
+    <script src="{{ asset('site/js/orderMngt.js') }}"></script>
 
     <script>
     @if(Session::has('success'))

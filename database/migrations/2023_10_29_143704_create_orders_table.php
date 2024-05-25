@@ -30,6 +30,7 @@ return new class extends Migration
             $table->enum('payment_method', ['online', 'cod']);
             $table->enum('payment_status', ['N', 'Y'])->default('N');
             $table->decimal('payment_amount');
+            $table->enum('order_status', ['Pending', 'Shipped', 'Delivered', 'Cancelled', 'Refunded', ])->default('Pending');
             $table->timestamp('deleted_at')->nullable();
             $table->timestamps();
         });

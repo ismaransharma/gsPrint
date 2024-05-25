@@ -6,6 +6,30 @@
     color: #fff;
 }
 
+.yellow {
+    color: yellow;
+}
+
+.red {
+    color: red;
+}
+
+.orange {
+    color: orange;
+}
+
+.blue {
+    color: blue;
+}
+
+.purple {
+    color: purple;
+}
+
+.greenyellow {
+    color: greenyellow;
+}
+
 .left {
     text-align: left;
 }
@@ -84,4 +108,8 @@
 
 .w-auto {
     width: auto;
+}
+
+.outline-none {
+    outline: none;
 }

@@ -117,14 +117,57 @@ class AdminController extends Controller
 
         $order = Order::where('deleted_at', null)->get();
         $searchedItem = session('searchOrder');
+        
+         $allOrders = Order::all();
+         
+         $deliveredOrders = Order::where('order_status', 'Delivered')->get();
+         
+         $pendingOrders = Order::where('order_status', 'Pending')->get();
+         
+         $shippedOrders = Order::where('order_status', 'Shipped')->get();
+         
+         $cancelledOrders = Order::where('order_status', 'Cancelled')->get();
+         
+         $refundedOrders = Order::where('order_status', 'Refunded')->get();
 
+        //  dd($deliveredOrders);
 
+        
         $data = [
+            'allOrders' => $allOrders,
+            'deliveredOrders' => $deliveredOrders,
+            'pendingOrders' => $pendingOrders,
+            'cancelledOrders' => $cancelledOrders,
+            'refundedOrders' => $refundedOrders,
+            'shippedOrders' => $shippedOrders,
+            'searchOrder' => $searchedItem,
             'orders' => $order,
-            'searchOrder' => $searchedItem
+
         ];
 
         return view('admin.orders.manageOrders', $data);
+    }
+
+    public function postUpdateOrder(Request $request, $id)
+    {
+        $order = Order::where('id', $id)->limit(1)->first();
+        $newOrderStatus = $request->input('order_status');
+
+        if(!($order->id == $id))
+        {
+            return back()->with("error", "Order not found.");
+        }
+        else{
+            
+            $order->order_status = $newOrderStatus;
+            // dd($order->order_status);
+            $order->save();
+
+            return back()->with("success","Order Status updated to $newOrderStatus successfully.");
+
+        }
+     
+
     }
 
     public function searchOrder(Request $request)
@@ -141,11 +184,30 @@ class AdminController extends Controller
             $likelyMatches = Order::where('cart_code', 'like', '%' . $searchOrder . '%')->orWhere('user_name', 'like', '%' . $searchOrder . '%')->orWhere('email', 'like', '%' . $searchOrder . '%')->get();
         
             $orders = $matches->merge($likelyMatches)->unique('id');
+
+                    
+            $allOrders = Order::all();
+            
+            $deliveredOrders = Order::where('order_status', 'Delivered')->get();
+            
+            $pendingOrders = Order::where('order_status', 'Pending')->get();
+            
+            $shippedOrders = Order::where('order_status', 'Shipped')->get();
+            
+            $cancelledOrders = Order::where('order_status', 'Cancelled')->get();
+            
+            $refundOrders = Order::where('order_status', 'Refunded')->get();
         
             if ($orders->isNotEmpty()) {
                 return view('admin.orders.searchedOrder', [
                     'searchOrder' => $searchOrder,
                     'orders' => $orders,
+                    'allOrders' => $allOrders,
+                    'deliveredOrders' => $deliveredOrders,
+                    'pendingOrders' => $pendingOrders,
+                    'cancelledOrders' => $cancelledOrders,
+                    'refundOrders' => $refundOrders,
+                    'shippedOrders' => $shippedOrders,
                 ]);
             } else {
                 return back()->with('error', 'No orders found for the specified Cart Code');

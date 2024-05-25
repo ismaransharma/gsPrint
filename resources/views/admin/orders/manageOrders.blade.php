@@ -4,7 +4,6 @@
 
 <?php
 use Carbon\Carbon;
-// dd($orders);
 ?>
 
 <section id="manageCategory">
@@ -14,10 +13,21 @@ use Carbon\Carbon;
                 <div class="card">
                     <div class="card-header">
                         <div class="row">
-                            <div class="col-md-6">
-                                <h4>Manage Order -- {{ $orders->count() }}</h4>
+                            <div class="col-md-3">
+                                <h4>All Orders -- {{ $orders->count() }}</h4>
                             </div>
-                            <div class="col-md-6 text-end">
+                            <div class="col-md-6 d-flex">
+                                <h4 class="mx-4">Order Status</h4>
+                                <select name="" id="orderSelect" class="fs-4 outline-none" onchange="handleOrderChange()">
+                                    <option value="allOrders" class="allOrders">All</option>
+                                    <option value="pendingOrders" class="pendingOrders">Pending</option>
+                                    <option value="shippedOrders" class="shippedOrders">Shipped</option>
+                                    <option value="deliveredOrders" class="deliveredOrders">Delivered</option>
+                                    <option value="cancelOrders" class="cancelOrders">Cancel</option>
+                                    <option value="refundOrders" class="refundOrders">Refund</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 text-end">
                                 <form action="/admin/orders/searchOrder">
                                     <input type="search" placeholder="Search Order" name="searchOrder" id="searchOrder"
                                         class="@error('searchOrder') is-invalid @enderror round-left search"
@@ -30,67 +40,30 @@ use Carbon\Carbon;
                         </div>
                     </div>
                     <div class="card-body">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>S.N</th>
-                                    <th>User Id</th>
-                                    <th>User Name</th>
-                                    <th>Name</th>
-                                    <th>Mobile Number</th>
-                                    <th>Email</th>
-                                    <th>Cart Code</th>
-                                    <th>Address</th>
-                                    <th>Payment Status</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($orders as $order)
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ ($order->user_id) }}</td>
-                                    <td>{{ $order->user_name }}</td>
-                                    <td>{{ $order->name }}</td>
-                                    <td>{{ $order->mobile_number }}</td>
-                                    <td>{{ Str::limit($order->email ?? 'No Email', 10)}}..</td>
-                                    <td>{{ $order->cart_code }}</td>
-                                    <td>{{ Str::limit($order->address ?? 'No Address', 10)}}..</td>
-                                    <td>
-                                        @if ($order->payment_method == 'cod')
-                                        @if ($order->payment_status == 'Y')
-                                        <h5 class="green">Cash on Delivery</h5>
-                                        @else
-                                        <h5 class="red">Cash on Delivery</h5>
-                                        @endif
-                                        @else
-                                        <h5 class="green">Online Payment</h5>
-                                        @endif
-                                    </td>
-                                    <td style="width: 121px;">
-                                        <button class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                                            data-bs-target="#view-{{ $order->cart_code }}">View</button>
-                                        @if ($order->payment_method == 'cod')
-                                        <br>
-                                        <div class="toggle-payment-padding" style="padding-top: 5px;">
-                                            <a href="{{ route('makePaymentComplete', $order->id) }}"
-                                                onclick="return confirm('Are you sure you want to change payment status?');">
-                                                Toggle Payment
-                                            </a>
-                                        </div>
-                                        @endif
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                        <div id="allOrdersSection" class="order-section">
+                            @include('admin.orders.allOrders', ['orders' => $allOrders])
+                        </div>
+                        <div id="shippedOrdersSection" class="order-section">
+                            @include('admin.orders.shippedOrders', ['orders' => $shippedOrders])
+                        </div>
+                        <div id="deliveredOrdersSection" class="order-section" style="display: none;">
+                            @include('admin.orders.deliveredOrders', ['orders' => $deliveredOrders])
+                        </div>
+                        <div id="pendingOrdersSection" class="order-section" style="display: none;">
+                            @include('admin.orders.pendingOrders', ['orders' => $pendingOrders])
+                        </div>
+                        <div id="cancelOrdersSection" class="order-section" style="display: none;">
+                            @include('admin.orders.cancelOrders', ['orders' => $cancelledOrders])
+                        </div>
+                        <div id="refundOrdersSection" class="order-section" style="display: none;">
+                            @include('admin.orders.refundOrders', ['orders' => $refundedOrders])
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
-
 
 @foreach ($orders as $order1)
 <?php
@@ -117,62 +90,78 @@ use Carbon\Carbon;
     aria-labelledby="#view-{{ $order1->cart_code }}Label" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">View Items - {{ $order1->cart_code }}</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-12 mb-2">
-                            <h3>Product Name:-</h3>
-                            <h4>{{ $order1->product_name }}</h4>
-                        </div>
-                        <div class="col-md-4 mb-2">
-                            <h3>Quantity:-</h3>
-                            <h4>{{ $order1->quantity }}</h4>
-                        </div>
-                        <div class="col-md-4 mb-2">
-                            <h3>Per Quanitity:-</h3>
-                            <h4>{{ $order1->price }}</h4>
-                        </div>
-                        <div class="col-md-4 mb-2">
-                            <h3>Sub Total:-</h3>
-                            <h4>{{ $order1->total }}</h4>
-                        </div>
-                        <div class="col-md-12 mb-2">
-                            <h3>Price Type:-</h3>
-                            @if ($order1->price2 == "nrml_price")
-                            <h4>Normal Price</h4>
-                            @else
-                            <h4>Urgent Price</h4>
-                            @endif
-                        </div>
-                        <div class="col-md-6 mb-5">
-                            <h3>Shipping Charge (All over Nepal):-</h3>
-                            <h4>150</h4>
-                        </div>
-                        <div class="col-md-6 mb-5">
-                            <h3>Total:-</h3>
-                            <h4>{{ $order1->payment_amount }}</h4>
-                        </div>
-                        <div class="col-md-12 mb-2">
-                            <h3>Design:-</h3>
-                            @if ($order1->upload_design)
-                            <img src="{{ asset('uploads/uploadADesign/'. $order1->upload_design) }}"
-                                alt="Uploaded Design" class="yourOrderImg">
-                            <h4>(Customer Own design)</h4>
-                            @else
-                            <h4>Hired a designer</h4>
-                            @endif
-                        </div>
-                        <div class="col-md-6">
-                            <h3>Created At</h3>
-                            <h4>{{ $actualOrderTime }}</h4>
+            <form action="{{ route('updateOrder', $order1->id) }}" method="POST">
+                @csrf
+                <div class="modal-header">
+                    <h5 class="modal-title">View Items - {{ $order1->cart_code }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12 mb-2">
+                                <h3>Product Name:</h3>
+                                <h4>{{ $order1->product_name }}</h4>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <h3>Quantity:</h3>
+                                <h4>{{ $order1->quantity }}</h4>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <h3>Per Quantity:</h3>
+                                <h4>{{ $order1->price }}</h4>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <h3>Sub Total:</h3>
+                                <h4>{{ $order1->total }}</h4>
+                            </div>
+                            <div class="col-md-12 mb-2">
+                                <h3>Price Type:</h3>
+                                @if ($order1->price2 == "nrml_price")
+                                    <h4>Normal Price</h4>
+                                @else
+                                    <h4>Urgent Price</h4>
+                                @endif
+                            </div>
+                            <div class="col-md-6 mb-5">
+                                <h3>Shipping Charge (All over Nepal):</h3>
+                                <h4>150</h4>
+                            </div>
+                            <div class="col-md-6 mb-5">
+                                <h3>Total:</h3>
+                                <h4>{{ $order1->payment_amount }}</h4>
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <h3>Order Status:</h3>
+                                <select name="order_status" id="orderSelect" class="form-select fs-4">
+                                    <option value="Pending" {{ $order1->order_status == 'Pending' ? 'selected' : '' }}>Pending</option>
+                                    <option value="Shipped" {{ $order1->order_status == 'Shipped' ? 'selected' : '' }}>Shipped</option>
+                                    <option value="Delivered" {{ $order1->order_status == 'Delivered' ? 'selected' : '' }}>Delivered</option>
+                                    <option value="Cancelled" {{ $order1->order_status == 'Cancel' ? 'selected' : '' }}>Cancel</option>
+                                    <option value="Refunded" {{ $order1->order_status == 'Refunded' ? 'selected' : '' }}>Refund</option>
+                                </select>
+                            </div>
+                            <div class="col-md-12 mb-2">
+                                <h3>Design:</h3>
+                                @if ($order1->upload_design)
+                                    <img src="{{ asset('uploads/uploadADesign/'. $order1->upload_design) }}" alt="Uploaded Design" class="yourOrderImg">
+                                    <h4>(Customer Own design)</h4>
+                                @else
+                                    <h4>Hired a designer</h4>
+                                @endif
+                            </div>
+                            <div class="col-md-6">
+                                <h3>Created At:</h3>
+                                <h4>{{ $actualOrderTime }}</h4>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary fs-4">Save</button>
+                </div>
+            </form>
+            
         </div>
     </div>
 </div>

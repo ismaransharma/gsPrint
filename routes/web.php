@@ -134,6 +134,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'checkUserRole'], function ()
         Route::get('/manageOrders',[AdminController::class,'manageOrders'])->name('getManageOrders');
         Route::get('payment/complete/{id}',[AdminController::class,'makePaymentComplete'])->name('makePaymentComplete');
         Route::get('/searchOrder', [AdminController::class, 'searchOrder'])->name('searchOrder');
+        
+        Route::post('/admin/orders/updateOrder/{id}', [AdminController::class, 'postUpdateOrder'])->name('updateOrder');
 
 
     });

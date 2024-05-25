@@ -38,7 +38,7 @@
                                     <th>User Name</th>
                                     <th>Name</th>
                                     <th>Mobile Number</th>
-                                    <th>Email</th>
+                                    <th>Order Status</th>
                                     <th>Cart Code</th>
                                     <th>Address</th>
                                     <th>Payment Status</th>
@@ -53,9 +53,25 @@
                                     <td>{{ $order->user_name }}</td>
                                     <td>{{ $order->name }}</td>
                                     <td>{{ $order->mobile_number }}</td>
-                                    <td>{{ Str::limit($order->email ?? 'No Email', 10)}}..</td>
+                                    <td>
+                                        @if ($order->order_status == 'Pending')
+                                            <h5 class="yellow">Pending</h5>
+                                        @elseif ($order->order_status == 'Shipped')
+                                            <h5 class="greenyellow">Shipped</h5>
+                                        
+                                        @elseif ($order->order_status == 'Delivered')
+                                            <h5 class="green">Delivered</h5>
+                                        
+                                        @elseif($order->order_status == 'Cancelled')
+                                            <h5 class="red">Cancelled</h5>
+                                        
+                                        @elseif ($order->order_status == 'Refund')
+                                            <h5 class="Orange">Refund</h5>
+                                        
+                                        @endif
+                                    </td>
                                     <td>{{ $order->cart_code }}</td>
-                                    <td>{{ Str::limit($order->address ?? 'No Address', 10)}}..</td>
+                                    <td>{{ Str::limit($order->address ?? 'No Address', 10) }}..</td>
                                     <td>
                                         @if ($order->payment_method == 'cod')
                                         @if ($order->payment_status == 'Y')
@@ -64,17 +80,15 @@
                                         <h5 class="red">Cash on Delivery</h5>
                                         @endif
                                         @else
-                                        <h5>Online Payment</h5>
+                                        <h5 class="green">Online Payment</h5>
                                         @endif
                                     </td>
                                     <td style="width: 121px;">
-                                        <button class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                                            data-bs-target="#view-{{ $order->cart_code }}">View</button>
+                                        <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#view-{{ $order->cart_code }}">View</button>
                                         @if ($order->payment_method == 'cod')
                                         <br>
                                         <div class="toggle-payment-padding" style="padding-top: 5px;">
-                                            <a href="{{ route('makePaymentComplete', $order->id) }}"
-                                                onclick="return confirm('Are you sure you want to change payment status?');">
+                                            <a href="{{ route('makePaymentComplete', $order->id) }}" onclick="return confirm('Are you sure you want to change payment status?');">
                                                 Toggle Payment
                                             </a>
                                         </div>
@@ -84,6 +98,7 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        
                     </div>
                 </div>
             </div>
@@ -98,6 +113,7 @@
     if ($carts) {
         $total_amount = App\Models\Cart::where('cart_code', $order1->cart_code)->sum('total_price');
     }
+
 ?>
 
 
@@ -106,6 +122,8 @@
     aria-labelledby="#view-{{ $order1->cart_code }}Label" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
+            <form action="{{ route('updateOrder', $order1->id) }}" method="POST">
+            @csrf
             <div class="modal-header">
                 <h5 class="modal-title">View Items - {{ $order1->cart_code }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -145,6 +163,16 @@
                             <h3>Total:-</h3>
                             <h4>{{ $order1->payment_amount }}</h4>
                         </div>
+                        <div class="col-md-6 mb-2">
+                            <h3>Order Status:</h3>
+                            <select name="order_status" id="orderSelect" class="form-select fs-4">
+                                <option value="Pending" {{ $order1->order_status == 'Pending' ? 'selected' : '' }}>Pending</option>
+                                <option value="Shipped" {{ $order1->order_status == 'Shipped' ? 'selected' : '' }}>Shipped</option>
+                                <option value="Delivered" {{ $order1->order_status == 'Delivered' ? 'selected' : '' }}>Delivered</option>
+                                <option value="Cancelled" {{ $order1->order_status == 'Cancelled' ? 'selected' : '' }}>Cancel</option>
+                                <option value="Refunded" {{ $order1->order_status == 'Refunded' ? 'selected' : '' }}>Refund</option>
+                            </select>
+                        </div>
                         <div class="col-md-12 mb-2">
                             <h3>Design:-</h3>
                             @if ($order1->upload_design)
@@ -158,6 +186,11 @@
                     </div>
                 </div>
             </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary fs-4">Save</button>
+            </div>
+
+            </form>
         </div>
     </div>
 </div>
