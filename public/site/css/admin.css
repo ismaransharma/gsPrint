@@ -15,105 +15,35 @@ html {
     width: 74rem;
 }
 
-.mind {
-    min-height: 20vh !important;
-}
-
-#admin-navbar {
-    font-size: 1.5rem;
-    background-color: var(--adminNav);
-    width: 13rem;
-    height: 80rem;
-    position: fixed;
-}
-
-#admin-navbar a {
-    color: var(--white);
-}
-
-#admin-navbar li {
-    margin: 4rem 0 0 0;
-    text-align: left;
-    position: relative;
-    width: 12rem;
-}
-
-#admin-navbar li::before {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 0.2rem;
-    /* background-color: var(--white); */
-    transition: 0.4s ease;
-}
-
-#admin-navbar li:hover::before {
-    width: 13rem;
-}
-
-.dropdown-item:hover,
-.dropdown-item:focus {
-    background-color: var(--adminNav);
-}
-
-#admin-navbar li:hover::before {
-    background-color: var(--white);
-}
-
-#admin-navbar ul.dropdown-menu.show {
-    background-color: var(--adminNav);
-}
-/* Admin Dashboard CSS Starts Here */
-#dashboard {
-    min-height: 80rem;
+.adminDashboardBg {
     background-color: var(--admindasboard);
+    min-height: 100vh;
 }
 
-#dashboard h6 {
-    font-size: 1.5rem;
+:root {
+    --adminNav: #181a1d;
+    --admindasboard: #22252a;
+    --admindasboardCard: #282b2f;
 }
 
-#dashboard .top .row .col-md-3.first .card {
-    border-left: 0.8rem solid var(--adminNav);
+/* Admin NavBar CSS Starts Here */
+#admin-navbar .navBg {
+    background-color: var(--adminNav);
+    min-height: 100vh;
 }
 
-#dashboard .top .row .col-md-3.second .card {
-    border-left: 0.8rem solid var(--green);
+#admin-navbar ul li {
+    font-size: 2rem;
+    margin: 2rem 0;
 }
 
-#dashboard .top .row .col-md-3.third .card {
-    border-left: 0.8rem solid var(--shopTitle);
-}
+/* Admin NavBar CSS Ends Here */
 
-#dashboard .top .row .main-card {
-    margin: 7rem 4.7rem;
-}
-
-#dashboard .top .card {
-    background-color: var(--admindasboardCard);
-    color: var(--white);
-    width: 100%;
-}
-
-#dashboard .top .card .card-body .profile-image img {
-    height: 5rem;
-    width: 5rem;
-}
-
-#dashboard .top .row .col-md-3.middle {
-    margin: 8.4rem 4.7rem;
-}
-
-#dashboard .top .middle .lists li {
-    margin: 1rem 0;
-}
+/* Admin Dashboard CSS Starts Here */
 /* Admin Dashboard CSS Ends Here */
 
 /* Admin Category CSS Starts Here */
 #manageCategory {
-    min-height: 80rem;
     background-color: var(--admindasboard);
 }
 
@@ -122,7 +52,7 @@ html {
 }
 
 #manageCategory .row .col-md-12 {
-    margin: 7rem 4.7rem;
+    margin: 5rem 0;
 }
 
 #manageCategory .row .col-md-12 .card {

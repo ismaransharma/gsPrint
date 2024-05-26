@@ -24,13 +24,23 @@ class AdminController extends Controller
             $userName = $user->name;
             $order = Order::where('payment_status', 'Y')->where('deleted_at', null)->get();
 
+            $completed_orders = Order::where('order_status', 'Delivered')->get()->count();
+
+            $pending_orders = Order::where('order_status', 'Pending')->get()->count();
+
+            $shipped_orders = Order::where('order_status', 'Shipped')->get()->count();
             $total = $order->sum('payment_amount');
             // dd($total);
+
+            // dd($completed_order);
             
             $data = [
                 'categories' => Category::whereNull('deleted_at')->orderBy('id', 'asc')->get(),
                 'products' => Product::whereNull('deleted_at')->orderBy('id', 'asc')->get(),
                 'Orders' => Order::where('payment_status', 'Y')->whereNull('deleted_at')->count(),
+                'completed_order' => $completed_orders,
+                'pending_order' => $pending_orders,
+                'shipped_order' => $shipped_orders,
                 'user' => $userName,
                 'totalEarnings' => $total
             ];

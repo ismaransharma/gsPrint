@@ -102,6 +102,14 @@
     align-items: center;
 }
 
+.w-67p {
+    width: 67%;
+}
+
+.w-70p {
+    width: 70%;
+}
+
 .w-100p {
     width: 100%;
 }
@@ -112,4 +120,21 @@
 
 .outline-none {
     outline: none;
+}
+
+.td-none {
+    text-decoration: none;
+}
+
+.h-6 {
+    height: 6rem;
+}
+
+.h-auto-w-50p {
+    height: auto;
+    width: 50%;
+}
+
+.hide {
+    display: none;
 }
