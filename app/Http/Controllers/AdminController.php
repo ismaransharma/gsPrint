@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\Category;
 use App\Models\Position;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
@@ -30,7 +31,34 @@ class AdminController extends Controller
 
             $shipped_orders = Order::where('order_status', 'Shipped')->get()->count();
             $total = $order->sum('payment_amount');
-            // dd($total);
+
+            $orderStatusCounts = Order::whereNull('deleted_at')
+            ->select('order_status', DB::raw('count(*) as count'))
+            ->groupBy('order_status')
+            ->get();
+
+            $orderStatusData = "";
+
+            $statusColors = [
+                'Pending' => 'yellow',
+                'Shipped' => 'greenyellow',
+                'Delivered' => 'green',
+                'Cancelled' => 'red', 
+                'Refund' => 'orange',
+            ];
+
+            foreach ($orderStatusCounts as $statusCount) {
+                $status = $statusCount->order_status;
+                $color = isset($statusColors[$status]) ? $statusColors[$status] : '#3366cc'; 
+                $orderStatusData .= "['$status', $statusCount->count, '$color'],";
+            }
+
+            $orderStatusData = rtrim($orderStatusData, ",");
+
+            $arr = $orderStatusData;
+
+            
+            // dd($orderStatusData);
 
             // dd($completed_order);
             
@@ -42,7 +70,8 @@ class AdminController extends Controller
                 'pending_order' => $pending_orders,
                 'shipped_order' => $shipped_orders,
                 'user' => $userName,
-                'totalEarnings' => $total
+                'totalEarnings' => $total,
+                'arr'=> $arr,
             ];
 
             return view('admin.adminHome', $data);
