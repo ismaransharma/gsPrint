@@ -36,6 +36,9 @@ class SiteController extends Controller
 
         $searchedItem = session('searchedItem');
 
+        $cateProducts = Category::where('status', 'active')->whereHas('products', 
+            function ($query) {$query->whereNull('deleted_at');
+        })->whereNull('deleted_at')->limit(7)->get();
 
 
     
@@ -47,7 +50,7 @@ class SiteController extends Controller
             'total_amount' => $total_amount, 
             'user' => $user,
             'search' => $searchedItem,
-            'cateproducts' => Category::where('status', 'active')->where('deleted_at', null)->limit(7)->get(),
+            'cateproducts' => $cateProducts,
         ];
     
         return view('site.home', $data);

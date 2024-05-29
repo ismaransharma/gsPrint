@@ -8,22 +8,18 @@
             @foreach ($cateproducts as $category)
             <div class="col-md-12">
                 <div class="btn-group dropend" id="hoverDropdown">
-                    <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown"
-                        aria-expanded="false">
+                    <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                         <div class="row">
                             <div class="col-md-7 text-left">
-                                <span class="cateName">
-                                    {{ $category->category_title }}
-                                </span>
+                                <span class="cateName">{{ $category->category_title }}</span>
                             </div>
                             <div class="col-md-1">
                                 <span class="right"><i class="fa-solid fa-angle-right name-right"></i></span>
                             </div>
                         </div>
-
                     </button>
                     <ul class="dropdown-menu">
-                        @foreach ($category->products as $product)
+                        @foreach ($category->products->whereNull('deleted_at') as $product)
                         <a href="{{ route('getProductDetails', $product->slug) }}">
                             <li>{{ $product->product_title }}</li>
                         </a>

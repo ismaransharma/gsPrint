@@ -19,10 +19,6 @@ use App\Http\Controllers\Auth\CustomLoginController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 
 Route::get('/',[SiteController::class, 'home'])->name('getHome');
 
