@@ -688,6 +688,7 @@ class SiteController extends Controller
     public function postAddToCart(Request $request, $slug)
     {
 
+        // dd($slug);
         
         $request->validation = ([
             'upload_design' => 'image|mimes:jpeg,jpg,png,gif'
@@ -705,7 +706,7 @@ class SiteController extends Controller
         $product = Product::where('slug', $slug)
         ->where('deleted_at', null)
         ->where('status', 'active')
-        ->first();
+        ->limit(1)->first();
 
         if (is_null($product)) {
             return redirect()->back()->with('error', 'Product not found.');
@@ -816,6 +817,7 @@ class SiteController extends Controller
     
         return redirect()->back()->with('success', 'Product added to cart');
     }
+
     
     public function getUpdateCart(Request $request, $id)
     {
@@ -920,7 +922,7 @@ class SiteController extends Controller
         // Get the currently authenticated user
         $user = Auth::user();
         
-        $cart_code = $user->cart_code; // Assuming you have a 'cart_code' field in your User model
+        $cart_code = $user->cart_code; 
         
         $cart = Cart::where('cart_code', $cart_code)->where('id', $id)->first();
         
@@ -934,6 +936,28 @@ class SiteController extends Controller
     
         $cart->delete();
         return redirect()->back()->with('success', 'Cart Deleted Successfully!');
+    }
+    
+    public function getDeleteAllCart()
+    {
+        $user = Auth::user();
+    
+        if (!$user) {
+            return redirect()->back()->with('error', 'User not authenticated');
+        }
+    
+        $cart_code = $user->cart_code;
+        $cartItems = Cart::where('cart_code', $cart_code)->get();
+    
+        if ($cartItems->isEmpty()) {
+            return redirect()->back()->with('error', 'Cart is already empty');
+        }
+    
+        foreach ($cartItems as $cartItem) {
+            $cartItem->delete();
+        }
+    
+        return redirect()->back()->with('success', 'Cart deleted successfully!');
     }
 
     public function getAccDashboard()

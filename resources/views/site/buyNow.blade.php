@@ -2,8 +2,19 @@
 @section('content')
 
 <?php
-// dd($product)
+// dd($product);
+
+$addToCartUrl = route('postAddToCart', $product->slug);
+$buyNowUrl = route('postAddToCartAndDirectProceedToCheckOut', $product->slug);
+
+$rrtProduct = $rrtProdut ?? null;
+
+if ($rrtProduct) {
+    $addToCartUrl = route('postAddToCart', $rrtProduct->slug);
+    $buyNowUrl = route('postAddToCartAndDirectProceedToCheckOut', $rrtProduct->slug);
+}
 ?>
+
 
 <section id="pageHead">
     <div class="container">
@@ -298,7 +309,7 @@ $related_products = App\Models\Product::where('category_id', $product->category_
                 </div>
             </div>
         </div>
-        @foreach ($related_products as $product)
+        @foreach ($related_products as $rrtProduct)
         <div class="body">
             <section id="featuresProducts">
                 <div class="container">
@@ -310,21 +321,21 @@ $related_products = App\Models\Product::where('category_id', $product->category_
                                         <div class="containerji">
                                             <div class="card">
                                                 <div class="imgBx">
-                                                    <img src="{{ asset('uploads/product/' . $product->product_image) }}"
+                                                    <img src="{{ asset('uploads/product/' . $rrtProduct->product_image) }}"
                                                         alt="">
                                                 </div>
                                                 <div class="contentBx">
-                                                    <h2>{{ $product->product_title }}</h2>
+                                                    <h2>{{ $rrtProduct->product_title }}</h2>
 
                                                     <div class="description">
-                                                        <h3>{{ Str::limit($product->product_description ?? 'No Description', 15)}}..
+                                                        <h3>{{ Str::limit($rrtProduct->product_description ?? 'No Description', 15)}}..
                                                         </h3>
                                                     </div>
 
-                                                    @if ($product->discount_price > 0)
+                                                    @if ($rrtProduct->discount_price > 0)
                                                     <div class="original_price">
                                                         <h3 style="text-decoration: line-through;">
-                                                            Rs.{{ $product->original_price }}
+                                                            Rs.{{ $rrtProduct->original_price }}
                                                         </h3>
                                                     </div>
                                                     @else
@@ -332,9 +343,9 @@ $related_products = App\Models\Product::where('category_id', $product->category_
                                                     @endif
                                                     <!-- 
                                                     <div class="price">
-                                                        <h3>Rs.{{ $product->total }}</h3>
+                                                        <h3>Rs.{{ $rrtProduct->total }}</h3>
                                                     </div> -->
-                                                    <a href="{{ route('getProductDetails', $product->slug) }}">Buy
+                                                    <a href="{{ route('getProductDetails', $rrtProduct->slug) }}">Buy
                                                         Now</a>
                                                 </div>
 
@@ -356,58 +367,47 @@ $related_products = App\Models\Product::where('category_id', $product->category_
 @endif
 
 @endsection
-
 <script>
-function selectRadio(radioId) {
-    document.getElementById(radioId).checked = true;
-}
-</script>
-
-<script>
-function validateForm() {
-    var uploadDesignInput = document.getElementById("upload_design");
-
-    if (uploadDesignInput.files.length === 0) {
-        toastr.error("You need to upload a design");
-        return false;
+    function selectRadio(radioId) {
+        document.getElementById(radioId).checked = true;
     }
-}
-</script>
-
-<script>
+    
+    function validateForm() {
+        var uploadDesignInput = document.getElementById("upload_design");
+    
+        if (uploadDesignInput.files.length === 0) {
+            toastr.error("You need to upload a design");
+            return false;
+        }
+    }
+    
     function validateAddToCart() {
         var uploadDesignInput = document.getElementById("upload_design");
-
+    
         if (uploadDesignInput.files.length === 0) {
             toastr.error("You need to upload a design");
             return false;
         }
-
-        document.getElementById("myCartAndCheckOut").action = "{{ route('postAddToCart', $product->slug) }}";
+    
+        document.getElementById("myCartAndCheckOut").action = "{{ $addToCartUrl }}";
         document.getElementById("myCartAndCheckOut").submit();
     }
-
+    
     function validateBuyNow() {
         var uploadDesignInput = document.getElementById("upload_design");
-
+    
         if (uploadDesignInput.files.length === 0) {
             toastr.error("You need to upload a design");
             return false;
         }
-
-        document.getElementById("myCartAndCheckOut").action = "{{ route('postAddToCartAndDirectProceedToCheckOut', $product->slug) }}";
+    
+        document.getElementById("myCartAndCheckOut").action = "{{ $buyNowUrl }}";
         document.getElementById("myCartAndCheckOut").submit();
-
     }
-</script>
-
-<script>
-function openWhatsAppChat() {
-
-    var designerNumber = '9703516489';
-
-    var whatsappUrl = 'https://wa.me/' + designerNumber;
-
-    window.open(whatsappUrl, '_blank');
-}
-</script>
+    
+    function openWhatsAppChat() {
+        var designerNumber = '9703516489';
+        var whatsappUrl = 'https://wa.me/' + designerNumber;
+        window.open(whatsappUrl, '_blank');
+    }
+    </script>

@@ -287,7 +287,7 @@
                                                     <td>Rs. {{ $cart->total_price }}</td>
                                                     <td>
                                                         <a href="{{ route('getDeleteCart', $cart->id) }}">
-                                                            <button class="btn btn-danger">
+                                                            <button class="btn btn-danger" type="submit" title="Remove {{ $cart->getProductFromCart->product_title }}">
                                                                 <i class="fa-solid fa-trash"></i>
                                                             </button>
                                                         </a>
@@ -301,6 +301,13 @@
                                                     <td></td>
                                                     <td>Total Amount:</td>
                                                     <td>Rs. {{ $total_amount }}</td>
+                                                    <td>
+                                                        <a href="{{ route('getDeleteAllCart') }}">
+                                                            <button class="btn btn-danger" type="submit" title="Remove All Products From Cart">
+                                                                <i class="fa-solid fa-trash"></i>
+                                                            </button>
+                                                        </a>
+                                                    </td>
                                                 </tr>
                                             </tfoot>
                                         </table>

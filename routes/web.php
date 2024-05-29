@@ -59,6 +59,8 @@ Route::middleware('auth')->middleware(['auth','verified'])->group(function () {
 
     Route::get('/cart/{id}/delete', [SiteController::class, 'getDeleteCart'])->name('getDeleteCart');
 
+    Route::get('/cart/delete/all', [SiteController::class, 'getDeleteAllCart'])->name('getDeleteAllCart');
+
     Route::get('/checkout', [SiteController::class, 'getProceedToCheckout'])->name('getProceedToCheckout');
     
     Route::post('/direct/checkout/{slug}', [SiteController::class, 'postAddToCartAndDirectProceedToCheckOut'])->name('postAddToCartAndDirectProceedToCheckOut');
