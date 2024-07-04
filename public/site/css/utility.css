@@ -110,6 +110,10 @@
     width: 70%;
 }
 
+.w-90p {
+    width: 90%;
+}
+
 .w-100p {
     width: 100%;
 }
@@ -130,6 +134,10 @@
     height: 6rem;
 }
 
+.h-9rem {
+    height: 9rem;
+}
+
 .h-auto-w-50p {
     height: auto;
     width: 50%;
@@ -137,4 +145,36 @@
 
 .hide {
     display: none;
+}
+
+.blue {
+    color: #0150a2;
+}
+
+.green {
+    color: #00a550;
+}
+
+.bg-d9 {
+    background-color: #d9d9d9;
+}
+
+.ds-none {
+    display: none;
+}
+
+.overflow-scroll {
+    overflow: scroll;
+}
+
+.row.bs-guuter-x-0 {
+    --bs-gutter-x: 0rem;
+}
+
+.bg-green {
+    background-color: #00a550;
+}
+
+.bg-blue {
+    background-color: #0150a2;
 }

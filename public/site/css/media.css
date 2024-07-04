@@ -107,6 +107,31 @@
         display: none;
     }
 
+    #buyNowContainer .row .col-md-3 {
+        margin: 2rem 0;
+    }
+    #buyNowContainer .row .col-md-3 .card {
+        width: 100%;
+    }
+
+    #ratingAndReview .wholeBox,
+    #ratingAndReview .wholeBox .upper-box,
+    #ratingAndReview .wholeBox .Cntbox {
+        width: 100%;
+    }
+
+    #ratingAndReview .row.jhsgvbe {
+        display: flex;
+    }
+
+    #ratingAndReview .row.jhsgvbe .col-xs-6 {
+        width: 50%;
+    }
+
+    #ratingAndReview .addAndViewReview textarea {
+        width: 80%;
+    }
+
     /* About Us */
     #ourObjectives {
         height: 69rem !important;
@@ -245,6 +270,33 @@
 
     #cateAndSlider .row .col-md-10 {
         width: 100%;
+    }
+
+    /* BuyNow */
+
+    #buyNowContainer .row .col-md-3 {
+        margin: 2rem 0;
+    }
+    #buyNowContainer .row .col-md-3 .card {
+        width: 100%;
+    }
+
+    #ratingAndReview .wholeBox,
+    #ratingAndReview .wholeBox .upper-box,
+    #ratingAndReview .wholeBox .Cntbox {
+        width: 100%;
+    }
+
+    #ratingAndReview .row.jhsgvbe {
+        display: flex;
+    }
+
+    #ratingAndReview .row.jhsgvbe .col-xs-6 {
+        width: 50%;
+    }
+
+    #ratingAndReview .addAndViewReview textarea {
+        width: 80%;
     }
 
     /* Login */

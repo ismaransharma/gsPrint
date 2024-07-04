@@ -591,19 +591,27 @@ span.togglePass {
 .containerji .card .contentBx .size,
 .containerji .card .contentBx .description,
 .containerji .card .contentBx .original_price,
+.containerji .card .contentBx .ratingStars,
 .containerji .card .contentBx .price {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0.4rem 2rem;
+    padding: 1rem 2rem;
     transition: 0.5s;
     opacity: 0;
     visibility: hidden;
 }
 
+.containerji .card .contentBx .ratingStars svg {
+    height: 2rem;
+    width: 2rem;
+    margin: 0 0.1rem;
+}
+
 .containerji .card:hover .contentBx .size,
 .containerji .card:hover .contentBx .original_price,
-.containerji .card:hover .contentBx .description {
+.containerji .card:hover .contentBx .description,
+.containerji .card:hover .contentBx .ratingStars {
     opacity: 1;
     visibility: visible;
     transition-delay: 0.5s;
@@ -1168,6 +1176,93 @@ span.togglePass {
 
 #buyNowContainer .row .hire-designer:hover::before {
     background-color: var(--header);
+}
+
+#ratingAndReview {
+    margin: 2rem 0;
+}
+#ratingAndReview .Cntbox {
+    /* border: 0.1rem solid #000; */
+    height: 30rem;
+    width: 60rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+#ratingAndReview .Cntbox .col-md-12.sgbhisrg {
+    position: fixed;
+    width: 42.6%;
+}
+
+#ratingAndReview .header button {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: white;
+}
+
+#ratingAndReview .Cntbox .addAndViewReview .addAReview .bottom button {
+    height: 3rem;
+    width: 10rem;
+    font-size: 1.6rem;
+    font-weight: 500;
+    border: none;
+    border-radius: 0.2rem;
+    outline: none;
+    background-color: #0150a2;
+    color: #fff;
+}
+
+#ratingAndReview .Cntbox .addAReview textarea {
+    /* border: none; */
+    outline: none;
+    font-size: 1.4rem;
+    resize: none;
+}
+
+#ratingAndReview .Cntbox .addAReview .star {
+    height: 2rem;
+    width: 2rem;
+    fill: none;
+    stroke: #000;
+    stroke-width: 2;
+    cursor: pointer;
+}
+
+#ratingAndReview .Cntbox .addAReview .star:hover path {
+    fill: #ed8a19 !important;
+}
+
+#ratingAndReview .Cntbox .addAReview .star.active path {
+    fill: #ed8a19 !important;
+}
+
+#ratingAndReview .Cntbox .review .user .image img {
+    height: 4rem;
+    width: 4rem;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+#ratingAndReview .Cntbox .review .starReview svg {
+    height: 2rem;
+    width: 2rem;
+}
+
+#ratingAndReview .Cntbox .review .view-more-btn {
+    text-align: center;
+}
+
+#ratingAndReview .Cntbox .review .view-more-btn button {
+    border: none;
+    border-radius: 0.2rem;
+    outline: none;
+    height: 3rem;
+    width: 10rem;
+    text-align: center;
+    background-color: #ed8a19;
+    color: #fff;
+    font-size: 1.6rem;
 }
 
 /* Shop CSS Ends Here */

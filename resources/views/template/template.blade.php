@@ -11,9 +11,9 @@
     <link rel="stylesheet" href="{{ asset('site/bootstrap/bootstrap.css') }}" />
 
     <link rel="stylesheet" href="{{ asset('site/css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('site/css/media.css') }}">
     <link rel="stylesheet" href="{{ asset('site/css/utility.css') }}">
     <link rel="stylesheet" href="{{ asset('site/toastr/toastr.css') }}">
+    <link rel="stylesheet" href="{{ asset('site/css/media.css') }}">
 
 
 
@@ -359,6 +359,7 @@
     </div>
 
 
+    <script src="{{ asset('site/js/ratingAndReview.js') }}"></script>
     <script src="{{ asset('site/jquery/jquery.js') }}"></script>
     <script src="{{ asset('site/bootstrap/popper.js') }}"></script>
     <script src="{{ asset('site/bootstrap/bootstrap.js') }}"></script>
