@@ -75,20 +75,21 @@
     <script src="{{ asset('site/js/orderMngt.js') }}"></script>
     <script src="{{ asset('site/js/adminNav.js') }}"></script>
     
+    <script>
 
-    @if(Session::has('success'))
-    toastr.options = {
-        "closeButton": true,
-        "progressBar": true,
-    }
-    toastr.success("{{ Session('success') }}");
-    @elseif(Session::has('error'))
-    toastr.options = {
-        "closeButton": true,
-        "progressBar": true,
-    }
-    toastr.error("{{ Session('error') }}");
-    @endif
+        @if(Session::has('success'))
+        toastr.options = {
+            "closeButton": true,
+            "progressBar": true,
+        }
+        toastr.success("{{ Session('success') }}");
+        @elseif(Session::has('error'))
+        toastr.options = {
+            "closeButton": true,
+            "progressBar": true,
+        }
+        toastr.error("{{ Session('error') }}");
+        @endif
     </script>
 
 

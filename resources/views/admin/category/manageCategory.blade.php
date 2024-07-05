@@ -60,8 +60,8 @@
                                     <td>
                                         <a href="{{ route('getEditCategory', $category->slug) }}"><button
                                                 class="btn btn-success btn-sm">Edit</button></a>
-                                        <a href="{{ route('getDeleteCategory', $category->slug) }}"><button
-                                                class="btn btn-danger btn-sm">Delete</button></a>
+                                        <button class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                                        data-bs-target="#deleteCategoryModal-{{ $category->slug }}">Delete</button>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -137,5 +137,45 @@
         </div>
     </div>
 </div>
+
+{{-- Delete Category Modal --}}
+@foreach ($categories as $category)
+<div class="modal fade" id="deleteCategoryModal-{{ $category->slug }}" tabindex="-1" aria-labelledby="deleteCategoryModal-{{ $category->slug }}Label" aria-hidden="true">
+    <div class="modal-dialog modal-lg afaeaetgarsg">
+        <div class="modal-content afaeaetgarsg">
+            <section id="confirmation">
+                <div class="container">
+                    <div class="allCenter">
+                    <div class="box">
+                        <div class="cross end">
+                        <button class="fa-solid fa-xmark closeCross" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="upper center">
+                        <div class="mainCross">X</div>
+                        <h2>Are You Sure?</h2>
+                        </div>
+                        <div class="text center">
+                        <h6>
+                            Do you really want to delete <b>{{ $category->category_title }}</b>? This process cannot
+                            be undone.
+                        </h6>
+                        </div>
+                        <div class="buttons center">
+                        <button class="btn cancel" type="button" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                        <a href="{{ route('getDeleteCategory', $category->slug) }}">
+                            <button class="btn delete">Delete</button>
+                        </a>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+    
+@endforeach
+
+
 
 @endsection

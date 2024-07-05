@@ -121,13 +121,19 @@ Route::group(['prefix' => 'admin', 'middleware' => 'checkUserRole'], function ()
     Route::prefix('aboutUs')->group(function(){
         Route::get('/manageAboutUs',[AdminController::class,'manageAboutUs'])->name('getManageAboutUs');
 
-        Route::post('add/pos', [AdminController::class, 'postAddPosition'])->name('postAddPosition');
-
         Route::post('add/member', [AdminController::class, 'postAddMember'])->name('postAddMember');
+        
+        Route::post('edit/post/{slug}', [AdminController::class, 'postEditMember'])->name('postEditMember');
+        
+        Route::get('delete-member/{slug}', [AdminController::class, 'deleteMember'])->name('getDeleteMember');
+        
+        Route::post('add/post', [AdminController::class, 'postAddPosition'])->name('postAddPosition');
 
         Route::post('edit/{id}', [AdminController::class, 'postEditMemberPosition'])->name('postEditMemberPosition');
 
-        Route::get('delete/{id}', [AdminController::class, 'getDeleteMemberPosition'])->name('getDeleteMemberPosition');
+        Route::get('delete-position/{slug}', [AdminController::class, 'getDeleteMemberPosition'])->name('getDeleteMemberPosition');
+
+        
 
     });
 

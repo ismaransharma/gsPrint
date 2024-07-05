@@ -380,6 +380,7 @@ class ShopController extends Controller
         ]);
 
 
+
         
         
         $product_title = $request->input('product_title');
@@ -526,14 +527,14 @@ class ShopController extends Controller
         }
 
         // dd($category);
+        $product->delete();
 
-        $product->deleted_at = Carbon::now();
-        $product->save();
 
         return redirect()->back()->with('success', 'Product Deleted Successfully');
     }
 
-    public function review(Request $request, $id){
+    public function review(Request $request, $id)
+    {
         
         // dd($request->all(), $id);
         $request->validate([

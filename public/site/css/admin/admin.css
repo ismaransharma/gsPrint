@@ -18,6 +18,7 @@ html {
     --right: #1d267d;
     --purple: #5c469c;
     --lightPurple: #d4adfc;
+    --red: #f15e5e;
 }
 
 #adminTemplate {
@@ -144,4 +145,88 @@ html {
 .modal.fade.show .modal-content input.btn {
     background-color: #0069d9;
     color: #fff;
+}
+
+#editCategory .card {
+    font-size: 1.7rem;
+}
+
+#editCategory .card input,
+#editCategory .card select,
+#editCategory .card textarea {
+    font-size: 1.3rem;
+}
+
+#deleteProductModal .modal-content.afeareatg {
+    background-color: transparent;
+}
+
+#confirmation .box {
+    height: 35rem;
+    width: 45rem;
+    box-shadow: 0.1rem 0.1rem 0.5rem #6b6767;
+    border-radius: 0.3rem;
+    background-color: #fff;
+}
+
+#confirmation .box .cross .closeCross {
+    font-size: 3rem;
+    margin: 0.5rem 0.8rem;
+    cursor: pointer;
+}
+
+#confirmation .box .upper .mainCross {
+    font-size: 4rem;
+    height: 8rem;
+    width: 8rem;
+    margin: 1rem 18.2rem 3rem 18.2rem;
+    color: var(--red);
+    border: 0.2rem solid var(--red);
+    border-radius: 50%;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    font-weight: 400;
+}
+
+#confirmation .box .upper h2 {
+    font-size: 2.3rem;
+    font-weight: 500;
+}
+
+#confirmation .box .text h6 {
+    font-size: 1.6rem;
+    font-weight: 400;
+    margin: 1rem 5rem;
+}
+
+#confirmation .box .buttons button {
+    font-size: 1.4rem;
+}
+
+#confirmation .box .buttons button.cancel {
+    height: 3.6rem;
+    width: 10rem;
+    color: #fff;
+    background-color: gray;
+    border: none;
+    border-radius: 0.2rem;
+    margin: 1rem 1.5rem;
+    cursor: pointer;
+}
+
+#confirmation .box .buttons button.delete {
+    height: 3.6rem;
+    width: 10rem;
+    color: #fff;
+    background-color: var(--red);
+    border: none;
+    border-radius: 0.2rem;
+    margin: 1rem 1.5rem;
+    cursor: pointer;
+}
+
+.modal.fade.show .modal-dialog,
+.modal.fade.show .modal-content.afaeaetgarsg {
+    background: transparent !important;
 }

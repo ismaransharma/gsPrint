@@ -38,7 +38,8 @@
                                         <button
                                             class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#editPositionModal-{{ $position->id }}">Edit</button>
                                         <button
-                                                class="btn btn-danger btn-sm" onclick="deleteMemeberPosition()">Delete</button>
+                                                class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                                        data-bs-target="#deletePositionModal-{{ $position->slug }}">Delete</button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -90,11 +91,8 @@
                                     <td>{{ $member->member_number }}</td>
                                     <td>{{ Str::limit($member->member_facebook ?? 'No Facebook Link', 15)}}..</td>
 
-                                    <td>
-                                        <a href=""><button
-                                            class="btn btn-success btn-sm">Edit</button></a>
-                                    <a href=""><button
-                                            class="btn btn-danger btn-sm">Delete</button></a>
+                                    <td><button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#editMemberModal-{{ $member->slug }}">Edit</button>
+                                    <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteMemberModal-{{ $member->slug }}">Delete</button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -183,8 +181,46 @@
         </div>
     </div>
 </div>
-    
 @endforeach
+
+{{-- Delete Position Modal --}}
+@foreach ($positions as $position)
+<div class="modal fade" id="deletePositionModal-{{ $position->slug }}" tabindex="-1" aria-labelledby="deletePositionModal-{{ $position->slug }}Label" aria-hidden="true">
+    <div class="modal-dialog modal-lg afaeaetgarsg">
+        <div class="modal-content afaeaetgarsg">
+            <section id="confirmation">
+                <div class="container">
+                    <div class="allCenter">
+                    <div class="box">
+                        <div class="cross end">
+                        <button class="fa-solid fa-xmark closeCross" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="upper center">
+                        <div class="mainCross">X</div>
+                        <h2>Are You Sure?</h2>
+                        </div>
+                        <div class="text center">
+                        <h6>
+                            Do you really want to delete <b>{{ $position->member_position }}</b>? This process cannot
+                            be undone.
+                        </h6>
+                        </div>
+                        <div class="buttons center">
+                        <button class="btn cancel" type="button" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                        <a href="{{ route('getDeleteMemberPosition', $position->slug) }}">
+                            <button class="btn delete">Delete</button>
+                        </a>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+@endforeach
+
+
 
 <!-- Add Members Modal -->
 <div class="modal fade" id="addMemberModal" tabindex="-1" aria-labelledby="addMemberModalLabel" aria-hidden="true">
@@ -225,7 +261,7 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group mb-2">
-                                <label for="">Member Image*</label>
+                                <label for="">Member Image* (Image Cannot be replaced)</label>
                                 <input type="file" class="form-control @error('member_image') is-invalid @enderror"
                                     value="{{ old('member_image') }}" id="member_image" name="member_image"
                                     required />
@@ -294,6 +330,130 @@
         </div>
     </div>
 </div>
+
+
+<!-- Edit Position Modal -->
+@foreach ($members as $member)
+<div class="modal fade" id="editMemberModal-{{ $member->slug }}" tabindex="-1" aria-labelledby="editMemberModalLabel-{{ $member->slug }}" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="editPositionModalLabel-{{ $position->id }}"><b>Edit Member Position</b></h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('postEditMember',$member->slug) }}" method="POST">
+                    <div class="row">
+                        @csrf
+                        <div class="col-md-6">
+                            <div class="form-group mb-2">
+                                <label for="">Member Name:-</label>
+                                <input type="text" name="member_name" class="form-control @error('member_name') is-invalid @enderror" value="{{ $member->member_name }}" id="member_name{{ $member->id }}" placeholder="Enter Member Name" />
+                                @error('member_name')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-2">
+                                <label for="member_position">Position</label>
+                                <select name="member_position_id" id="member_position" class="form-control">
+                                    <option value="">-----------Choose Position-----------</option>
+                                    @foreach ($positions as $position)
+                                    <option value="{{ $position->id }}" <?php if($member->member_position_id == $position->id){echo 'selected'; } ?>>
+                                        {{ $position->member_position }}
+                                    </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="">What's App:-</label>
+                                <input type="text" name="member_number" class="form-control @error('member_number') is-invalid @enderror" value="{{ $member->member_number }}" id="member_number{{ $member->id }}" placeholder="Enter Member what's app Number" />
+                                @error('member_number')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="">Facebook Link:-</label>
+                                <input type="text" name="member_facebook" class="form-control @error('member_facebook') is-invalid @enderror" value="{{ $member->member_facebook }}" id="member_facebook{{ $member->id }}" placeholder="Enter Member Facebook Link" />
+                                @error('member_facebook')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group mb-2">
+                                <label for="">E-mail*</label>
+                                <input type="text" class="form-control @error('member_email') is-invalid @enderror"
+                                    value="{{ $member->member_email }}" id="member_email" name="member_email"
+                                    required />
+                                @error('member_email')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Update Position</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@endforeach
+
+
+{{-- Delete Member Modal --}}
+@foreach ($members as $member)
+<div class="modal fade" id="deleteMemberModal-{{ $member->slug }}" tabindex="-1" aria-labelledby="deleteMemberModal-{{ $member->slug }}Label" aria-hidden="true">
+    <div class="modal-dialog modal-lg afaeaetgarsg">
+        <div class="modal-content afaeaetgarsg">
+            <section id="confirmation">
+                <div class="container">
+                    <div class="allCenter">
+                    <div class="box">
+                        <div class="cross end">
+                        <button class="fa-solid fa-xmark closeCross" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="upper center">
+                        <div class="mainCross">X</div>
+                        <h2>Are You Sure?</h2>
+                        </div>
+                        <div class="text center">
+                        <h6>
+                            Do you really want to delete <b>{{ $member->member_name }}</b>? This process cannot
+                            be undone.
+                        </h6>
+                        </div>
+                        <div class="buttons center">
+                        <button class="btn cancel" type="button" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                        <a href="{{ route('getDeleteMember', $member->slug) }}">
+                            <button class="btn delete">Delete</button>
+                        </a>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+@endforeach
 
 
 

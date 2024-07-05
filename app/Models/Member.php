@@ -18,4 +18,9 @@ class Member extends Model
         'member_facebook',
         'member_email',
     ];  
+
+    public function position()
+    {
+        return $this->belongsTo(Position::class);
+    }
 }

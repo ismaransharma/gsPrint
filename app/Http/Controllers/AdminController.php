@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\Order;
 use App\Models\Member;
 use App\Models\Product;
+use Illuminate\Support\Str;
 use App\Models\Category;
 use App\Models\Position;
 use Illuminate\Http\Request;
@@ -302,11 +303,15 @@ class AdminController extends Controller
 
         
         $member_position = $request->input('member_position');
+        $member_slug = Str::slug($member_position);
+
+        // dd($member_slug);
         
         
         $position = new Position;
         
         $position->member_position = $member_position; 
+        $position->slug = $member_slug; 
         
 
         $position->save();
@@ -348,9 +353,20 @@ class AdminController extends Controller
     }
 
     // Delete Member Position
-    public function getDeleteMemberPosition(){
-        
+    public function getDeleteMemberPosition($slug)
+    {
+        $member_position = Position::where('slug', $slug)->whereNull('deleted_at')->first();
+    
+        if (is_null($member_position)) {
+            return redirect()->back()->with('error', 'Member Position Not Found');
+        }
+    
+        // Delete the member position
+        $member_position->delete();
+                    
+        return redirect()->back()->with('success', 'Member Position Deleted Successfully');
     }
+    
 
     // Add Members
     public function postAddMember(Request $request)
@@ -375,6 +391,9 @@ class AdminController extends Controller
         
         $position = Position::where('id', $position_id)->where('deleted_at',null)->limit(1)->first();
         
+
+        $member_slug = Str::slug($member_name);
+
         // dd($position);
 
         if(!$position_id ){
@@ -402,6 +421,7 @@ class AdminController extends Controller
         $member->member_number = $member_number;
         $member->member_facebook = $member_facebook;
         $member->member_email = $member_email;
+        $member->slug = $member_slug;
 
         
         if($image){
@@ -411,6 +431,77 @@ class AdminController extends Controller
         $member->save();
         return back()->with('success', 'Member Added Successfully!');
 
+    }
+
+    public function postEditMember(Request $request, $slug)
+    {
+        
+        // dd($request->all());
+        $member = Member::where('slug', $slug)->where('deleted_at', null)->limit(1)->first();
+
+        if(is_null($member))
+        {
+            return back()->with('error', 'Member Not Found');
+        }
+        
+        $request->validate([
+            'member_position_id' => 'integer',
+            'member_number' => 'integer',
+            'member_facebook' => 'string',
+            'member_email' => 'string'
+        ]);
+        
+        $mp_id = $request->input('member_position_id');
+        $m_wa = $request->input('member_number');
+        $m_fb = $request->input('member_facebook');
+        $m_e = $request->input('member_email');
+        // dd($m_fb);
+        
+        $position = Position::where('id', $mp_id)->first();
+        // dd($position);
+        if(!$position)
+        {
+            return redirect()->back()->with('error', 'Position Not Found');
+        }
+
+        $mt = $position->member_position;
+        // dd($mt);
+        
+        
+        
+        $member->member_position_id = $position->id;
+        $member->member_position_title = $mt;
+        $member->member_email = $m_e;
+        $member->member_facebook = $m_fb;
+        $member->member_number = $m_wa;
+        
+        $member->save();
+        return back()->with('success', 'Member Details Updated Successfully');
+
+
+        
+
+    }
+
+    public function deleteMember($slug)
+    {
+
+        // dd($slug);
+
+        $member = Member::where('slug', $slug)->whereNull('deleted_at')->limit(1)->first();
+
+        if(is_null($member))
+        {
+            return redirect()->back()->with('error', 'Member Not Found');
+        }
+
+        // dd($member);
+
+        $member->delete();
+                
+        return redirect()->back()->with('success', 'Member Position Deleted Successfully');
+
+        
     }
 
 

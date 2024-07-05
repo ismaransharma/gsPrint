@@ -166,3 +166,10 @@
 .table-bg-left {
     background-color: #0c134f;
 }
+
+.allCenter {
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

@@ -55,7 +55,8 @@
                                             @foreach ($categories as $cate)
                                             <option value="{{ $cate->id }}"
                                                 <?php if($product->category_id == $cate->id){ echo 'selected'; } ?>>
-                                                {{ $cate->category_title }}</option>
+                                                {{ $cate->category_title }}
+                                            </option>
                                             @endforeach
                                         </select>
                                     </div>
