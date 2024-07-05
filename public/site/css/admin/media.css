@@ -1,0 +1,186 @@
+@media (max-width: 600px) {
+    #adminTemplate .left {
+        width: 20%;
+    }
+
+    #adminTemplate .right {
+        width: 80%;
+    }
+
+    #adminTemplate .chart-container {
+        height: 20rem;
+    }
+
+    .textCnct {
+        display: none;
+    }
+
+    .iconsCnct {
+        display: block;
+        height: auto;
+        width: 80%;
+    }
+
+    .my-xs-2 {
+        margin: 2rem 0;
+    }
+
+    .right-left {
+        display: grid;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .mq-xs-m-2 {
+        margin: 2rem 0;
+    }
+
+    #chart-container {
+        height: 340px !important;
+        width: 275px !important;
+    }
+
+    #manageCategory .col-md-12 select {
+        width: 25%;
+    }
+
+    #manageCategory .col-md-12 form {
+        text-align: center;
+    }
+
+    #manageCategory .col-md-12 form input {
+        width: 78%;
+        margin: 2rem 0;
+    }
+
+    #manageCategory .card-body {
+        overflow: auto;
+    }
+
+    #manageCategory .card-header button.btn {
+        margin: 1rem;
+    }
+
+    #manageCategory table .pic {
+        display: none;
+    }
+
+    #manageCategory table tbody td button {
+        margin: 0.4rem 0;
+    }
+}
+
+@media (min-width: 601px) and (max-width: 768px) {
+    #adminTemplate .left {
+        width: 20%;
+    }
+
+    #adminTemplate .right {
+        width: 80%;
+    }
+
+    #adminTemplate .chart-container {
+        height: 20rem;
+    }
+
+    #adminTemplate nav ul li {
+        display: ruby;
+    }
+
+    .textCnct {
+        display: none;
+    }
+
+    .iconsCnct {
+        display: block;
+        height: auto;
+        width: 50%;
+    }
+
+    .mq-xs-m-2 {
+        margin: 2rem 0;
+    }
+
+    #chart-container {
+        height: 340px !important;
+        width: 275px !important;
+    }
+
+    #manageCategory .card-body {
+        overflow: auto;
+    }
+
+    #manageCategory .col-md-12 select {
+        width: 25%;
+    }
+
+    #manageCategory .col-md-12 form input {
+        width: 78%;
+        margin: 2rem 0;
+    }
+
+    #manageCategory .card-header button.btn {
+        margin: 1rem;
+    }
+
+    #manageCategory table .pic {
+        display: none;
+    }
+
+    #manageCategory table tbody td button {
+        margin: 0.4rem 0;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 970px) {
+    #manageCategory .card-body {
+        overflow: auto;
+    }
+
+    #manageCategory table .pic {
+        display: none;
+    }
+
+    #manageCategory table tbody td button {
+        margin: 0.4rem 0;
+    }
+
+    #manageCategory .card-header button.btn {
+        margin: 1rem;
+    }
+
+    #manageCategory .col-md-12 select {
+        height: 2.5rem;
+        width: 25%;
+    }
+
+    #manageCategory .col-md-12 form input {
+        width: 75%;
+    }
+}
+
+@media (min-width: 970px) and (max-width: 1170px) {
+    #manageCategory .card-header button.btn {
+        margin: 1rem;
+    }
+
+    #manageCategory .card-body {
+        overflow: auto;
+    }
+
+    #manageCategory table .pic {
+        display: none;
+    }
+
+    #manageCategory .col-md-12 select {
+        height: 2.5rem;
+        width: 25%;
+    }
+
+    #manageCategory .col-md-12 form input {
+        width: 78%;
+    }
+}
+
+@media (min-width: 1170px) and (max-width: 1400) {
+}

@@ -1,0 +1,147 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+:root {
+    --left: #0c134f;
+    --right: #1d267d;
+    --purple: #5c469c;
+    --lightPurple: #d4adfc;
+}
+
+#adminTemplate {
+    min-height: 100vh;
+    background-color: var(--right);
+    color: #fff;
+}
+
+#adminTemplate .col-md-2 {
+    height: 100%;
+    background-color: var(--left);
+}
+
+#adminTemplate .left {
+    background-color: var(--left);
+    min-height: 100vh;
+}
+
+#adminTemplate .left nav li {
+    list-style: none;
+    font-size: 2rem;
+    margin: 6rem 0;
+}
+
+/* Pie chart */
+#piechart {
+    width: 100%;
+    max-width: 900px;
+    height: 0;
+    padding-bottom: 55.56%;
+    position: relative;
+}
+
+.chart-container {
+    width: 100%;
+    max-width: 600px;
+    height: 500px;
+    margin: 0 auto;
+}
+
+.egrgrs {
+    background-color: var(--left);
+}
+
+.egrgrs ul li {
+    font-size: 2rem;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 3rem;
+}
+
+.navbar-toggler {
+    font-size: 2rem;
+}
+
+#adminTemplate nav {
+    position: fixed;
+    top: 0;
+    z-index: 999;
+}
+
+#adminTemplate .right {
+    margin: 6rem 2.5rem;
+}
+
+#manageCategory .card {
+    background-color: #1d267d;
+    color: #fff;
+    margin: 3rem 0;
+    font-size: 1.5rem;
+    border: 0.1rem solid #0c134f;
+}
+
+#manageCategory .card .card-header {
+    background-color: #0c134f;
+}
+
+#manageCategory .card .card-header button {
+    font-size: 1.2rem;
+}
+
+#manageCategory .card .card-header form input {
+    background-color: #1d267d;
+    color: #fff;
+    border: none;
+    outline: none;
+    padding: 0 0.5rem;
+}
+
+#manageCategory .card .card-header form button {
+    background-color: #1d267d;
+    color: #fff;
+    border: none;
+    outline: none;
+    height: 2.2rem;
+    width: 3rem;
+}
+
+#manageCategory .card .card-body {
+    background-color: #1d267d;
+}
+
+#manageCategory .card .card-body table {
+    color: #fff;
+}
+
+#manageCategory .card .card-body table tbody button {
+    font-size: 1.2rem;
+}
+
+.modal.fade.show .modal-content {
+    background-color: #f5f5f5;
+    color: #000;
+    font-size: 1.4rem;
+}
+
+.modal.fade.show .modal-content input,
+.modal.fade.show .modal-content select,
+.modal.fade.show .modal-content textarea {
+    background-color: #f2f2f2;
+    font-size: 1.5rem;
+}
+
+.modal.fade.show .modal-content input.btn {
+    background-color: #0069d9;
+    color: #fff;
+}

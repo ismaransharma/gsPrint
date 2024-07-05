@@ -6,46 +6,44 @@
 ?>
 
 <section id="manageCategory" class="mind">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <h4>Manage Position (1)</h4>
-                            </div>
-                            <div class="col-md-6 text-end">
-                                <button class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                                    data-bs-target="#addPositionModal">Add Position</button>
-                            </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4>Manage Position (1)</h4>
+                        </div>
+                        <div class="col-md-6 text-end">
+                            <button class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                                data-bs-target="#addPositionModal">Add Position</button>
                         </div>
                     </div>
-                    <div class="card-body">
-                        <table class="table">
-                            <thead>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>S.N</th>
+                                <th>Position</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($positions as $position)
                                 <tr>
-                                    <th>S.N</th>
-                                    <th>Position</th>
-                                    <th>Action</th>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $position->member_position }}</td>
+                                    <td>
+                                        <button
+                                            class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#editPositionModal-{{ $position->id }}">Edit</button>
+                                        <button
+                                                class="btn btn-danger btn-sm" onclick="deleteMemeberPosition()">Delete</button>
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($positions as $position)
-                                    <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $position->member_position }}</td>
-                                        <td>
-                                            <button
-                                                class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#editPositionModal-{{ $position->id }}">Edit</button>
-                                            <button
-                                                    class="btn btn-danger btn-sm" onclick="deleteMemeberPosition()">Delete</button>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -53,56 +51,55 @@
 </section>
 
 <section id="manageCategory">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <h4>Manage Member (1)</h4>
-                            </div>
-                            <div class="col-md-6 text-end">
-                                <button class="btn btn-primary btn-sm" data-bs-toggle="modal"
-                                    data-bs-target="#addMemberModal">Add Members</button>
-                            </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4>Manage Member (1)</h4>
+                        </div>
+                        <div class="col-md-6 text-end">
+                            <button class="btn btn-primary btn-sm" data-bs-toggle="modal"
+                                data-bs-target="#addMemberModal">Add Members</button>
                         </div>
                     </div>
-                    <div class="card-body">
-                        <table class="table">
-                            <thead>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>S.N</th>
+                                <th>Name</th>
+                                <th>Position</th>
+                                <th class="pic">Photo</th>
+                                <th>What's App</th>
+                                <th>Facebook</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($members as $member)
                                 <tr>
-                                    <th>S.N</th>
-                                    <th>Name</th>
-                                    <th>Position</th>
-                                    <th>Photo</th>
-                                    <th>What's App</th>
-                                    <th>Facebook</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($members as $member)
-                                    <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $member->member_name }}</td>
-                                        <td>{{ $member->member_position_title }}</td>
-                                        <td>
-                                            <img height="65px" width="65px" src="{{ asset('uploads/members/'. $member->member_image) }}" alt="{{ asset('uploads/members/'. $member->member_image) }}">
-                                        </td>
-                                        <td>{{ $member->member_number }}</td>
-                                        <td>{{ $member->member_facebook }}</td>
-                                        <td>
-                                            <a href=""><button
-                                                class="btn btn-success btn-sm">Edit</button></a>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $member->member_name }}</td>
+                                    <td>{{ $member->member_position_title }}</td>
+                                    <td class="pic">
+                                        <img height="65px" width="65px" src="{{ asset('uploads/members/'. $member->member_image) }}" alt="{{ asset('uploads/members/'. $member->member_image) }}">
+                                    </td>
+                                    <td>{{ $member->member_number }}</td>
+                                    <td>{{ Str::limit($member->member_facebook ?? 'No Facebook Link', 15)}}..</td>
+
+                                    <td>
                                         <a href=""><button
-                                                class="btn btn-danger btn-sm">Delete</button></a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                                            class="btn btn-success btn-sm">Edit</button></a>
+                                    <a href=""><button
+                                            class="btn btn-danger btn-sm">Delete</button></a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

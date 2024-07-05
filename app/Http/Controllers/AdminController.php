@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Order;
 use App\Models\Member;
 use App\Models\Product;
@@ -14,54 +15,59 @@ use Illuminate\Support\Facades\Auth;
 class AdminController extends Controller
 {
         
+
     public function dashboard()
     {
         $user = Auth::user();
-        // dd($user->u_a_mngt);
-        
-        if($user->u_a_mngt == 1)
-        {
-            $user = Auth::user();
-            $userName = $user->name;
+    
+        if ($user->u_a_mngt == 1) {
             $order = Order::where('payment_status', 'Y')->where('deleted_at', null)->get();
-
-            $completed_orders = Order::where('order_status', 'Delivered')->get()->count();
-
-            $pending_orders = Order::where('order_status', 'Pending')->get()->count();
-
-            $shipped_orders = Order::where('order_status', 'Shipped')->get()->count();
+            $completed_orders = Order::where('order_status', 'Delivered')->count();
+            $pending_orders = Order::where('order_status', 'Pending')->count();
+            $shipped_orders = Order::where('order_status', 'Shipped')->count();
+            $pOrder = Order::where('order_status', ['Shipped', 'Pending'])->count();
             $total = $order->sum('payment_amount');
 
+            // Total Order Count
+            $ttOrder = Order::whereNull('deleted_at')->count();
+            
+            // Total Order Amount
+            $toa = Order::whereNull('deleted_at')->sum('payment_amount');
+            $formattedToa = number_format($toa, 0);
+
+            // Last Month total revenue
+            $lastMonthStart = Carbon::now()->subMonth()->startOfMonth();
+            $lastMonthEnd = Carbon::now()->subMonth()->endOfMonth();
+
+            $lastMonthRevenue = Order::whereNull('deleted_at')
+                ->whereBetween('created_at', [$lastMonthStart, $lastMonthEnd])
+                ->sum('payment_amount');
+
+                // Current Month Revenue
+            $currentMonthStart = Carbon::now()->startOfMonth();
+            $currentMonthEnd = Carbon::now()->endOfMonth();
+            $currentMonthRevenue = Order::whereNull('deleted_at')
+            ->whereBetween('created_at', [$currentMonthStart, $currentMonthEnd])
+            ->sum('payment_amount');
+
+
+            // Recent Orders
+            $recentOrder = Order::whereNull('deleted_at')->orderBy('id', 'desc')->limit(4)->get();
+
+    
             $orderStatusCounts = Order::whereNull('deleted_at')
-            ->select('order_status', DB::raw('count(*) as count'))
-            ->groupBy('order_status')
-            ->get();
-
-            $orderStatusData = "";
-
-            $statusColors = [
-                'Pending' => 'yellow',
-                'Shipped' => 'greenyellow',
-                'Delivered' => 'green',
-                'Cancelled' => 'red', 
-                'Refund' => 'orange',
+                ->select('order_status', DB::raw('count(*) as count'))
+                ->groupBy('order_status')
+                ->get();
+    
+            $orderStatusData = [
+                ['Order Status', 'Order Status Count']
             ];
-
+    
             foreach ($orderStatusCounts as $statusCount) {
-                $status = $statusCount->order_status;
-                $color = isset($statusColors[$status]) ? $statusColors[$status] : '#3366cc'; 
-                $orderStatusData .= "['$status', $statusCount->count, '$color'],";
+                $orderStatusData[] = [$statusCount->order_status, $statusCount->count];
             }
-
-            $orderStatusData = rtrim($orderStatusData, ",");
-
-            $arr = $orderStatusData;
-
-            
-            // dd($orderStatusData);
-
-            // dd($completed_order);
-            
+    
             $data = [
                 'categories' => Category::whereNull('deleted_at')->orderBy('id', 'asc')->get(),
                 'products' => Product::whereNull('deleted_at')->orderBy('id', 'asc')->get(),
@@ -69,21 +75,25 @@ class AdminController extends Controller
                 'completed_order' => $completed_orders,
                 'pending_order' => $pending_orders,
                 'shipped_order' => $shipped_orders,
-                'user' => $userName,
+                'user' => $user->name,
                 'totalEarnings' => $total,
-                'arr'=> $arr,
+                'orderStatusData' => $orderStatusData, 
+                'ttOrders' => $ttOrder,
+                'pOrders' => $pOrder,
+                'toas' => $formattedToa,
+                'lastMonthRevenue' => number_format($lastMonthRevenue, 0),
+                'currentMonthRevenue' => number_format($currentMonthRevenue, 0),
+                'recentOrders' => $recentOrder,
             ];
-
+    
             return view('admin.adminHome', $data);
-        }
-        else
-        {
+        } else {
             return redirect('/login')->with('error', 'Please Login as Admin');
-        
         }
-        
-        
     }
+    
+    
+
 
     public function manageAboutUs()
     {
