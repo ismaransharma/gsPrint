@@ -110,6 +110,7 @@
     #buyNowContainer .row .col-md-3 {
         margin: 2rem 0;
     }
+
     #buyNowContainer .row .col-md-3 .card {
         width: 100%;
     }
@@ -132,6 +133,27 @@
         width: 80%;
     }
 
+    #allReviewAndRating .row.agegtea .col-md-1 {
+        width: 10%;
+    }
+
+    #allReviewAndRating .row.agegtea .col-md-10.iuokugv {
+        margin: 0 2.2rem;
+        width: 66%;
+    }
+
+    #allReviewAndRating .row.agegtea .col-md-10 .col-md-4.eaeae {
+        width: 100%;
+    }
+
+    #allReviewAndRating .row.agegtea .col-md-10 .col-md-4.left {
+        width: 100%;
+    }
+
+    #allReviewAndRating .row.agegtea .col-md-10 .col-md-4.aetgete {
+        text-align: left;
+        width: 100%;
+    }
     /* About Us */
     #ourObjectives {
         height: 69rem !important;
@@ -297,6 +319,26 @@
 
     #ratingAndReview .addAndViewReview textarea {
         width: 80%;
+    }
+
+    #allReviewAndRating .row.agegtea .col-md-1 {
+        width: 10%;
+    }
+
+    #allReviewAndRating .row.agegtea .col-md-10 {
+        width: 90%;
+    }
+
+    #allReviewAndRating .row.agegtea .col-md-10 .col-md-4.eaeae {
+        width: 100%;
+    }
+
+    #allReviewAndRating .row.agegtea .col-md-10 .col-md-4.left {
+        width: 60%;
+    }
+
+    #allReviewAndRating .row.agegtea .col-md-10 .col-md-4.aetgete {
+        width: 30%;
     }
 
     /* Login */

@@ -15,32 +15,18 @@ function viewReview() {
 }
 
 // Hover Star
-
 document.addEventListener("DOMContentLoaded", function () {
     const stars = document.querySelectorAll(".star");
+    const reviewTextarea = document.getElementById("review");
+    const ratingInput = document.getElementById("rating");
 
     stars.forEach((star) => {
-        star.addEventListener("mouseenter", function () {
-            const value = parseInt(star.getAttribute("data-value"));
-            highlightStars(value);
-        });
-
         star.addEventListener("click", function () {
             const value = parseInt(star.getAttribute("data-value"));
+            ratingInput.value = value;
             setRating(value);
         });
     });
-
-    function highlightStars(value) {
-        stars.forEach((star, index) => {
-            const starValue = parseInt(star.getAttribute("data-value"));
-            if (starValue <= value) {
-                star.classList.add("active");
-            } else {
-                star.classList.remove("active");
-            }
-        });
-    }
 
     function setRating(value) {
         stars.forEach((star) => {
@@ -51,18 +37,49 @@ document.addEventListener("DOMContentLoaded", function () {
                 star.classList.remove("active");
             }
         });
+    }
 
-        // Set color to #ed8a19 for all stars up to the clicked value
-        stars.forEach((star) => {
-            const starValue = parseInt(star.getAttribute("data-value"));
-            if (starValue <= value) {
-                star.querySelector("path").style.fill = "#ed8a19";
-            } else {
-                star.querySelector("path").style.fill = "none";
+    document
+        .getElementById("ratingForm")
+        .addEventListener("submit", function (event) {
+            if (!reviewTextarea.checkValidity()) {
+                reviewTextarea.reportValidity();
+                event.preventDefault();
+            } else if (ratingInput.value === "") {
+                event.preventDefault();
+                showRatingValidationMessage();
             }
         });
+
+    function showRatingValidationMessage() {
+        const ratingErrorMessage =
+            document.getElementById("ratingErrorMessage");
+        if (ratingErrorMessage) {
+            ratingErrorMessage.style.display = "block";
+        } else {
+            const errorMessage = document.createElement("div");
+            errorMessage.id = "ratingErrorMessage";
+            errorMessage.textContent = "Please select minimum 1 star rating";
+            errorMessage.style.color = "red";
+            errorMessage.style.marginTop = "5px";
+            errorMessage.style.fontSize = "12px";
+            errorMessage.style.display = "block";
+            document.querySelector(".reviewStars").appendChild(errorMessage);
+        }
     }
 });
+
+function submitForm() {
+    const reviewTextarea = document.getElementById("review");
+    const reviewValue = reviewTextarea.value.trim(); // Trim to remove leading and trailing whitespace
+
+    if (reviewValue === "") {
+        alert("Please enter a review before submitting.");
+        return; // Prevent form submission if textarea is empty
+    }
+
+    document.getElementById("ratingForm").submit();
+}
 
 // Log Rating
 function logRating() {

@@ -178,3 +178,16 @@
 .bg-blue {
     background-color: #0150a2;
 }
+
+.h-100p {
+    height: 100%;
+}
+
+.hw-4 {
+    height: 4rem;
+    width: 4rem;
+}
+
+.t-left {
+    text-align: left;
+}

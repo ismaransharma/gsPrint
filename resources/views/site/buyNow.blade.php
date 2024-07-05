@@ -51,6 +51,43 @@ if ($rrtProduct) {
             <div class="col-md-6 prodDet">
                 <div class="productTitle">
                     <h3 class="fw-bold">{{ $product->product_title }}</h3>
+                    @if ($averageRating)
+                      <div class="average-rating">
+                          <div class="star-rating">
+                              @php
+                                  $fullStars = floor($averageRating);
+                                  $halfStar = round($averageRating - $fullStars);
+                                  $emptyStars = 5 - $fullStars - $halfStar;
+                              @endphp
+                  
+                              <!-- Full stars -->
+                              @for ($i = 0; $i < $fullStars; $i++)
+                                  <svg height="24px" width="24px" viewBox="0 0 24 24">
+                                      <path fill="#ed8a19" d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21L12 17.77L5.82 21L7 14.14L2 9.27L8.91 8.26L12 2Z" />
+                                  </svg>
+                              @endfor
+                  
+                              <!-- Half star -->
+                              @if ($halfStar)
+                                  <svg height="24px" width="24px" viewBox="0 0 24 24">
+                                      <path fill="#ed8a19" d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21L12 17.77L5.82 21L7 14.14L2 9.27L8.91 8.26L12 2Z" />
+                                  </svg>
+                              @endif
+                  
+                              <!-- Empty stars -->
+                              @for ($i = 0; $i < $emptyStars; $i++)
+                                  <svg height="24px" width="24px" viewBox="0 0 24 24">
+                                      <path fill="#cccccc" d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21L12 17.77L5.82 21L7 14.14L2 9.27L8.91 8.26L12 2Z" />
+                                  </svg>
+                              @endfor
+                          </div>
+                      </div>
+                    @else
+                        <div class="average-rating">
+                            
+                        </div>
+                    @endif
+                    
                 </div>
                 <!-- <div class="productDescription">
                     <p>
@@ -322,126 +359,48 @@ if ($rrtProduct) {
                 <h3 class="blue my-2 center">Review this Product</h3>
               </div>
 
-              <div class="textArea">
-                <textarea
-                  name=""
-                  id=""
-                  class="w-90p h-9rem m-5 p-1"
-                  placeholder="Add a Review"
-                ></textarea>
-              </div>
-              <div class="reviewStars center my-3">
-                <svg
-                  height="800px"
-                  width="800px"
-                  class="star"
-                  data-value="1"
-                  version="1.1"
-                  id="Capa_1"
-                  xmlns="http://www.w3.org/2000/svg"
-                  xmlns:xlink="http://www.w3.org/1999/xlink"
-                  viewBox="0 0 47.94 47.94"
-                  xml:space="preserve"
-                >
-                  <path
-                    d="M26.285,2.486l5.407,10.956c0.376,0.762,1.103,1.29,1.944,1.412l12.091,1.757
-                    c2.118,0.308,2.963,2.91,1.431,4.403l-8.749,8.528c-0.608,0.593-0.886,1.448-0.742,2.285l2.065,12.042
-                    c0.362,2.109-1.852,3.717-3.746,2.722l-10.814-5.685c-0.752-0.395-1.651-0.395-2.403,0l-10.814,5.685
-                    c-1.894,0.996-4.108-0.613-3.746-2.722l2.065-12.042c0.144-0.837-0.134-1.692-0.742-2.285l-8.749-8.528
-                    c-1.532-1.494-0.687-4.096,1.431-4.403l12.091-1.757c0.841-0.122,1.568-0.65,1.944-1.412l5.407-10.956
-                    C22.602,0.567,25.338,0.567,26.285,2.486z"
-                  />
-                </svg>
-                <svg
-                  height="800px"
-                  width="800px"
-                  class="star"
-                  data-value="2"
-                  version="1.1"
-                  id="Capa_1"
-                  xmlns="http://www.w3.org/2000/svg"
-                  xmlns:xlink="http://www.w3.org/1999/xlink"
-                  viewBox="0 0 47.94 47.94"
-                  xml:space="preserve"
-                >
-                  <path
-                    d="M26.285,2.486l5.407,10.956c0.376,0.762,1.103,1.29,1.944,1.412l12.091,1.757
-                    c2.118,0.308,2.963,2.91,1.431,4.403l-8.749,8.528c-0.608,0.593-0.886,1.448-0.742,2.285l2.065,12.042
-                    c0.362,2.109-1.852,3.717-3.746,2.722l-10.814-5.685c-0.752-0.395-1.651-0.395-2.403,0l-10.814,5.685
-                    c-1.894,0.996-4.108-0.613-3.746-2.722l2.065-12.042c0.144-0.837-0.134-1.692-0.742-2.285l-8.749-8.528
-                    c-1.532-1.494-0.687-4.096,1.431-4.403l12.091-1.757c0.841-0.122,1.568-0.65,1.944-1.412l5.407-10.956
-                    C22.602,0.567,25.338,0.567,26.285,2.486z"
-                  />
-                </svg>
-                <svg
-                  height="800px"
-                  width="800px"
-                  class="star"
-                  data-value="3"
-                  version="1.1"
-                  id="Capa_1"
-                  xmlns="http://www.w3.org/2000/svg"
-                  xmlns:xlink="http://www.w3.org/1999/xlink"
-                  viewBox="0 0 47.94 47.94"
-                  xml:space="preserve"
-                >
-                  <path
-                    d="M26.285,2.486l5.407,10.956c0.376,0.762,1.103,1.29,1.944,1.412l12.091,1.757
-                    c2.118,0.308,2.963,2.91,1.431,4.403l-8.749,8.528c-0.608,0.593-0.886,1.448-0.742,2.285l2.065,12.042
-                    c0.362,2.109-1.852,3.717-3.746,2.722l-10.814-5.685c-0.752-0.395-1.651-0.395-2.403,0l-10.814,5.685
-                    c-1.894,0.996-4.108-0.613-3.746-2.722l2.065-12.042c0.144-0.837-0.134-1.692-0.742-2.285l-8.749-8.528
-                    c-1.532-1.494-0.687-4.096,1.431-4.403l12.091-1.757c0.841-0.122,1.568-0.65,1.944-1.412l5.407-10.956
-                    C22.602,0.567,25.338,0.567,26.285,2.486z"
-                  />
-                </svg>
-                <svg
-                  height="800px"
-                  width="800px"
-                  class="star"
-                  data-value="4"
-                  version="1.1"
-                  id="Capa_1"
-                  xmlns="http://www.w3.org/2000/svg"
-                  xmlns:xlink="http://www.w3.org/1999/xlink"
-                  viewBox="0 0 47.94 47.94"
-                  xml:space="preserve"
-                >
-                  <path
-                    d="M26.285,2.486l5.407,10.956c0.376,0.762,1.103,1.29,1.944,1.412l12.091,1.757
-                    c2.118,0.308,2.963,2.91,1.431,4.403l-8.749,8.528c-0.608,0.593-0.886,1.448-0.742,2.285l2.065,12.042
-                    c0.362,2.109-1.852,3.717-3.746,2.722l-10.814-5.685c-0.752-0.395-1.651-0.395-2.403,0l-10.814,5.685
-                    c-1.894,0.996-4.108-0.613-3.746-2.722l2.065-12.042c0.144-0.837-0.134-1.692-0.742-2.285l-8.749-8.528
-                    c-1.532-1.494-0.687-4.096,1.431-4.403l12.091-1.757c0.841-0.122,1.568-0.65,1.944-1.412l5.407-10.956
-                    C22.602,0.567,25.338,0.567,26.285,2.486z"
-                  />
-                </svg>
-                <svg
-                  height="800px"
-                  width="800px"
-                  class="star"
-                  data-value="5"
-                  version="1.1"
-                  id="Capa_1"
-                  xmlns="http://www.w3.org/2000/svg"
-                  xmlns:xlink="http://www.w3.org/1999/xlink"
-                  viewBox="0 0 47.94 47.94"
-                  xml:space="preserve"
-                >
-                  <path
-                    d="M26.285,2.486l5.407,10.956c0.376,0.762,1.103,1.29,1.944,1.412l12.091,1.757
-                    c2.118,0.308,2.963,2.91,1.431,4.403l-8.749,8.528c-0.608,0.593-0.886,1.448-0.742,2.285l2.065,12.042
-                    c0.362,2.109-1.852,3.717-3.746,2.722l-10.814-5.685c-0.752-0.395-1.651-0.395-2.403,0l-10.814,5.685
-                    c-1.894,0.996-4.108-0.613-3.746-2.722l2.065-12.042c0.144-0.837-0.134-1.692-0.742-2.285l-8.749-8.528
-                    c-1.532-1.494-0.687-4.096,1.431-4.403l12.091-1.757c0.841-0.122,1.568-0.65,1.944-1.412l5.407-10.956
-                    C22.602,0.567,25.338,0.567,26.285,2.486z"
-                  />
-                </svg>
-              </div>
-              <div class="bottom center">
-                <a href="#"> 
-                    <button onclick="logRating()">Add</button>
-                </a>
-              </div>
+              <form id="ratingForm" action="{{ route('postRatingAndReview', $product->id) }}" method="POST">
+                @csrf
+                <div class="textArea">
+                    <textarea
+                        name="review"
+                        id="review"
+                        class="w-90p h-9rem m-5 p-1"
+                        placeholder="Add a Review"
+                        required
+                    ></textarea>
+                </div>
+                <div class="reviewStars center my-3">
+                    @for ($i = 1; $i <= 5; $i++)
+                        <svg
+                            height="800px"
+                            width="800px"
+                            class="star"
+                            data-value="{{ $i }}"
+                            version="1.1"
+                            id="Capa_1"
+                            xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink"
+                            viewBox="0 0 47.94 47.94"
+                            xml:space="preserve"
+                        >
+                            <path
+                                d="M26.285,2.486l5.407,10.956c0.376,0.762,1.103,1.29,1.944,1.412l12.091,1.757
+                                c2.118,0.308,2.963,2.91,1.431,4.403l-8.749,8.528c-0.608,0.593-0.886,1.448-0.742,2.285l2.065,12.042
+                                c0.362,2.109-1.852,3.717-3.746,2.722l-10.814-5.685c-0.752-0.395-1.651-0.395-2.403,0l-10.814,5.685
+                                c-1.894,0.996-4.108-0.613-3.746-2.722l2.065-12.042c0.144-0.837-0.134-1.692-0.742-2.285l-8.749-8.528
+                                c-1.532-1.494-0.687-4.096,1.431-4.403l12.091-1.757c0.841-0.122,1.568-0.65,1.944-1.412l5.407-10.956
+                                C22.602,0.567,25.338,0.567,26.285,2.486z"
+                            />
+                        </svg>
+                    @endfor
+                </div>
+                <input type="hidden" name="rating" id="rating" value="">
+                <div class="bottom center">
+                    <button type="submit">Add</button>
+                </div>
+              </form>
+
             </div>
             <div class="viewReview ds-none" id="viewReview">
               <div class="header">
@@ -450,729 +409,72 @@ if ($rrtProduct) {
               <div class="mainReview">
                 <div class="review m-2">
                   <div class="gagae">
-                    <div class="row bs-guuter-x-0">
-                      <div class="col-md-12 my-3">
-                        <div class="user">
-                          <div class="row bs-guuter-x-0">
-                            <!-- User Image -->
-                            <div class="col-md-1">
-                              <div class="image">
-                                <img src="{{ asset('site/images/user.jpg') }}" alt="" />
-                              </div>
-                            </div>
-                            <div class="col-md-10">
-                              <div class="row bs-guuter-x-0">
-                                <!-- User Name -->
-                                <div class="col-md-6">
-                                  <div class="name">
-                                    <h4>Ghanshyam Gautam (Customer)</h4>
-                                  </div>
-                                </div>
-                                <!-- Date -->
-                                <div class="col-md-6">
-                                  <div class="date green">
-                                    <h4>[February 22, 2024]</h4>
-                                  </div>
-                                </div>
-
-                                <!-- Main User Review (Stars) -->
-                                <div class="col-md-12">
-                                  <div class="row bs-guuter-x-0">
-                                    <div class="col-md-4">
-                                      <div class="starReview">
-                                        <svg
-                                          height="800px"
-                                          width="800px"
-                                          version="1.1"
-                                          id="Capa_1"
-                                          xmlns="http://www.w3.org/2000/svg"
-                                          xmlns:xlink="http://www.w3.org/1999/xlink"
-                                          viewBox="0 0 47.94 47.94"
-                                          xml:space="preserve"
-                                        >
-                                          <path
-                                            style="fill: #ed8a19"
-                                            d="M26.285,2.486l5.407,10.956c0.376,0.762,1.103,1.29,1.944,1.412l12.091,1.757
-                                                   c2.118,0.308,2.963,2.91,1.431,4.403l-8.749,8.528c-0.608,0.593-0.886,1.448-0.742,2.285l2.065,12.042
-                                                   c0.362,2.109-1.852,3.717-3.746,2.722l-10.814-5.685c-0.752-0.395-1.651-0.395-2.403,0l-10.814,5.685
-                                                   c-1.894,0.996-4.108-0.613-3.746-2.722l2.065-12.042c0.144-0.837-0.134-1.692-0.742-2.285l-8.749-8.528
-                                                   c-1.532-1.494-0.687-4.096,1.431-4.403l12.091-1.757c0.841-0.122,1.568-0.65,1.944-1.412l5.407-10.956
-                                                   C22.602,0.567,25.338,0.567,26.285,2.486z"
-                                          />
-                                        </svg>
-                                        <svg
-                                          height="800px"
-                                          width="800px"
-                                          version="1.1"
-                                          id="Capa_1"
-                                          xmlns="http://www.w3.org/2000/svg"
-                                          xmlns:xlink="http://www.w3.org/1999/xlink"
-                                          viewBox="0 0 47.94 47.94"
-                                          xml:space="preserve"
-                                        >
-                                          <path
-                                            style="fill: #ed8a19"
-                                            d="M26.285,2.486l5.407,10.956c0.376,0.762,1.103,1.29,1.944,1.412l12.091,1.757
-                                                   c2.118,0.308,2.963,2.91,1.431,4.403l-8.749,8.528c-0.608,0.593-0.886,1.448-0.742,2.285l2.065,12.042
-                                                   c0.362,2.109-1.852,3.717-3.746,2.722l-10.814-5.685c-0.752-0.395-1.651-0.395-2.403,0l-10.814,5.685
-                                                   c-1.894,0.996-4.108-0.613-3.746-2.722l2.065-12.042c0.144-0.837-0.134-1.692-0.742-2.285l-8.749-8.528
-                                                   c-1.532-1.494-0.687-4.096,1.431-4.403l12.091-1.757c0.841-0.122,1.568-0.65,1.944-1.412l5.407-10.956
-                                                   C22.602,0.567,25.338,0.567,26.285,2.486z"
-                                          />
-                                        </svg>
-                                        <svg
-                                          height="800px"
-                                          width="800px"
-                                          version="1.1"
-                                          id="Capa_1"
-                                          xmlns="http://www.w3.org/2000/svg"
-                                          xmlns:xlink="http://www.w3.org/1999/xlink"
-                                          viewBox="0 0 47.94 47.94"
-                                          xml:space="preserve"
-                                        >
-                                          <path
-                                            style="fill: #ed8a19"
-                                            d="M26.285,2.486l5.407,10.956c0.376,0.762,1.103,1.29,1.944,1.412l12.091,1.757
-                                                   c2.118,0.308,2.963,2.91,1.431,4.403l-8.749,8.528c-0.608,0.593-0.886,1.448-0.742,2.285l2.065,12.042
-                                                   c0.362,2.109-1.852,3.717-3.746,2.722l-10.814-5.685c-0.752-0.395-1.651-0.395-2.403,0l-10.814,5.685
-                                                   c-1.894,0.996-4.108-0.613-3.746-2.722l2.065-12.042c0.144-0.837-0.134-1.692-0.742-2.285l-8.749-8.528
-                                                   c-1.532-1.494-0.687-4.096,1.431-4.403l12.091-1.757c0.841-0.122,1.568-0.65,1.944-1.412l5.407-10.956
-                                                   C22.602,0.567,25.338,0.567,26.285,2.486z"
-                                          />
-                                        </svg>
-                                        <svg
-                                          height="800px"
-                                          width="800px"
-                                          version="1.1"
-                                          id="Capa_1"
-                                          xmlns="http://www.w3.org/2000/svg"
-                                          xmlns:xlink="http://www.w3.org/1999/xlink"
-                                          viewBox="0 0 47.94 47.94"
-                                          xml:space="preserve"
-                                        >
-                                          <path
-                                            style="fill: #ed8a19"
-                                            d="M26.285,2.486l5.407,10.956c0.376,0.762,1.103,1.29,1.944,1.412l12.091,1.757
-                                                   c2.118,0.308,2.963,2.91,1.431,4.403l-8.749,8.528c-0.608,0.593-0.886,1.448-0.742,2.285l2.065,12.042
-                                                   c0.362,2.109-1.852,3.717-3.746,2.722l-10.814-5.685c-0.752-0.395-1.651-0.395-2.403,0l-10.814,5.685
-                                                   c-1.894,0.996-4.108-0.613-3.746-2.722l2.065-12.042c0.144-0.837-0.134-1.692-0.742-2.285l-8.749-8.528
-                                                   c-1.532-1.494-0.687-4.096,1.431-4.403l12.091-1.757c0.841-0.122,1.568-0.65,1.944-1.412l5.407-10.956
-                                                   C22.602,0.567,25.338,0.567,26.285,2.486z"
-                                          />
-                                        </svg>
-                                        <svg
-                                          height="800px"
-                                          width="800px"
-                                          version="1.1"
-                                          id="Capa_1"
-                                          xmlns="http://www.w3.org/2000/svg"
-                                          xmlns:xlink="http://www.w3.org/1999/xlink"
-                                          viewBox="0 0 47.94 47.94"
-                                          xml:space="preserve"
-                                        >
-                                          <path
-                                            style="fill: white"
-                                            d="M26.285,2.486l5.407,10.956c0.376,0.762,1.103,1.29,1.944,1.412l12.091,1.757
-                                                   c2.118,0.308,2.963,2.91,1.431,4.403l-8.749,8.528c-0.608,0.593-0.886,1.448-0.742,2.285l2.065,12.042
-                                                   c0.362,2.109-1.852,3.717-3.746,2.722l-10.814-5.685c-0.752-0.395-1.651-0.395-2.403,0l-10.814,5.685
-                                                   c-1.894,0.996-4.108-0.613-3.746-2.722l2.065-12.042c0.144-0.837-0.134-1.692-0.742-2.285l-8.749-8.528
-                                                   c-1.532-1.494-0.687-4.096,1.431-4.403l12.091-1.757c0.841-0.122,1.568-0.65,1.944-1.412l5.407-10.956
-                                                   C22.602,0.567,25.338,0.567,26.285,2.486z"
-                                          />
-                                        </svg>
-                                      </div>
+                    @if ($review && count($review) > 0)
+                        <div class="row bs-guuter-x-0">
+                            <div class="col-md-12 my-3">
+                                <div class="user">
+                                    @foreach ($review as $reviews)
+                                    <div class="row bs-guuter-x-0 my-3">
+                                        <!-- User Image -->
+                                        <div class="col-md-1 h-100p">
+                                            <div class="image">
+                                                <img src="{{ asset('site/images/user.png') }}" alt="" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <div class="row bs-guuter-x-0">
+                                                <!-- User Name -->
+                                                <div class="col-md-6">
+                                                    <div class="name">
+                                                        <h4>{{ $reviews->name }} ({{ $reviews->uaa }})</h4>
+                                                    </div>
+                                                </div>
+                                                <!-- Date -->
+                                                <div class="col-md-6">
+                                                    <div class="date green">
+                                                        <h4>{{ $reviews->created_at->format('F d, Y') }}</h4>
+                                                    </div>
+                                                </div>
+                                                <!-- Main User Review (Stars) -->
+                                                <div class="col-md-12">
+                                                    <div class="row bs-guuter-x-0">
+                                                        <div class="col-md-4">
+                                                            <div class="starReview">
+                                                                @for ($i = 1; $i <= $reviews->rating; $i++)
+                                                                    <svg height="800px" width="800px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 47.94 47.94" xml:space="preserve">
+                                                                        <path style="fill: #ed8a19" d="M26.285,2.486l5.407,10.956c0.376,0.762,1.103,1.29,1.944,1.412l12.091,1.757 c2.118,0.308,2.963,2.91,1.431,4.403l-8.749,8.528c-0.608,0.593-0.886,1.448-0.742,2.285l2.065,12.042 c0.362,2.109-1.852,3.717-3.746,2.722l-10.814-5.685c-0.752-0.395-1.651-0.395-2.403,0l-10.814,5.685 c-1.894,0.996-4.108-0.613-3.746-2.722l2.065-12.042c0.144-0.837-0.134-1.692-0.742-2.285l-8.749-8.528 c-1.532-1.494-0.687-4.096,1.431-4.403l12.091-1.757c0.841-0.122,1.568-0.65,1.944-1.412l5.407-10.956 C22.602,0.567,25.338,0.567,26.285,2.486z"/>
+                                                                    </svg>
+                                                                @endfor
+                                                                @for ($i = $reviews->rating + 1; $i <= 5; $i++)
+                                                                    <svg height="800px" width="800px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 47.94 47.94" xml:space="preserve">
+                                                                        <path style="fill: white" d="M26.285,2.486l5.407,10.956c0.376,0.762,1.103,1.29,1.944,1.412l12.091,1.757 c2.118,0.308,2.963,2.91,1.431,4.403l-8.749,8.528c-0.608,0.593-0.886,1.448-0.742,2.285l2.065,12.042 c0.362,2.109-1.852,3.717-3.746,2.722l-10.814-5.685c-0.752-0.395-1.651-0.395-2.403,0l-10.814,5.685 c-1.894,0.996-4.108-0.613-3.746-2.722l2.065-12.042c0.144-0.837-0.134-1.692-0.742-2.285l-8.749-8.528 c-1.532-1.494-0.687-4.096,1.431-4.403l12.091-1.757c0.841-0.122,1.568-0.65,1.944-1.412l5.407-10.956 C22.602,0.567,25.338,0.567,26.285,2.486z"/>
+                                                                    </svg>
+                                                                @endfor
+                                                            </div>
+                                                            <div class="col-md-7 my-1">
+                                                                <div class="starReviewLine">
+                                                                    <h5>{{ $reviews->review }}</h5>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="col-md-7 my-1">
-                                      <div class="starReviewLine">
-                                        <h5>Perfecto!!</h5>
-                                      </div>
+                                    @endforeach
+                                    <div class="view-more-btn">
+                                        <a href="{{ route('getReviewProduct', $product->id) }}">
+                                            <button class="viewMoreBtn">View More</button>
+                                        </a>
                                     </div>
-                                  </div>
                                 </div>
-                              </div>
                             </div>
-                          </div>
                         </div>
-                      </div>
-                      <div class="col-md-12 my-3">
-                        <div class="user">
-                          <div class="row bs-guuter-x-0">
-                            <!-- User Image -->
-                            <div class="col-md-1">
-                              <div class="image">
-                                <img src="{{ asset('site/images/user.jpg') }}" alt="" />
-                              </div>
-                            </div>
-                            <div class="col-md-10">
-                              <div class="row bs-guuter-x-0">
-                                <!-- User Name -->
-                                <div class="col-md-6">
-                                  <div class="name">
-                                    <h4>Ghanshyam Gautam (Customer)</h4>
-                                  </div>
-                                </div>
-                                <!-- Date -->
-                                <div class="col-md-6">
-                                  <div class="date green">
-                                    <h4>[February 22, 2024]</h4>
-                                  </div>
-                                </div>
+                    @else
+                        <h2 class="center">No Review</h2>
+                    @endif
 
-                                <!-- Main User Review (Stars) -->
-                                <div class="col-md-12">
-                                  <div class="row bs-guuter-x-0">
-                                    <div class="col-md-4">
-                                      <div class="starReview">
-                                        <svg
-                                          height="800px"
-                                          width="800px"
-                                          version="1.1"
-                                          id="Capa_1"
-                                          xmlns="http://www.w3.org/2000/svg"
-                                          xmlns:xlink="http://www.w3.org/1999/xlink"
-                                          viewBox="0 0 47.94 47.94"
-                                          xml:space="preserve"
-                                        >
-                                          <path
-                                            style="fill: #ed8a19"
-                                            d="M26.285,2.486l5.407,10.956c0.376,0.762,1.103,1.29,1.944,1.412l12.091,1.757
-                                                   c2.118,0.308,2.963,2.91,1.431,4.403l-8.749,8.528c-0.608,0.593-0.886,1.448-0.742,2.285l2.065,12.042
-                                                   c0.362,2.109-1.852,3.717-3.746,2.722l-10.814-5.685c-0.752-0.395-1.651-0.395-2.403,0l-10.814,5.685
-                                                   c-1.894,0.996-4.108-0.613-3.746-2.722l2.065-12.042c0.144-0.837-0.134-1.692-0.742-2.285l-8.749-8.528
-                                                   c-1.532-1.494-0.687-4.096,1.431-4.403l12.091-1.757c0.841-0.122,1.568-0.65,1.944-1.412l5.407-10.956
-                                                   C22.602,0.567,25.338,0.567,26.285,2.486z"
-                                          />
-                                        </svg>
-                                        <svg
-                                          height="800px"
-                                          width="800px"
-                                          version="1.1"
-                                          id="Capa_1"
-                                          xmlns="http://www.w3.org/2000/svg"
-                                          xmlns:xlink="http://www.w3.org/1999/xlink"
-                                          viewBox="0 0 47.94 47.94"
-                                          xml:space="preserve"
-                                        >
-                                          <path
-                                            style="fill: #ed8a19"
-                                            d="M26.285,2.486l5.407,10.956c0.376,0.762,1.103,1.29,1.944,1.412l12.091,1.757
-                                                   c2.118,0.308,2.963,2.91,1.431,4.403l-8.749,8.528c-0.608,0.593-0.886,1.448-0.742,2.285l2.065,12.042
-                                                   c0.362,2.109-1.852,3.717-3.746,2.722l-10.814-5.685c-0.752-0.395-1.651-0.395-2.403,0l-10.814,5.685
-                                                   c-1.894,0.996-4.108-0.613-3.746-2.722l2.065-12.042c0.144-0.837-0.134-1.692-0.742-2.285l-8.749-8.528
-                                                   c-1.532-1.494-0.687-4.096,1.431-4.403l12.091-1.757c0.841-0.122,1.568-0.65,1.944-1.412l5.407-10.956
-                                                   C22.602,0.567,25.338,0.567,26.285,2.486z"
-                                          />
-                                        </svg>
-                                        <svg
-                                          height="800px"
-                                          width="800px"
-                                          version="1.1"
-                                          id="Capa_1"
-                                          xmlns="http://www.w3.org/2000/svg"
-                                          xmlns:xlink="http://www.w3.org/1999/xlink"
-                                          viewBox="0 0 47.94 47.94"
-                                          xml:space="preserve"
-                                        >
-                                          <path
-                                            style="fill: #ed8a19"
-                                            d="M26.285,2.486l5.407,10.956c0.376,0.762,1.103,1.29,1.944,1.412l12.091,1.757
-                                                   c2.118,0.308,2.963,2.91,1.431,4.403l-8.749,8.528c-0.608,0.593-0.886,1.448-0.742,2.285l2.065,12.042
-                                                   c0.362,2.109-1.852,3.717-3.746,2.722l-10.814-5.685c-0.752-0.395-1.651-0.395-2.403,0l-10.814,5.685
-                                                   c-1.894,0.996-4.108-0.613-3.746-2.722l2.065-12.042c0.144-0.837-0.134-1.692-0.742-2.285l-8.749-8.528
-                                                   c-1.532-1.494-0.687-4.096,1.431-4.403l12.091-1.757c0.841-0.122,1.568-0.65,1.944-1.412l5.407-10.956
-                                                   C22.602,0.567,25.338,0.567,26.285,2.486z"
-                                          />
-                                        </svg>
-                                        <svg
-                                          height="800px"
-                                          width="800px"
-                                          version="1.1"
-                                          id="Capa_1"
-                                          xmlns="http://www.w3.org/2000/svg"
-                                          xmlns:xlink="http://www.w3.org/1999/xlink"
-                                          viewBox="0 0 47.94 47.94"
-                                          xml:space="preserve"
-                                        >
-                                          <path
-                                            style="fill: #ed8a19"
-                                            d="M26.285,2.486l5.407,10.956c0.376,0.762,1.103,1.29,1.944,1.412l12.091,1.757
-                                                   c2.118,0.308,2.963,2.91,1.431,4.403l-8.749,8.528c-0.608,0.593-0.886,1.448-0.742,2.285l2.065,12.042
-                                                   c0.362,2.109-1.852,3.717-3.746,2.722l-10.814-5.685c-0.752-0.395-1.651-0.395-2.403,0l-10.814,5.685
-                                                   c-1.894,0.996-4.108-0.613-3.746-2.722l2.065-12.042c0.144-0.837-0.134-1.692-0.742-2.285l-8.749-8.528
-                                                   c-1.532-1.494-0.687-4.096,1.431-4.403l12.091-1.757c0.841-0.122,1.568-0.65,1.944-1.412l5.407-10.956
-                                                   C22.602,0.567,25.338,0.567,26.285,2.486z"
-                                          />
-                                        </svg>
-                                        <svg
-                                          height="800px"
-                                          width="800px"
-                                          version="1.1"
-                                          id="Capa_1"
-                                          xmlns="http://www.w3.org/2000/svg"
-                                          xmlns:xlink="http://www.w3.org/1999/xlink"
-                                          viewBox="0 0 47.94 47.94"
-                                          xml:space="preserve"
-                                        >
-                                          <path
-                                            style="fill: white"
-                                            d="M26.285,2.486l5.407,10.956c0.376,0.762,1.103,1.29,1.944,1.412l12.091,1.757
-                                                   c2.118,0.308,2.963,2.91,1.431,4.403l-8.749,8.528c-0.608,0.593-0.886,1.448-0.742,2.285l2.065,12.042
-                                                   c0.362,2.109-1.852,3.717-3.746,2.722l-10.814-5.685c-0.752-0.395-1.651-0.395-2.403,0l-10.814,5.685
-                                                   c-1.894,0.996-4.108-0.613-3.746-2.722l2.065-12.042c0.144-0.837-0.134-1.692-0.742-2.285l-8.749-8.528
-                                                   c-1.532-1.494-0.687-4.096,1.431-4.403l12.091-1.757c0.841-0.122,1.568-0.65,1.944-1.412l5.407-10.956
-                                                   C22.602,0.567,25.338,0.567,26.285,2.486z"
-                                          />
-                                        </svg>
-                                      </div>
-                                    </div>
-                                    <div class="col-md-7 my-1">
-                                      <div class="starReviewLine">
-                                        <h5>Perfecto!!</h5>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-12 my-3">
-                        <div class="user">
-                          <div class="row bs-guuter-x-0">
-                            <!-- User Image -->
-                            <div class="col-md-1">
-                              <div class="image">
-                                <img src="{{ asset('site/images/user.jpg') }}" alt="" />
-                              </div>
-                            </div>
-                            <div class="col-md-10">
-                              <div class="row bs-guuter-x-0">
-                                <!-- User Name -->
-                                <div class="col-md-6">
-                                  <div class="name">
-                                    <h4>Ghanshyam Gautam (Customer)</h4>
-                                  </div>
-                                </div>
-                                <!-- Date -->
-                                <div class="col-md-6">
-                                  <div class="date green">
-                                    <h4>[February 22, 2024]</h4>
-                                  </div>
-                                </div>
-
-                                <!-- Main User Review (Stars) -->
-                                <div class="col-md-12">
-                                  <div class="row bs-guuter-x-0">
-                                    <div class="col-md-4">
-                                      <div class="starReview">
-                                        <svg
-                                          height="800px"
-                                          width="800px"
-                                          version="1.1"
-                                          id="Capa_1"
-                                          xmlns="http://www.w3.org/2000/svg"
-                                          xmlns:xlink="http://www.w3.org/1999/xlink"
-                                          viewBox="0 0 47.94 47.94"
-                                          xml:space="preserve"
-                                        >
-                                          <path
-                                            style="fill: #ed8a19"
-                                            d="M26.285,2.486l5.407,10.956c0.376,0.762,1.103,1.29,1.944,1.412l12.091,1.757
-                                                   c2.118,0.308,2.963,2.91,1.431,4.403l-8.749,8.528c-0.608,0.593-0.886,1.448-0.742,2.285l2.065,12.042
-                                                   c0.362,2.109-1.852,3.717-3.746,2.722l-10.814-5.685c-0.752-0.395-1.651-0.395-2.403,0l-10.814,5.685
-                                                   c-1.894,0.996-4.108-0.613-3.746-2.722l2.065-12.042c0.144-0.837-0.134-1.692-0.742-2.285l-8.749-8.528
-                                                   c-1.532-1.494-0.687-4.096,1.431-4.403l12.091-1.757c0.841-0.122,1.568-0.65,1.944-1.412l5.407-10.956
-                                                   C22.602,0.567,25.338,0.567,26.285,2.486z"
-                                          />
-                                        </svg>
-                                        <svg
-                                          height="800px"
-                                          width="800px"
-                                          version="1.1"
-                                          id="Capa_1"
-                                          xmlns="http://www.w3.org/2000/svg"
-                                          xmlns:xlink="http://www.w3.org/1999/xlink"
-                                          viewBox="0 0 47.94 47.94"
-                                          xml:space="preserve"
-                                        >
-                                          <path
-                                            style="fill: #ed8a19"
-                                            d="M26.285,2.486l5.407,10.956c0.376,0.762,1.103,1.29,1.944,1.412l12.091,1.757
-                                                   c2.118,0.308,2.963,2.91,1.431,4.403l-8.749,8.528c-0.608,0.593-0.886,1.448-0.742,2.285l2.065,12.042
-                                                   c0.362,2.109-1.852,3.717-3.746,2.722l-10.814-5.685c-0.752-0.395-1.651-0.395-2.403,0l-10.814,5.685
-                                                   c-1.894,0.996-4.108-0.613-3.746-2.722l2.065-12.042c0.144-0.837-0.134-1.692-0.742-2.285l-8.749-8.528
-                                                   c-1.532-1.494-0.687-4.096,1.431-4.403l12.091-1.757c0.841-0.122,1.568-0.65,1.944-1.412l5.407-10.956
-                                                   C22.602,0.567,25.338,0.567,26.285,2.486z"
-                                          />
-                                        </svg>
-                                        <svg
-                                          height="800px"
-                                          width="800px"
-                                          version="1.1"
-                                          id="Capa_1"
-                                          xmlns="http://www.w3.org/2000/svg"
-                                          xmlns:xlink="http://www.w3.org/1999/xlink"
-                                          viewBox="0 0 47.94 47.94"
-                                          xml:space="preserve"
-                                        >
-                                          <path
-                                            style="fill: #ed8a19"
-                                            d="M26.285,2.486l5.407,10.956c0.376,0.762,1.103,1.29,1.944,1.412l12.091,1.757
-                                                   c2.118,0.308,2.963,2.91,1.431,4.403l-8.749,8.528c-0.608,0.593-0.886,1.448-0.742,2.285l2.065,12.042
-                                                   c0.362,2.109-1.852,3.717-3.746,2.722l-10.814-5.685c-0.752-0.395-1.651-0.395-2.403,0l-10.814,5.685
-                                                   c-1.894,0.996-4.108-0.613-3.746-2.722l2.065-12.042c0.144-0.837-0.134-1.692-0.742-2.285l-8.749-8.528
-                                                   c-1.532-1.494-0.687-4.096,1.431-4.403l12.091-1.757c0.841-0.122,1.568-0.65,1.944-1.412l5.407-10.956
-                                                   C22.602,0.567,25.338,0.567,26.285,2.486z"
-                                          />
-                                        </svg>
-                                        <svg
-                                          height="800px"
-                                          width="800px"
-                                          version="1.1"
-                                          id="Capa_1"
-                                          xmlns="http://www.w3.org/2000/svg"
-                                          xmlns:xlink="http://www.w3.org/1999/xlink"
-                                          viewBox="0 0 47.94 47.94"
-                                          xml:space="preserve"
-                                        >
-                                          <path
-                                            style="fill: #ed8a19"
-                                            d="M26.285,2.486l5.407,10.956c0.376,0.762,1.103,1.29,1.944,1.412l12.091,1.757
-                                                   c2.118,0.308,2.963,2.91,1.431,4.403l-8.749,8.528c-0.608,0.593-0.886,1.448-0.742,2.285l2.065,12.042
-                                                   c0.362,2.109-1.852,3.717-3.746,2.722l-10.814-5.685c-0.752-0.395-1.651-0.395-2.403,0l-10.814,5.685
-                                                   c-1.894,0.996-4.108-0.613-3.746-2.722l2.065-12.042c0.144-0.837-0.134-1.692-0.742-2.285l-8.749-8.528
-                                                   c-1.532-1.494-0.687-4.096,1.431-4.403l12.091-1.757c0.841-0.122,1.568-0.65,1.944-1.412l5.407-10.956
-                                                   C22.602,0.567,25.338,0.567,26.285,2.486z"
-                                          />
-                                        </svg>
-                                        <svg
-                                          height="800px"
-                                          width="800px"
-                                          version="1.1"
-                                          id="Capa_1"
-                                          xmlns="http://www.w3.org/2000/svg"
-                                          xmlns:xlink="http://www.w3.org/1999/xlink"
-                                          viewBox="0 0 47.94 47.94"
-                                          xml:space="preserve"
-                                        >
-                                          <path
-                                            style="fill: white"
-                                            d="M26.285,2.486l5.407,10.956c0.376,0.762,1.103,1.29,1.944,1.412l12.091,1.757
-                                                   c2.118,0.308,2.963,2.91,1.431,4.403l-8.749,8.528c-0.608,0.593-0.886,1.448-0.742,2.285l2.065,12.042
-                                                   c0.362,2.109-1.852,3.717-3.746,2.722l-10.814-5.685c-0.752-0.395-1.651-0.395-2.403,0l-10.814,5.685
-                                                   c-1.894,0.996-4.108-0.613-3.746-2.722l2.065-12.042c0.144-0.837-0.134-1.692-0.742-2.285l-8.749-8.528
-                                                   c-1.532-1.494-0.687-4.096,1.431-4.403l12.091-1.757c0.841-0.122,1.568-0.65,1.944-1.412l5.407-10.956
-                                                   C22.602,0.567,25.338,0.567,26.285,2.486z"
-                                          />
-                                        </svg>
-                                      </div>
-                                    </div>
-                                    <div class="col-md-7 my-1">
-                                      <div class="starReviewLine">
-                                        <h5>Perfecto!!</h5>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-12 my-3">
-                        <div class="user">
-                          <div class="row bs-guuter-x-0">
-                            <!-- User Image -->
-                            <div class="col-md-1">
-                              <div class="image">
-                                <img src="{{ asset('site/images/user.jpg') }}" alt="" />
-                              </div>
-                            </div>
-                            <div class="col-md-10">
-                              <div class="row bs-guuter-x-0">
-                                <!-- User Name -->
-                                <div class="col-md-6">
-                                  <div class="name">
-                                    <h4>Ghanshyam Gautam (Customer)</h4>
-                                  </div>
-                                </div>
-                                <!-- Date -->
-                                <div class="col-md-6">
-                                  <div class="date green">
-                                    <h4>[February 22, 2024]</h4>
-                                  </div>
-                                </div>
-
-                                <!-- Main User Review (Stars) -->
-                                <div class="col-md-12">
-                                  <div class="row bs-guuter-x-0">
-                                    <div class="col-md-4">
-                                      <div class="starReview">
-                                        <svg
-                                          height="800px"
-                                          width="800px"
-                                          version="1.1"
-                                          id="Capa_1"
-                                          xmlns="http://www.w3.org/2000/svg"
-                                          xmlns:xlink="http://www.w3.org/1999/xlink"
-                                          viewBox="0 0 47.94 47.94"
-                                          xml:space="preserve"
-                                        >
-                                          <path
-                                            style="fill: #ed8a19"
-                                            d="M26.285,2.486l5.407,10.956c0.376,0.762,1.103,1.29,1.944,1.412l12.091,1.757
-                                                   c2.118,0.308,2.963,2.91,1.431,4.403l-8.749,8.528c-0.608,0.593-0.886,1.448-0.742,2.285l2.065,12.042
-                                                   c0.362,2.109-1.852,3.717-3.746,2.722l-10.814-5.685c-0.752-0.395-1.651-0.395-2.403,0l-10.814,5.685
-                                                   c-1.894,0.996-4.108-0.613-3.746-2.722l2.065-12.042c0.144-0.837-0.134-1.692-0.742-2.285l-8.749-8.528
-                                                   c-1.532-1.494-0.687-4.096,1.431-4.403l12.091-1.757c0.841-0.122,1.568-0.65,1.944-1.412l5.407-10.956
-                                                   C22.602,0.567,25.338,0.567,26.285,2.486z"
-                                          />
-                                        </svg>
-                                        <svg
-                                          height="800px"
-                                          width="800px"
-                                          version="1.1"
-                                          id="Capa_1"
-                                          xmlns="http://www.w3.org/2000/svg"
-                                          xmlns:xlink="http://www.w3.org/1999/xlink"
-                                          viewBox="0 0 47.94 47.94"
-                                          xml:space="preserve"
-                                        >
-                                          <path
-                                            style="fill: #ed8a19"
-                                            d="M26.285,2.486l5.407,10.956c0.376,0.762,1.103,1.29,1.944,1.412l12.091,1.757
-                                                   c2.118,0.308,2.963,2.91,1.431,4.403l-8.749,8.528c-0.608,0.593-0.886,1.448-0.742,2.285l2.065,12.042
-                                                   c0.362,2.109-1.852,3.717-3.746,2.722l-10.814-5.685c-0.752-0.395-1.651-0.395-2.403,0l-10.814,5.685
-                                                   c-1.894,0.996-4.108-0.613-3.746-2.722l2.065-12.042c0.144-0.837-0.134-1.692-0.742-2.285l-8.749-8.528
-                                                   c-1.532-1.494-0.687-4.096,1.431-4.403l12.091-1.757c0.841-0.122,1.568-0.65,1.944-1.412l5.407-10.956
-                                                   C22.602,0.567,25.338,0.567,26.285,2.486z"
-                                          />
-                                        </svg>
-                                        <svg
-                                          height="800px"
-                                          width="800px"
-                                          version="1.1"
-                                          id="Capa_1"
-                                          xmlns="http://www.w3.org/2000/svg"
-                                          xmlns:xlink="http://www.w3.org/1999/xlink"
-                                          viewBox="0 0 47.94 47.94"
-                                          xml:space="preserve"
-                                        >
-                                          <path
-                                            style="fill: #ed8a19"
-                                            d="M26.285,2.486l5.407,10.956c0.376,0.762,1.103,1.29,1.944,1.412l12.091,1.757
-                                                   c2.118,0.308,2.963,2.91,1.431,4.403l-8.749,8.528c-0.608,0.593-0.886,1.448-0.742,2.285l2.065,12.042
-                                                   c0.362,2.109-1.852,3.717-3.746,2.722l-10.814-5.685c-0.752-0.395-1.651-0.395-2.403,0l-10.814,5.685
-                                                   c-1.894,0.996-4.108-0.613-3.746-2.722l2.065-12.042c0.144-0.837-0.134-1.692-0.742-2.285l-8.749-8.528
-                                                   c-1.532-1.494-0.687-4.096,1.431-4.403l12.091-1.757c0.841-0.122,1.568-0.65,1.944-1.412l5.407-10.956
-                                                   C22.602,0.567,25.338,0.567,26.285,2.486z"
-                                          />
-                                        </svg>
-                                        <svg
-                                          height="800px"
-                                          width="800px"
-                                          version="1.1"
-                                          id="Capa_1"
-                                          xmlns="http://www.w3.org/2000/svg"
-                                          xmlns:xlink="http://www.w3.org/1999/xlink"
-                                          viewBox="0 0 47.94 47.94"
-                                          xml:space="preserve"
-                                        >
-                                          <path
-                                            style="fill: #ed8a19"
-                                            d="M26.285,2.486l5.407,10.956c0.376,0.762,1.103,1.29,1.944,1.412l12.091,1.757
-                                                   c2.118,0.308,2.963,2.91,1.431,4.403l-8.749,8.528c-0.608,0.593-0.886,1.448-0.742,2.285l2.065,12.042
-                                                   c0.362,2.109-1.852,3.717-3.746,2.722l-10.814-5.685c-0.752-0.395-1.651-0.395-2.403,0l-10.814,5.685
-                                                   c-1.894,0.996-4.108-0.613-3.746-2.722l2.065-12.042c0.144-0.837-0.134-1.692-0.742-2.285l-8.749-8.528
-                                                   c-1.532-1.494-0.687-4.096,1.431-4.403l12.091-1.757c0.841-0.122,1.568-0.65,1.944-1.412l5.407-10.956
-                                                   C22.602,0.567,25.338,0.567,26.285,2.486z"
-                                          />
-                                        </svg>
-                                        <svg
-                                          height="800px"
-                                          width="800px"
-                                          version="1.1"
-                                          id="Capa_1"
-                                          xmlns="http://www.w3.org/2000/svg"
-                                          xmlns:xlink="http://www.w3.org/1999/xlink"
-                                          viewBox="0 0 47.94 47.94"
-                                          xml:space="preserve"
-                                        >
-                                          <path
-                                            style="fill: white"
-                                            d="M26.285,2.486l5.407,10.956c0.376,0.762,1.103,1.29,1.944,1.412l12.091,1.757
-                                                   c2.118,0.308,2.963,2.91,1.431,4.403l-8.749,8.528c-0.608,0.593-0.886,1.448-0.742,2.285l2.065,12.042
-                                                   c0.362,2.109-1.852,3.717-3.746,2.722l-10.814-5.685c-0.752-0.395-1.651-0.395-2.403,0l-10.814,5.685
-                                                   c-1.894,0.996-4.108-0.613-3.746-2.722l2.065-12.042c0.144-0.837-0.134-1.692-0.742-2.285l-8.749-8.528
-                                                   c-1.532-1.494-0.687-4.096,1.431-4.403l12.091-1.757c0.841-0.122,1.568-0.65,1.944-1.412l5.407-10.956
-                                                   C22.602,0.567,25.338,0.567,26.285,2.486z"
-                                          />
-                                        </svg>
-                                      </div>
-                                    </div>
-                                    <div class="col-md-7 my-1">
-                                      <div class="starReviewLine">
-                                        <h5>Perfecto!!</h5>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-12 my-3">
-                        <div class="user">
-                          <div class="row bs-guuter-x-0">
-                            <!-- User Image -->
-                            <div class="col-md-1">
-                              <div class="image">
-                                <img src="{{ asset('site/images/user.jpg') }}" alt="" />
-                              </div>
-                            </div>
-                            <div class="col-md-10">
-                              <div class="row bs-guuter-x-0">
-                                <!-- User Name -->
-                                <div class="col-md-6">
-                                  <div class="name">
-                                    <h4>Ghanshyam Gautam (Customer)</h4>
-                                  </div>
-                                </div>
-                                <!-- Date -->
-                                <div class="col-md-6">
-                                  <div class="date green">
-                                    <h4>[February 22, 2024]</h4>
-                                  </div>
-                                </div>
-
-                                <!-- Main User Review (Stars) -->
-                                <div class="col-md-12">
-                                  <div class="row bs-guuter-x-0">
-                                    <div class="col-md-4">
-                                      <div class="starReview">
-                                        <svg
-                                          height="800px"
-                                          width="800px"
-                                          version="1.1"
-                                          id="Capa_1"
-                                          xmlns="http://www.w3.org/2000/svg"
-                                          xmlns:xlink="http://www.w3.org/1999/xlink"
-                                          viewBox="0 0 47.94 47.94"
-                                          xml:space="preserve"
-                                        >
-                                          <path
-                                            style="fill: #ed8a19"
-                                            d="M26.285,2.486l5.407,10.956c0.376,0.762,1.103,1.29,1.944,1.412l12.091,1.757
-                                                   c2.118,0.308,2.963,2.91,1.431,4.403l-8.749,8.528c-0.608,0.593-0.886,1.448-0.742,2.285l2.065,12.042
-                                                   c0.362,2.109-1.852,3.717-3.746,2.722l-10.814-5.685c-0.752-0.395-1.651-0.395-2.403,0l-10.814,5.685
-                                                   c-1.894,0.996-4.108-0.613-3.746-2.722l2.065-12.042c0.144-0.837-0.134-1.692-0.742-2.285l-8.749-8.528
-                                                   c-1.532-1.494-0.687-4.096,1.431-4.403l12.091-1.757c0.841-0.122,1.568-0.65,1.944-1.412l5.407-10.956
-                                                   C22.602,0.567,25.338,0.567,26.285,2.486z"
-                                          />
-                                        </svg>
-                                        <svg
-                                          height="800px"
-                                          width="800px"
-                                          version="1.1"
-                                          id="Capa_1"
-                                          xmlns="http://www.w3.org/2000/svg"
-                                          xmlns:xlink="http://www.w3.org/1999/xlink"
-                                          viewBox="0 0 47.94 47.94"
-                                          xml:space="preserve"
-                                        >
-                                          <path
-                                            style="fill: #ed8a19"
-                                            d="M26.285,2.486l5.407,10.956c0.376,0.762,1.103,1.29,1.944,1.412l12.091,1.757
-                                                   c2.118,0.308,2.963,2.91,1.431,4.403l-8.749,8.528c-0.608,0.593-0.886,1.448-0.742,2.285l2.065,12.042
-                                                   c0.362,2.109-1.852,3.717-3.746,2.722l-10.814-5.685c-0.752-0.395-1.651-0.395-2.403,0l-10.814,5.685
-                                                   c-1.894,0.996-4.108-0.613-3.746-2.722l2.065-12.042c0.144-0.837-0.134-1.692-0.742-2.285l-8.749-8.528
-                                                   c-1.532-1.494-0.687-4.096,1.431-4.403l12.091-1.757c0.841-0.122,1.568-0.65,1.944-1.412l5.407-10.956
-                                                   C22.602,0.567,25.338,0.567,26.285,2.486z"
-                                          />
-                                        </svg>
-                                        <svg
-                                          height="800px"
-                                          width="800px"
-                                          version="1.1"
-                                          id="Capa_1"
-                                          xmlns="http://www.w3.org/2000/svg"
-                                          xmlns:xlink="http://www.w3.org/1999/xlink"
-                                          viewBox="0 0 47.94 47.94"
-                                          xml:space="preserve"
-                                        >
-                                          <path
-                                            style="fill: #ed8a19"
-                                            d="M26.285,2.486l5.407,10.956c0.376,0.762,1.103,1.29,1.944,1.412l12.091,1.757
-                                                   c2.118,0.308,2.963,2.91,1.431,4.403l-8.749,8.528c-0.608,0.593-0.886,1.448-0.742,2.285l2.065,12.042
-                                                   c0.362,2.109-1.852,3.717-3.746,2.722l-10.814-5.685c-0.752-0.395-1.651-0.395-2.403,0l-10.814,5.685
-                                                   c-1.894,0.996-4.108-0.613-3.746-2.722l2.065-12.042c0.144-0.837-0.134-1.692-0.742-2.285l-8.749-8.528
-                                                   c-1.532-1.494-0.687-4.096,1.431-4.403l12.091-1.757c0.841-0.122,1.568-0.65,1.944-1.412l5.407-10.956
-                                                   C22.602,0.567,25.338,0.567,26.285,2.486z"
-                                          />
-                                        </svg>
-                                        <svg
-                                          height="800px"
-                                          width="800px"
-                                          version="1.1"
-                                          id="Capa_1"
-                                          xmlns="http://www.w3.org/2000/svg"
-                                          xmlns:xlink="http://www.w3.org/1999/xlink"
-                                          viewBox="0 0 47.94 47.94"
-                                          xml:space="preserve"
-                                        >
-                                          <path
-                                            style="fill: #ed8a19"
-                                            d="M26.285,2.486l5.407,10.956c0.376,0.762,1.103,1.29,1.944,1.412l12.091,1.757
-                                                   c2.118,0.308,2.963,2.91,1.431,4.403l-8.749,8.528c-0.608,0.593-0.886,1.448-0.742,2.285l2.065,12.042
-                                                   c0.362,2.109-1.852,3.717-3.746,2.722l-10.814-5.685c-0.752-0.395-1.651-0.395-2.403,0l-10.814,5.685
-                                                   c-1.894,0.996-4.108-0.613-3.746-2.722l2.065-12.042c0.144-0.837-0.134-1.692-0.742-2.285l-8.749-8.528
-                                                   c-1.532-1.494-0.687-4.096,1.431-4.403l12.091-1.757c0.841-0.122,1.568-0.65,1.944-1.412l5.407-10.956
-                                                   C22.602,0.567,25.338,0.567,26.285,2.486z"
-                                          />
-                                        </svg>
-                                        <svg
-                                          height="800px"
-                                          width="800px"
-                                          version="1.1"
-                                          id="Capa_1"
-                                          xmlns="http://www.w3.org/2000/svg"
-                                          xmlns:xlink="http://www.w3.org/1999/xlink"
-                                          viewBox="0 0 47.94 47.94"
-                                          xml:space="preserve"
-                                        >
-                                          <path
-                                            style="fill: white"
-                                            d="M26.285,2.486l5.407,10.956c0.376,0.762,1.103,1.29,1.944,1.412l12.091,1.757
-                                                   c2.118,0.308,2.963,2.91,1.431,4.403l-8.749,8.528c-0.608,0.593-0.886,1.448-0.742,2.285l2.065,12.042
-                                                   c0.362,2.109-1.852,3.717-3.746,2.722l-10.814-5.685c-0.752-0.395-1.651-0.395-2.403,0l-10.814,5.685
-                                                   c-1.894,0.996-4.108-0.613-3.746-2.722l2.065-12.042c0.144-0.837-0.134-1.692-0.742-2.285l-8.749-8.528
-                                                   c-1.532-1.494-0.687-4.096,1.431-4.403l12.091-1.757c0.841-0.122,1.568-0.65,1.944-1.412l5.407-10.956
-                                                   C22.602,0.567,25.338,0.567,26.285,2.486z"
-                                          />
-                                        </svg>
-                                      </div>
-                                    </div>
-                                    <div class="col-md-7 my-1">
-                                      <div class="starReviewLine">
-                                        <h5>Perfecto!!</h5>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="view-more-btn">
-                    <a href="">
-                      <button class="viewMoreBtn">View More</button>
-                    </a>
-                  </div>
                 </div>
               </div>
             </div>
@@ -1305,4 +607,4 @@ $related_products = App\Models\Product::where('category_id', $product->category_
         var whatsappUrl = 'https://wa.me/' + designerNumber;
         window.open(whatsappUrl, '_blank');
     }
-    </script>
+</script>

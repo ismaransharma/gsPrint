@@ -34,6 +34,7 @@ Route::get('/shop/category/{id}',[SiteController::class, 'cateShop'])->name('get
 
 Route::get('/product/details/{slug}',[SiteController::class, 'productDetails'])->name('getProductDetails');
 
+Route::get('/review/Product/{id}', [SiteController::class, 'reviewProduct'])->name('getReviewProduct');
 
 
 Route::middleware('auth')->middleware(['auth','verified'])->group(function () {
@@ -66,6 +67,8 @@ Route::middleware('auth')->middleware(['auth','verified'])->group(function () {
     Route::get('/profile', [AccountController::class, 'edit'])->name('profile.edit');
     
     Route::put('/profile', [AccountController::class, 'update'])->name('profile.update');
+
+    Route::post('/post/review/{id}', [ShopController::class, 'review'])->name('postRatingAndReview');
 
 });
 

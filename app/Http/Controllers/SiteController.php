@@ -6,6 +6,7 @@ use App\Models\Cart;
 use App\Models\User;
 use App\Models\Order;
 use App\Models\Member;
+use App\Models\Review;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Support\Str;
@@ -171,14 +172,31 @@ class SiteController extends Controller
 
         $searchedItem = session('searchedItem');
 
+        $product = Product::where('slug', $slug)
+        ->where('status', 'active')
+        ->whereNull('deleted_at')
+        ->first();
+    
+        
+        $p_id = $product->id;
+        
+        $reviews = Review::where('deleted_at', null)->where('product_id', $p_id)->limit(5)->get();
+        
+        // dd($reviews);
+
+        $averageRating = $reviews->avg('rating');
+
 
         $data = [
-            'product' => Product::where('slug', $slug)->where('status', 'active')->where('deleted_at', null)->limit(1)->first(),
+            'product' => $product,
             'carts' => $carts, 
             'cartCount' => $cartCount, 
             'total_amount' => $total_amount, 
             'user' => $user,
-            'search' => $searchedItem
+            'search' => $searchedItem,
+            'review' => $reviews,
+            'averageRating' => $averageRating,
+
         ];
 
         return view('site.buyNow', $data);
@@ -1026,6 +1044,49 @@ class SiteController extends Controller
         }
     }
     
+
+    public function reviewProduct($id){
+
+
+        $searchedItem = session('searchedItem');
+        $user = Auth::user(); 
+    
+        if ($user) {
+            $cart_code = $user->cart_code; 
+            $carts = Cart::where('cart_code', $cart_code)->get();
+            $cartCount = $carts->count(); 
+            
+            $total_amount = $carts->sum('total_price');
+        } else {
+            $carts = collect();
+            $cartCount = 0;
+            $total_amount = 0; 
+        }
+
+        $product = Product::where('id', $id)->first();
+
+        $p_id = $product->id;
+
+        $reviews = Review::where('deleted_at', null)->where('product_id', $p_id)->limit(5)->get();
+        
+        // dd($reviews);
+
+        $averageRating = $reviews->avg('rating');
+        
+
+        $data = [
+            'search' => $searchedItem,
+            'product' => $product,
+            'carts' => $carts, 
+            'cartCount' => $cartCount, 
+            'total_amount' => $total_amount, 
+            'user' => $user,
+            'review' => $reviews,
+
+        ];
+
+        return view('site.review', $data);
+    }
 
 
     

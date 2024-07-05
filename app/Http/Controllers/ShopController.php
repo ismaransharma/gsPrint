@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\Review;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ShopController extends Controller
 {
@@ -529,6 +531,43 @@ class ShopController extends Controller
         $product->save();
 
         return redirect()->back()->with('success', 'Product Deleted Successfully');
+    }
+
+    public function review(Request $request, $id){
+        
+        // dd($request->all(), $id);
+        $request->validate([
+            'rating' => 'required|integer',
+            'review' => 'required|string',
+        ]);
+
+        $user = Auth::user();
+        
+        if($user->u_a_mngt == 1)
+        {
+            $ua = "Admin";
+        }
+        else{
+            $ua = "Customer";
+        }
+
+        $rr_id = $id;
+        $rating = $request->input('rating');
+        $reviewText  = $request->input('review');
+
+
+        $review = new Review;
+        $review->name = $user->name;
+        $review->uaa = $ua;
+        $review->rating = $rating;
+        $review->review = $reviewText ;
+        $review->product_id = $rr_id;
+
+        $review->save();
+
+        return back()->with('success', 'Rating and Review Added Successfully!');
+
+        // dd($rr_id);
     }
 
 

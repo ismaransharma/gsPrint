@@ -1022,10 +1022,25 @@ span.togglePass {
     cursor: zoom-in;
 }
 
+#buyNowContainer .row .productTitle {
+    display: flex;
+    /* border-bottom: 0.1rem solid #000; */
+}
+
 #buyNowContainer .row .productTitle h3 {
-    border-bottom: 2px solid var(--gray);
     font-size: 2.6rem;
-    width: 65%;
+    width: 45%;
+}
+
+#buyNowContainer .row .productTitle .stars {
+    display: flex;
+    width: 20%;
+}
+
+#buyNowContainer .row .productTitle svg {
+    height: 2.5rem;
+    margin: 0 0.1rem;
+    fill: #ed8a19;
 }
 
 #buyNowContainer .row .productDescription p {
@@ -1265,6 +1280,15 @@ span.togglePass {
     font-size: 1.6rem;
 }
 
+#allReviewAndRating .body .row.agegtea {
+    padding: 2rem 0;
+    border-bottom: 0.1rem solid #000;
+}
+
+#allReviewAndRating .starReview svg {
+    height: 2rem;
+    width: 2rem;
+}
 /* Shop CSS Ends Here */
 
 /* Go To Cart CSS Starts Here */
