@@ -84,6 +84,10 @@ html {
     margin: 6rem 2.5rem;
 }
 
+#adminTemplate nav ul li.active a {
+    color: #f2f2f2;
+}
+
 #manageCategory .card {
     background-color: #1d267d;
     color: #fff;

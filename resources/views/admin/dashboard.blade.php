@@ -37,22 +37,22 @@
                             </button>
                             <div class="collapse navbar-collapse" id="navbarNav">
                                 <ul class="navbar-nav">
-                                    <li class="nav-item">
-                                        <a class="nav-link active" aria-current="page" href="{{ route('getDashboard') }}">Home</a>
+                                    <li class="nav-item {{ request()->is('admin') || request()->is('admin/dashboard') ? 'active' : '' }}">
+                                        <a class="nav-link" aria-current="page" href="{{ route('getDashboard') }}">Home</a>
                                     </li>
-                                    <li class="nav-item">
+                                    <li class="nav-item {{ request()->is('admin/aboutUs/manageAboutUs') ? 'active' : '' }}">
                                         <a class="nav-link" href="{{ route('getManageAboutUs') }}">About Us</a>
                                     </li>
-                                    <li class="nav-item">
+                                    <li class="nav-item {{ request()->is('admin/category/manageCategory') ? 'active' : '' }}">
                                         <a class="nav-link" href="{{ route('getManageCategory') }}">Category</a>
                                     </li>
-                                    <li class="nav-item">
+                                    <li class="nav-item {{ request()->is('admin/product/manageProducts') ? 'active' : '' }}">
                                         <a class="nav-link" href="{{ route('getManageProducts') }}">Product</a>
                                     </li>
-                                    <li class="nav-item">
+                                    <li class="nav-item {{ request()->is('admin/orders/manageOrders') ? 'active' : '' }}">
                                         <a class="nav-link" href="{{ route('getManageOrders') }}">Orders</a>
                                     </li>
-                                </ul>
+                                </ul>                              
                             </div>
                         </div>
                     </nav>
